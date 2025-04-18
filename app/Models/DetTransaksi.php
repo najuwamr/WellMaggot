@@ -9,4 +9,9 @@ class DetTransaksi extends Model
 {
     use HasFactory;
     protected $table = "detTransaksi";
+
+    protected $fillable =[
+        'total_pembayaran',
+        'harga'
+    ];
 }

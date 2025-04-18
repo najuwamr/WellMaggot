@@ -16,6 +16,9 @@ return new class extends Migration
             $table->date('tanggal_transaksi');
             $table->enum('status_transaksi',['diterima','dikirim', 'diproses']);
             $table->timestamps();
+
+            $table->foreignId('users_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('metode_pengiriman_id')->constrained('metode_pengiriman')->onDelete('cascade');
         });
     }
 

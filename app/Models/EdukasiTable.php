@@ -9,4 +9,11 @@ class EdukasiTable extends Model
 {
     use HasFactory;
     protected $table = "edukasiTable";
+
+    protected $fillable =[
+        'judul',
+        'deskripsi',
+        'tanggal',
+        'link'
+    ];
 }

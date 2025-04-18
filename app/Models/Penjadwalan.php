@@ -9,4 +9,9 @@ class Penjadwalan extends Model
 {
     use HasFactory;
     protected $table = "penjadwalan";
+
+    protected $fillable =[
+        'total_pembayaran',
+        'harga'
+    ];
 }

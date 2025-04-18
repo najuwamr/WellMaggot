@@ -9,4 +9,8 @@ class MotodePengiriman extends Model
 {
     use HasFactory;
     protected $table = "metodePengiriman";
+
+    protected $fillable =[
+        'jenis_pengiriman'
+    ];
 }

@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('total_pembayaran');
             $table->integer('harga');
             $table->timestamps();
+
+            $table->foreignId('jadwal_pengambilan_id')->constrained('jadwal_pengambilan')->onDelete('cascade');
         });
     }
 

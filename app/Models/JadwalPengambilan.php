@@ -9,4 +9,9 @@ class JadwalPengambilan extends Model
 {
     use HasFactory;
     protected $table = "jadwalPengambilan";
+
+    protected $fillable =[
+        'tanggal',
+        'waktu'
+    ];
 }

@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('role')->default('pelanggan');
             $table->rememberToken();
             $table->timestamps();
+
+            $table->foreignId('alamat_id')->constrained('alamat')->onDelete('cascade');
         });
     }
 
