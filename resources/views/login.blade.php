@@ -29,7 +29,7 @@
         class="md:absolute bottom-0 w-48 md:w-auto">
     </div>
 
-    <div class="w-full md:w-3/5 bg-chartreuse rounded-t-lg md:rounded-l-lg p-10">
+    <div class="w-full md:w-3/5 bg-chartreuse rounded-t-lg md:rounded-r-none md:rounded-l-lg p-10">
         <ul class="flex items-center justify-between">
             <li class="text-white font-semibold">Beranda</li>
             <div class="flex items-center space-x-4">
