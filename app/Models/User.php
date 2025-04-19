@@ -21,7 +21,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'nomor_hp'
+        'nomor_hp',
+        'role',
+        'alamat_id',
     ];
 
     /**
@@ -43,4 +45,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function alamat()
+    {
+        return $this->belongsTo(Alamat::class);
+    }
 }

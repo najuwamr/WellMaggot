@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Alamat;
+use App\Models\Provinsi;
+use App\Models\Kabupaten;
+use App\Models\Kecamatan;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -20,7 +24,11 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        return view('auth.register');
+        $provinsis = Provinsi::all();
+        $kabupatens = Kabupaten::all();
+        $kecamatans = Kecamatan::all();
+
+        return view('auth.register', compact('provinsis', 'kabupatens', 'kecamatans'));
     }
 
     /**
@@ -32,14 +40,31 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'phone' => ['required', 'string', 'max:255'],
+            'alamat' => ['required', 'string', 'max:255'],
+            'kecamatan' => ['required', 'string'],
+            'kabupaten' => ['required', 'string'],
+            'provinsi' => ['required', 'string'],
+        ]);
+
+        $alamat = Alamat ::create([
+            'detail_alamat' => $request->alamat,
+            'kecamatan_id' => $request->id,
+            // 'kabupaten' => $request->kabupaten,
+            // 'provinsi' => $request->provinsi,
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'phone' => $request->phone,
+            'alamat_id' => $alamat->id,
+            'kecamatan' => $request->kecamatan,
+            'kabupaten' => $request->kabupaten,
+            'provinsi' => $request->provinsi,
         ]);
 
         event(new Registered($user));

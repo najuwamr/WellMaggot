@@ -11,6 +11,18 @@ class Kabupaten extends Model
     protected $table = "kabupaten";
 
     protected $fillable =[
-        'nama'
+        'nama',
+        'provinsi_id'
     ];
+
+
+    public function provinsi()
+    {
+        return $this->belongsTo(Provinsi::class);
+    }
+
+    public function kecamatan()
+    {
+        return $this->hasMany(Kecamatan::class);
+    }
 }

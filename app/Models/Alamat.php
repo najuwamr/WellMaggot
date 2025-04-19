@@ -11,6 +11,17 @@ class Alamat extends Model
     protected $table = "alamat";
 
     protected $fillable =[
-        'detail_alamat'
+        'detail_alamat',
+        'kecamatan_id'
     ];
+
+    public function kecamatan()
+    {
+        return $this->belongsTo(Kecamatan::class);
+    }
+
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
 }

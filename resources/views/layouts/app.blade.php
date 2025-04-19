@@ -10,7 +10,14 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
+        <script src="https://cdn.tailwindcss.com"></script>
+        <style type="text/tailwindcss">
+            @layer utilities {
+              .bg-chartreuse { background-color: #B9C240; }
+              .text-chartreuse { color: #B9C240; }
+              .focus\:ring-chartreuse:focus { --tw-ring-color: #B9C240; }
+            }
+        </style>
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
