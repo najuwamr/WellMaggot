@@ -14,27 +14,68 @@ class RegencySeeder extends Seeder
      */
     public function run(): void
     {
-        $provinsis = [
-            ['nama' => 'Provinsi A'],
-            ['nama' => 'Provinsi B'],
-            ['nama' => 'Provinsi C'],
+        // Buat provinsi
+        $jatim = Provinsi::create(['nama' => 'Jawa Timur']);
+        $diy = Provinsi::create(['nama' => 'DI Yogyakarta']);
+
+        // Tambah kabupaten dan kecamatan Jawa Timur
+        $kabupatenJatim = [
+            'Jember' => [
+                'Ajung', 'Ambulu', 'Arjasa', 'Balung', 'Bangsalsari',
+                'Gumukmas', 'Jelbuk', 'Jenggawah', 'Jombang', 'Kalisat',
+            ],
+            'Malang' => [
+                'Lowokwaru', 'Klojen', 'Sukun', 'Blimbing', 'Kedungkandang',
+            ],
+            'Surabaya' => [
+                'Tegalsari', 'Rungkut', 'Sukolilo', 'Wonokromo', 'Tambaksari',
+            ],
         ];
 
-        foreach ($provinsis as $provData) {
-            $provinsi = Provinsi::create($provData);
+        foreach ($kabupatenJatim as $namaKab => $kecamatans) {
+            $kabupaten = Kabupaten::create([
+                'nama' => $namaKab,
+                'provinsi_id' => $jatim->id,
+            ]);
 
-            for ($i = 1; $i <= 2; $i++) {
-                $kabupaten = Kabupaten::create([
-                    'nama' => $provData['nama'] . ' - Kabupaten ' . $i,
-                    'provinsi_id' => $provinsi->id,
+            foreach ($kecamatans as $namaKec) {
+                Kecamatan::create([
+                    'nama' => $namaKec,
+                    'kabupaten_id' => $kabupaten->id,
                 ]);
+            }
+        }
 
-                for ($j = 1; $j <= 2; $j++) {
-                    Kecamatan::create([
-                        'nama' => $kabupaten->nama . ' - Kecamatan ' . $j,
-                        'kabupaten_id' => $kabupaten->id,
-                    ]);
-                }
+        // Tambah kabupaten dan kecamatan DI Yogyakarta
+        $kabupatenDIY = [
+            'Kota Yogyakarta' => [
+                'Gondokusuman', 'Jetis', 'Danurejan', 'Gedongtengen', 'Tegalrejo',
+            ],
+            'Bantul' => [
+                'Kasihan', 'Pajangan', 'Banguntapan', 'Sewon', 'Pleret',
+            ],
+            'Sleman' => [
+                'Depok', 'Ngaglik', 'Mlati', 'Berbah', 'Kalasan',
+            ],
+            'Gunungkidul' => [
+                'Wonosari', 'Semanu', 'Karangmojo', 'Playen', 'Paliyan',
+            ],
+            'Kulon Progo' => [
+                'Wates', 'Pengasih', 'Lendah', 'Sentolo', 'Galur',
+            ],
+        ];
+
+        foreach ($kabupatenDIY as $namaKab => $kecamatans) {
+            $kabupaten = Kabupaten::create([
+                'nama' => $namaKab,
+                'provinsi_id' => $diy->id,
+            ]);
+
+            foreach ($kecamatans as $namaKec) {
+                Kecamatan::create([
+                    'nama' => $namaKec,
+                    'kabupaten_id' => $kabupaten->id,
+                ]);
             }
         }
     }

@@ -13,35 +13,33 @@
         <!-- Sidebar -->
         <aside class="w-64 bg-[#B9C240] text-white my-6 p-6 rounded-r-3xl">
             <div class="flex items-center space-x-2 mb-10">
-                <div class="bg-white rounded-full w-10 h-10 flex items-center justify-center text-[#B9C240] text-2xl">
-                    👤
-                </div>
+                <i data-feather="user"></i>
                 <span class="text-xl font-bold">Hi, Ken Riezqy</span>
             </div>
 
             <nav class="space-y-4 text-lg">
                 <a href="#" class="flex items-center text-2xl font-bold gap-2 hover:text-gray-600">
-                    <span>Beranda</span> <span></span>
+                    <span>Beranda</span> <i data-feather="home"></i>
                 </a>
                 <hr>
                 <a href="#" class="flex items-center text-2xl font-bold gap-2 hover:text-gray-600">
-                    <span>Edukasi</span> <span></span>
+                    <span>Edukasi</span> <i data-feather="book-open"></i>
                 </a>
                 <hr>
                 <a href="#" class="flex items-center text-2xl font-bold gap-2 hover:text-gray-600">
-                    <span>Beranda</span> <span></span>
+                    <span>Bagi Sampah</span> <i data-feather="users"></i>
                 </a>
                 <hr>
                 <a href="#" class="flex items-center text-2xl font-bold gap-2 hover:text-gray-600">
-                    <span>Bagi Sampah</span> <span></span>
+                    <span>Produk</span> <i data-feather="package"></i>
                 </a>
                 <hr>
                 <a href="#" class="flex items-center text-2xl font-bold gap-2 hover:text-gray-600">
-                    <span>Keranjang</span> <span></span>
+                    <span>Keranjang</span><i data-feather="shopping-cart"></i>
                 </a>
                 <hr>
                 <a href="#" class="flex items-center text-2xl font-bold gap-2 hover:text-gray-600">
-                    <span>Transaksi</span> <span></span>
+                    <span>Transaksi</span> <i data-feather="repeat"></i>
                 </a>
             </nav>
         </aside>

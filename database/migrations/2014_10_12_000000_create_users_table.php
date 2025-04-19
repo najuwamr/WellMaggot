@@ -18,10 +18,11 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('nomor_hp')->nullable();
-            $table->string('role')->default('pelanggan');
+            // $table->string('role')->default('pelanggan');
             $table->rememberToken();
             $table->timestamps();
 
+            $table->foreignId('role_id')->constrained('role')->onDelete('cascade');
             $table->foreignId('alamat_id')->constrained('alamat')->onDelete('cascade');
         });
     }

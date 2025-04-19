@@ -1,4 +1,5 @@
 <x-guest-layout>
+
     <body class="h-screen flex flex-wrap font-sans">
         <div class="w-full md:w-2/5 p-10 relative flex justify-center items-start">
             <div>
@@ -98,7 +99,7 @@
                                     required>
                                     <option value="">Pilih Kabupaten</option>
                                     @foreach ($kabupatens as $kabupaten)
-                                        <option value="{{ $kabupaten->nama }}">{{ $kabupaten->nama }}</option>
+                                        <option value="{{ $kabupaten->id }}">{{ $kabupaten->nama }}</option>
                                     @endforeach
                                 </select>
 
@@ -111,7 +112,7 @@
                                     required>
                                     <option value="">Pilih Provinsi</option>
                                     @foreach ($provinsis as $provinsi)
-                                        <option value="{{ $provinsi->nama }}">{{ $provinsi->nama }}</option>
+                                        <option value="{{ $provinsi->id }}">{{ $provinsi->nama }}</option>
                                     @endforeach
                                 </select>
 
@@ -128,6 +129,52 @@
                 </form>
             </div>
         </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const provinceSelect = document.getElementById('province');
+                const regencySelect = document.getElementById('regency');
+                const districtSelect = document.getElementById('district');
+
+                provinceSelect.addEventListener('change', function() {
+                    const provinceId = this.value;
+
+                    regencySelect.innerHTML = '<option value="">Pilih Kabupaten</option>';
+                    districtSelect.innerHTML = '<option value="">Pilih Kecamatan</option>';
+
+                    if (provinceId) {
+                        fetch(`/get-kabupaten/${provinceId}`)
+                            .then(res => res.json())
+                            .then(data => {
+                                data.forEach(kabupaten => {
+                                    const option = document.createElement('option');
+                                    option.value = kabupaten.id;
+                                    option.text = kabupaten.nama;
+                                    regencySelect.appendChild(option);
+                                });
+                            });
+                    }
+                });
+
+                regencySelect.addEventListener('change', function() {
+                    const regencyId = this.value;
+
+                    districtSelect.innerHTML = '<option value="">Pilih Kecamatan</option>';
+
+                    if (regencyId) {
+                        fetch(`/get-kecamatan/${regencyId}`)
+                            .then(res => res.json())
+                            .then(data => {
+                                data.forEach(kecamatan => {
+                                    const option = document.createElement('option');
+                                    option.value = kecamatan.id;
+                                    option.text = kecamatan.nama;
+                                    districtSelect.appendChild(option);
+                                });
+                            });
+                    }
+                });
+            });
+        </script>
     </body>
 </x-guest-layout>
-

@@ -22,7 +22,7 @@ class User extends Authenticatable
         'email',
         'password',
         'nomor_hp',
-        'role',
+        'role_id',
         'alamat_id',
     ];
 
@@ -49,5 +49,9 @@ class User extends Authenticatable
     public function alamat()
     {
         return $this->belongsTo(Alamat::class);
+    }
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
     }
 }

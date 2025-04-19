@@ -7,3 +7,4 @@
         <p class="text-sm text-gray-700 text-justify">{{ $content }}</p>
     </div>
 </div>
+

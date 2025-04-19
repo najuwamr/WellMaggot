@@ -49,9 +49,10 @@ class RegisteredUserController extends Controller
             'provinsi' => ['required', 'string'],
         ]);
 
+        // dd($request->kecamatan->id);
         $alamat = Alamat ::create([
             'detail_alamat' => $request->alamat,
-            'kecamatan_id' => $request->id,
+            'kecamatan_id' => $request->kecamatan,
             // 'kabupaten' => $request->kabupaten,
             // 'provinsi' => $request->provinsi,
         ]);
@@ -62,9 +63,6 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
             'phone' => $request->phone,
             'alamat_id' => $alamat->id,
-            'kecamatan' => $request->kecamatan,
-            'kabupaten' => $request->kabupaten,
-            'provinsi' => $request->provinsi,
         ]);
 
         event(new Registered($user));
