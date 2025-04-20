@@ -12,40 +12,6 @@
   <!-- Wrapper -->
   <div class="flex min-h-screen">
 
-    <!-- Sidebar -->
-    <aside class="w-64 bg-[#B9C240] text-white my-6 p-6 rounded-r-3xl">
-        <div class="flex items-center space-x-2 mb-10">
-            <i data-feather="user"></i>
-            <span class="text-xl font-bold">Hi, Ken Riezqy</span>
-        </div>
-
-        <nav class="space-y-4 text-lg">
-            <a href="#" class="flex items-center text-2xl font-bold gap-2 hover:text-gray-600">
-                <span>Beranda</span> <i data-feather="home"></i>
-            </a>
-            <hr>
-            <a href="#" class="flex items-center text-2xl font-bold gap-2 hover:text-gray-600">
-                <span>Edukasi</span> <i data-feather="book-open"></i>
-            </a>
-            <hr>
-            <a href="#" class="flex items-center text-2xl font-bold gap-2 hover:text-gray-600">
-                <span>Bagi Sampah</span> <i data-feather="users"></i>
-            </a>
-            <hr>
-            <a href="#" class="flex items-center text-2xl font-bold gap-2 hover:text-gray-600">
-                <span>Produk</span> <i data-feather="package"></i>
-            </a>
-            <hr>
-            <a href="#" class="flex items-center text-2xl font-bold gap-2 hover:text-gray-600">
-                <span>Keranjang</span><i data-feather="shopping-cart"></i>
-            </a>
-            <hr>
-            <a href="#" class="flex items-center text-2xl font-bold gap-2 hover:text-gray-600">
-                <span>Transaksi</span> <i data-feather="repeat"></i>
-            </a>
-        </nav>
-    </aside>
-
     <!-- Konten Utama -->
     <main class="flex-1 p-8">
       <h1 class="text-3xl font-bold text-[#B9C240] mb-6 flex items-center gap-2">

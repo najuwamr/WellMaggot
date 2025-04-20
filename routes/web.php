@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\EdukasiController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\ProfileController;
@@ -40,7 +41,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/tentang', [LandingController::class, 'tentang'])->name('tentang');
+    Route::get('/dashboardUser', [HomeController::class, 'dashboardUser'])->name('dashboardUser');
     Route::get('/edukasi', [EdukasiController::class, 'index'])->name('edukasi.index');
     Route::get('/bagi-sampah', [SampahController::class, 'index'])->name('bagi-sampah.index');
     Route::get('/produk', [ProdukController::class, 'index'])->name('produk.index');
