@@ -17,4 +17,14 @@ class Produk extends Model
         'gambar',
         'stok'
     ];
+
+    public function keranjang()
+    {
+        return $this->hasMany(Keranjang::class);
+    }
+
+    public function detailTransaksi()
+    {
+        return $this->hasMany(DetTransaksi::class);
+    }
 }

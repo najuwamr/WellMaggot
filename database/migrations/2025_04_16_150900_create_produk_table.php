@@ -19,8 +19,6 @@ return new class extends Migration
             $table->string('gambar');
             $table->integer('stok');
             $table->timestamps();
-
-            $table->foreignId('keranjang_id')->nullable()->constrained('keranjang')->onDelete('set null');
         });
     }
 

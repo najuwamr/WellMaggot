@@ -3,7 +3,15 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use Database\Seeders\DetailTransaksiSeeder as SeedersDetailTransaksiSeeder;
+use Database\Seeders\KeranjangSeeder as SeedersKeranjangSeeder;
+use Database\Seeders\PembayaranSeeder as SeedersPembayaranSeeder;
+use Database\Seeders\TransaksiSeeder as SeedersTransaksiSeeder;
 use Illuminate\Database\Seeder;
+use KeranjangSeeder;
+use PembayaranSeeder;
+use TransaksiSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -24,5 +32,10 @@ class DatabaseSeeder extends Seeder
         $this->call(AlamatSeeder::class);
         $this->call(RoleSeeder::class);
         $this->call(UserSeeder::class);
+        $this->call(SeedersKeranjangSeeder::class);
+        $this->call(MetodePengirimanSeeder::class);
+        $this->call(SeedersTransaksiSeeder::class);
+        $this->call(SeedersDetailTransaksiSeeder::class);
+        $this->call(SeedersPembayaranSeeder::class);
     }
 }

@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('transaksi', function (Blueprint $table) {
             $table->id();
+            $table->integer('total_harga');
             $table->date('tanggal_transaksi');
             $table->enum('status_transaksi',['diterima','dikirim', 'diproses']);
+            $table->integer('ongkir');
             $table->timestamps();
 
             $table->foreignId('users_id')->constrained('users')->onDelete('cascade');

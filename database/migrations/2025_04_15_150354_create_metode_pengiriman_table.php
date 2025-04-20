@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('metode_pengiriman', function (Blueprint $table) {
             $table->id();
-            $table->string('jenis_metode');
+            $table->string('kurir'); //ekspedisi
             $table->timestamps();
         });
     }

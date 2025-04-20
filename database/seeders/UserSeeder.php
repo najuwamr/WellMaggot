@@ -13,13 +13,28 @@ class UserSeeder extends Seeder
     {
         $alamat = Alamat::first();
 
-        User::create([
-            'name' => 'Admin Test',
-            'email' => 'admin@test.com',
-            'password' => Hash::make('password'),
-            'nomor_hp' => '081234567890',
-            'role_id' => '1',
-            'alamat_id' => $alamat->id,
-        ]);
+        $userList = [
+            [
+                'name' => 'Admin Test',
+                'email' => 'admin@test.com',
+                'password' => Hash::make('password'),
+                'nomor_hp' => '081234567890',
+                'role_id' => '1',
+                'alamat_id' => $alamat->id,
+            ],
+            [
+                'name' => 'User Test',
+                'email' => 'user@test.com',
+                'password' => Hash::make('userpassword'),
+                'nomor_hp' => '089876543210',
+                'role_id' => '2',
+                'alamat_id' => $alamat->id,
+            ],
+
+        ];
+
+        foreach ($userList as $user) {
+            User::create($user);
+        }
     }
 }
