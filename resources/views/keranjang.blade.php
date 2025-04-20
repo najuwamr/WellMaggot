@@ -1,79 +1,79 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Keranjang</title>
-  <script src="https://unpkg.com/feather-icons"></script>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100 font-sans">
+<x-app-layout>
+    <div class="flex min-h-screen">
+        <main class="flex-1 p-6 md:p-10">
+            <h1 class="text-3xl font-bold text-[#B9C240] mb-6 flex items-center gap-2">
+                Keranjang <i data-feather="shopping-cart"></i>
+            </h1>
 
-  <!-- Wrapper -->
-  <div class="flex min-h-screen">
+            <div class="flex flex-col lg:flex-row gap-6">
+                <div class="flex-1 space-y-4">
+                    @php
+                        $totalHarga = 0;
+                    @endphp
 
-    <!-- Konten Utama -->
-    <main class="flex-1 p-8">
-      <h1 class="text-3xl font-bold text-[#B9C240] mb-6 flex items-center gap-2">
-        Keranjang <i data-feather="shopping-cart"></i>
-      </h1>
+                    @forelse ($keranjangList as $item)
+                        @php
+                            $totalHarga += $item->produk->harga * $item->jumlah_produk;
+                        @endphp
 
-      <div class="flex flex-col lg:flex-row gap-6">
-        <!-- Daftar Item -->
-        <div class="flex-1 space-y-4">
-          <!-- Item -->
-          <div class="flex items-center justify-between bg-white p-4 rounded-xl shadow">
-            <div class="flex items-center gap-4">
-              <img src="{{ asset('images/maggot-produk.png') }}" class="w-16 h-16 object-cover rounded-md" alt="Maggot">
-              <div>
-                <h2 class="font-bold text-[#B9C240]">Maggot</h2>
-                <p class="text-gray-500 text-sm">Rp. 18.000</p>
-              </div>
+                        <div class="flex items-center justify-between bg-white p-4 rounded-xl shadow">
+                            <div class="flex items-center gap-4">
+                                <img src="{{ asset('images/' . ($item->produk->gambar ?? 'default.png')) }}"
+                                     class="w-16 h-16 object-cover rounded-md" alt="{{ $item->produk->nama }}">
+                                <div>
+                                    <h2 class="font-bold text-[#B9C240]">{{ $item->produk->nama }}</h2>
+                                    <p class="text-gray-500 text-sm">Rp. {{ number_format($item->produk->harga, 0, ',', '.') }}</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <div class="flex items-center border border-gray-300 rounded-full px-2">
+
+                                    <form action="{{ route('keranjang.stok.kurang', $item->id) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="px-1 text-[#B9C240] font-bold">-</button>
+                                    </form>
+
+                                    <span class="px-2">{{ $item->jumlah_produk }}</span>
+
+                                    <form action="{{ route('keranjang.stok.tambah', $item->id) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="px-1 text-[#B9C240] font-bold">+</button>
+                                    </form>
+                                </div>
+                                <form action="{{ route('keranjang.hapus', $item->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="text-red-500 hover:text-red-700" type="submit">
+                                        <i data-feather="trash-2"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    @empty
+                        <p class="text-gray-600">Keranjang kamu masih kosong.</p>
+                    @endforelse
+                </div>
+
+                <div class="w-full lg:w-1/3 bg-white p-4 rounded-xl shadow space-y-4">
+                    <h3 class="text-lg font-bold text-[#B9C240]">Ringkasan belanja</h3>
+
+                    <div class="flex justify-between font-bold text-gray-800">
+                        <span>Total</span>
+                        <span id="total-harga">Rp. {{ number_format($totalHarga, 0, ',', '.') }}</span>
+                    </div>
+
+                    <form action="{{ route('transaksi.checkout') }}" method="POST">
+                        @csrf
+                        <button class="w-full bg-[#B9C240] text-white py-2 rounded-lg hover:bg-lime-800 font-semibold">
+                            Pesan Sekarang
+                        </button>
+                    </form>
+                </div>
             </div>
-            <div class="flex items-center gap-3">
-              <input type="checkbox" class="w-5 h-5 text-[#B9C240] border-gray-300 rounded">
-              <div class="flex items-center border border-gray-300 rounded-full px-2">
-                <button class="px-1 text-[#B9C240] font-bold">-</button>
-                <span class="px-2">1</span>
-                <button class="px-1 text-[#B9C240] font-bold">+</button>
-              </div>
-              <button class="text-red-500 hover:text-red-700">
-                <i data-feather="trash-2"></i>
-              </button>
-            </div>
-          </div>
+        </main>
+    </div>
 
-          <!-- Item kedua dan ketiga tinggal duplikat saja -->
-        </div>
-
-        <!-- Ringkasan Belanja -->
-        <div class="w-full lg:w-1/3 bg-white p-4 rounded-xl shadow space-y-4">
-          <h3 class="text-lg font-bold text-[#B9C240]">Ringkasan belanja</h3>
-
-          <div class="flex justify-between items-center">
-            <span class="text-sm text-gray-600">Lebih hemat dengan point</span>
-            <div class="flex items-center gap-2">
-              <span class="text-gray-800 font-bold">5.000 pts</span>
-              <input type="checkbox" class="text-[#B9C240]">
-            </div>
-          </div>
-
-          <div class="flex justify-between font-bold text-gray-800">
-            <span>Total</span>
-            <span>Rp. 13.000</span>
-          </div>
-
-          <button class="w-full bg-[#B9C240] text-white py-2 rounded-lg hover:bg-lime-800 font-semibold">
-            Pesan
-          </button>
-        </div>
-      </div>
-    </main>
-
-  </div>
-
-  <script>
-    feather.replace();
-  </script>
-</body>
-</html>
+    <script>
+        feather.replace();
+    </script>
+</x-app-layout>

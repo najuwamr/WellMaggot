@@ -21,6 +21,7 @@ return new class extends Migration
 
             $table->foreignId('users_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('metode_pengiriman_id')->constrained('metode_pengiriman')->onDelete('cascade');
+            $table->foreignId('pembayaran_id')->constrained('pembayaran')->onDelete('cascade');
         });
     }
 

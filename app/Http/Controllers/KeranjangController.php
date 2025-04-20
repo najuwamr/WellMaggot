@@ -1,28 +1,71 @@
 <?php
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+namespace App\Http\Controllers;
+
+use App\Models\Keranjang;
 use App\Models\Produk;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class KeranjangController extends Controller
 {
-    public function tambah(Request $request, Produk $produk)
+    public function tambahKeKeranjang($produkId)
     {
-        $keranjang = session()->get('keranjang', []);
+        $userId = Auth::id();
 
-        if (isset($keranjang[$produk->id])) {
-            $keranjang[$produk->id]['jumlah']++;
+        $keranjang = Keranjang::where('user_id', $userId)
+                            ->where('produk_id', $produkId)
+                            ->first();
+
+        if ($keranjang) {
+            $keranjang->jumlah_produk += 1;
+            $keranjang->save();
         } else {
-            $keranjang[$produk->id] = [
-                'id' => $produk->id,
-                'nama' => $produk->nama,
-                'harga' => $produk->harga,
-                'jumlah' => 1,
-            ];
+            Keranjang::create([
+                'user_id' => $userId,
+                'produk_id' => $produkId,
+                'jumlah_produk' => 1,
+            ]);
         }
 
-        session()->put('keranjang', $keranjang);
-        return redirect()->back()->with('success', 'Produk berhasil ditambahkan ke keranjang!');
+        return redirect()->back()->with('success', 'Produk ditambahkan ke keranjang!');
+    }
+
+    public function index()
+    {
+        $userId = Auth::id();
+        $keranjangList = Keranjang::with('produk')->where('user_id', $userId)->get();
+
+        return view('keranjang', compact('keranjangList'));
+    }
+
+    public function tambahStok($keranjangId)
+    {
+        $item = Keranjang::findOrFail($keranjangId);
+        $item->jumlah_produk += 1;
+        $item->save();
+
+        return redirect()->back();
+    }
+
+    public function kurangStok($keranjangId)
+    {
+        $item = Keranjang::findOrFail($keranjangId);
+        if ($item->jumlah_produk > 1) {
+            $item->jumlah_produk -= 1;
+            $item->save();
+        } else {
+            $item->delete();
+        }
+
+        return redirect()->back();
+    }
+
+    public function hapus($produkId)
+    {
+        $userId = Auth::id();
+        Keranjang::where('user_id', $userId)->where('produk_id', $produkId)->delete();
+
+        return redirect()->back();
     }
 }

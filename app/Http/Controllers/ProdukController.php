@@ -9,9 +9,8 @@ class ProdukController extends Controller
 {
     public function index()
     {
-        $produkList = Produk::all(); // ambil semua produk dari database
+        $produkList = Produk::where('stok', '>', 0)->get();
 
         return view('produkUser', compact('produkList'));
     }
-
 }

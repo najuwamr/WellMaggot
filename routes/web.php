@@ -2,10 +2,12 @@
 
 use App\Http\Controllers\EdukasiController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\KeranjangController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SampahController;
+use App\Http\Controllers\TransaksiController;
 use App\Models\Kabupaten;
 use App\Models\Kecamatan;
 use Illuminate\Support\Facades\Route;
@@ -46,7 +48,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/bagi-sampah', [SampahController::class, 'index'])->name('bagi-sampah.index');
     Route::get('/produk', [ProdukController::class, 'index'])->name('produk.index');
     Route::put('/produk-cancel-order', [EdukasiController::class, 'CancelOrder'])->name('produk.cancel');
-    Route::get('/keranjang', [KeranjangController::class, 'tambah'])->name('keranjang.tambah');
+    Route::get('/keranjang', [KeranjangController::class, 'index'])->name('keranjang.index');
+    Route::post('/keranjang/tambah/{produkId}', [KeranjangController::class, 'tambahKeKeranjang'])->name('keranjang.tambah');
+    Route::post('/keranjang/stok/tambah/{keranjangId}', [KeranjangController::class, 'tambahStok'])->name('keranjang.stok.tambah');
+    Route::post('/keranjang/stok/kurang/{keranjangId}', [KeranjangController::class, 'kurangStok'])->name('keranjang.stok.kurang');
+    Route::delete('/keranjang/hapus/{produkId}', [KeranjangController::class, 'hapus'])->name('keranjang.hapus');
+    Route::post('/transaksi/checkout', [TransaksiController::class, 'checkout'])->name('transaksi.checkout');
     Route::get('/transaksi', [ProdukController::class, 'index'])->name('transaksi.index');
 });
 

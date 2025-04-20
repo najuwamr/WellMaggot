@@ -24,6 +24,4 @@ class Kecamatan extends Model
     {
         return $this->belongsTo(Kabupaten::class);
     }
-
-
 }

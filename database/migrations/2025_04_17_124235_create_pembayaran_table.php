@@ -20,8 +20,6 @@ return new class extends Migration
             $table->decimal('gross_amount', 10, 2);
             $table->timestamp('paid_at')->nullable();
             $table->timestamps();
-
-            $table->foreignId('transaksi_id')->constrained('transaksi')->onDelete('cascade');
         });
     }
 

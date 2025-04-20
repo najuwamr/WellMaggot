@@ -10,6 +10,7 @@ class TransaksiSeeder extends Seeder
         Transaksi::create([
             'users_id' => 2,
             'metode_pengiriman_id' => 1,
+            'pembayaran_id' => 1,
             'total_harga' => 50000,
             'ongkir' => 9000,
             'tanggal_transaksi' => now(),

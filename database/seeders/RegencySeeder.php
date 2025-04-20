@@ -14,11 +14,9 @@ class RegencySeeder extends Seeder
      */
     public function run(): void
     {
-        // Buat provinsi
         $jatim = Provinsi::create(['nama' => 'Jawa Timur']);
         $diy = Provinsi::create(['nama' => 'DI Yogyakarta']);
 
-        // Tambah kabupaten dan kecamatan Jawa Timur
         $kabupatenJatim = [
             'Jember' => [
                 'Ajung', 'Ambulu', 'Arjasa', 'Balung', 'Bangsalsari',
@@ -46,7 +44,6 @@ class RegencySeeder extends Seeder
             }
         }
 
-        // Tambah kabupaten dan kecamatan DI Yogyakarta
         $kabupatenDIY = [
             'Kota Yogyakarta' => [
                 'Gondokusuman', 'Jetis', 'Danurejan', 'Gedongtengen', 'Tegalrejo',
