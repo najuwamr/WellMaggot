@@ -2,21 +2,18 @@
     <div class="container mx-auto px-4">
         <div class="flex items-center justify-between h-20">
 
-            {{-- Kiri: Logo --}}
             <div class="flex-shrink-0 w-1/4">
                 <img src="{{ asset('images/WellMaggot.png') }}" alt="Logo" class="h-12">
             </div>
 
-            {{-- Tengah: Navigasi --}}
             <div class="hidden md:flex items-center justify-center flex-1">
                 <div class="flex space-x-2 bg-[#B9C240] rounded-full px-6 py-2">
                     @php
                         $navItems = [
-                            ['label' => 'Beranda', 'route' => 'dashboardUser'],
+                            ['label' => 'Dashboard', 'route' => 'dashboardUser'],
                             ['label' => 'Edukasi', 'route' => 'edukasi.index', 'pattern' => 'edukasi.*'],
                             ['label' => 'Bagi Sampah', 'route' => 'bagi-sampah.index', 'pattern' => 'bagi-sampah.*'],
                             ['label' => 'Produk', 'route' => 'produk.index', 'pattern' => 'produk.*'],
-                            // ['label' => 'Keranjang', 'route' => 'keranjang.tambah', 'pattern' => 'keranjang.*'],
                             ['label' => 'Transaksi', 'route' => 'transaksi.index', 'pattern' => 'transaksi.*'],
                         ];
                     @endphp
@@ -33,7 +30,6 @@
                 </div>
             </div>
 
-            {{-- Kanan: Auth --}}
             <div class="flex items-center justify-end w-1/4">
                 @auth
                     <div x-data="{ open: false }" class="relative">
@@ -57,7 +53,7 @@
                         <a href="{{ route('register') }}"
                             class="text-[#B9C240] font-semibold hover:underline text-base">Daftar</a>
                         <a href="{{ route('login') }}"
-                            class="bg-[#B9C240] text-white font-semibold px-4 py-2 rounded hover:bg-[#9da836] text-base">Masuk</a>
+                            class="bg-[#B9C240] text-white font-semibold px-4 py-2 rounded hover:bg-[#9da836] text-base">Login</a>
                     </div>
                 @endauth
             </div>

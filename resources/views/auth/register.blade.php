@@ -16,9 +16,9 @@
                 <li class="text-white font-semibold">Beranda</li>
                 <div class="flex items-center space-x-4">
                     <li>
-                        <button class="bg-white text-chartreuse cursor-pointer font-bold px-4 py-2 rounded-lg">
-                            Masuk
-                        </button>
+                        <a href="{{ route('login') }}" class="bg-white text-chartreuse cursor-pointer font-bold px-4 py-2 rounded-lg">
+                            Login
+                        </a>
                     </li>
                     <li class="text-white font-semibold">Daftar</li>
                 </div>

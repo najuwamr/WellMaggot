@@ -24,8 +24,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return redirect()->route('login');
-});
+    return view('index');
+})->name('beranda');
 
 Route::get('/get-kabupaten/{provinsi_id}', function ($provinsi_id) {
     return Kabupaten::where('provinsi_id', $provinsi_id)->get();
@@ -43,18 +43,21 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/dashboardUser', [HomeController::class, 'dashboardUser'])->name('dashboardUser');
     Route::get('/edukasi', [EdukasiController::class, 'index'])->name('edukasi.index');
-    Route::get('/bagi-sampah', [SampahController::class, 'index'])->name('bagi-sampah.index');
     Route::get('/produk', [ProdukController::class, 'index'])->name('produk.index');
-    Route::put('/produk-cancel-order', [EdukasiController::class, 'CancelOrder'])->name('produk.cancel');
+    Route::get('/bagi-sampah', [SampahController::class, 'index'])->name('bagi-sampah.index');
+
+    Route::get('/dashboardUser', [HomeController::class, 'dashboardUser'])->name('dashboardUser');
     Route::get('/keranjang', [KeranjangController::class, 'index'])->name('keranjang.index');
     Route::post('/keranjang/tambah/{produkId}', [KeranjangController::class, 'tambahKeKeranjang'])->name('keranjang.tambah');
     Route::post('/keranjang/stok/tambah/{keranjangId}', [KeranjangController::class, 'tambahStok'])->name('keranjang.stok.tambah');
     Route::post('/keranjang/stok/kurang/{keranjangId}', [KeranjangController::class, 'kurangStok'])->name('keranjang.stok.kurang');
     Route::delete('/keranjang/hapus/{produkId}', [KeranjangController::class, 'hapus'])->name('keranjang.hapus');
     Route::post('/transaksi/checkout', [TransaksiController::class, 'checkout'])->name('transaksi.checkout');
-    Route::get('/transaksi', [ProdukController::class, 'index'])->name('transaksi.index');
+    // Route::put('/produk-cancel-order', [EdukasiController::class, 'CancelOrder'])->name('produk.cancel');
+    Route::put('/produk/{id}', [ProdukController::class, 'update'])->name('produk.update');
+    Route::post('/produk/store', [ProdukController::class, 'store'])->name('produk.store');
+    Route::get('/transaksi', [TransaksiController::class, 'index'])->name('transaksi.index');
 });
 
 require __DIR__ . '/auth.php';

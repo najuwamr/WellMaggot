@@ -10,4 +10,9 @@ class HomeController extends Controller
     {
         return view('dashboardUser');
     }
+
+    public function index()
+    {
+        return view ('index');
+    }
 }

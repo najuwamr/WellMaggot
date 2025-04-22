@@ -7,6 +7,21 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-white text-gray-800">
+    <nav class="flex sticky items-center justify-between px-8 py-4 bg-white shadow-md top-0 left-0 right-0 z-50">
+        <div>
+            <a href="{{ route('beranda') }}" class="text-3xl font-bold italic text-[#B9C240]">WellMaggot</a>
+        </div>
+        <div class="space-x-6">
+            <a href="#tentang-kami" class="text-[#B9C240] hover:text-lime-900 transition duration-200">Tentang Kami</a>
+
+            @auth
+                <a href="{{ route('dashboardUser') }}" class="text-[#B9C240] font-semibold hover:underline">Dashboard</a>
+            @else
+                <a href="{{ route('login') }}" class="text-[#B9C240] ring-2 px-4 ring-[#B9C240] rounded-full">Login</a>
+                <a href="{{ route('register') }}" class="bg-[#B9C240] hover:bg-lime-900 text-white px-4 py-2 rounded-full">Daftar</a>
+            @endauth
+        </div>
+    </nav>
   <section class="flex flex-col md:flex-row items-center justify-between px-4 md:px-8 py-12 md:py-20 bg-white">
     <div class="max-w-xl space-y-4 text-center md:text-left">
       <h1 class="text-3xl md:text-4xl font-bold text-[#B9C240]">Build World <br />With Maggot</h1>
@@ -21,7 +36,7 @@
   </section>
 
   <section class="px-4">
-    <h2 class="text-center text-[#B9C240] font-bold text-lg md:text-xl mb-6">Tentang kami</h2>
+    <h2 id="tentang-kami" class="text-center text-[#B9C240] font-bold text-lg md:text-xl mb-6">Tentang kami</h2>
   </section>
 
   <section class="bg-repeat bg-center py-12 md:py-16 bg-[url('/images/maggot-real.png')]">

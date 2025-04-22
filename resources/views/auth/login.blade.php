@@ -13,7 +13,7 @@
         <ul class="flex items-center justify-between">
             <li class="text-white font-semibold">Beranda</li>
             <div class="flex items-center space-x-4">
-              <li class="text-white font-semibold">Masuk</li>
+              <li class="text-white font-semibold">Login</li>
                 <li>
                     <a href="{{ route('register') }}" class="bg-white text-chartreuse cursor-pointer font-bold px-4 py-2 rounded-lg">
                         Daftar

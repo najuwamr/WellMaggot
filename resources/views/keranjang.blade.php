@@ -21,7 +21,7 @@
                                 <img src="{{ asset('images/' . ($item->produk->gambar ?? 'default.png')) }}"
                                      class="w-16 h-16 object-cover rounded-md" alt="{{ $item->produk->nama }}">
                                 <div>
-                                    <h2 class="font-bold text-[#B9C240]">{{ $item->produk->nama }}</h2>
+                                    <h2 class="font-bold text-[#B9C240]">{{ $item->produk->nama_produk }}</h2>
                                     <p class="text-gray-500 text-sm">Rp. {{ number_format($item->produk->harga, 0, ',', '.') }}</p>
                                 </div>
                             </div>
@@ -65,7 +65,7 @@
                     <form action="{{ route('transaksi.checkout') }}" method="POST">
                         @csrf
                         <button class="w-full bg-[#B9C240] text-white py-2 rounded-lg hover:bg-lime-800 font-semibold">
-                            Pesan Sekarang
+                            Lanjut ke Pembayaran
                         </button>
                     </form>
                 </div>
