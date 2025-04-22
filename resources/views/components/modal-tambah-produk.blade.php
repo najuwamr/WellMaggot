@@ -6,7 +6,7 @@
 >
   <div @click.outside="modalTambahProduk = false" class="bg-white rounded-2xl shadow-lg w-[700px] p-8 flex gap-6">
 
-    <form method="POST" action="{{ route('produk.store') }}" enctype="multipart/form-data" class="flex gap-6 w-full">
+    <form method="POST" action="{{ route('produk.store') }}" enctype="multipart/form-data" class="flex gap-6 w-full" required>
       @csrf
 
       <div class="w-1/3 flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-lg p-4 relative">

@@ -42,6 +42,9 @@
                     <x-input-error :messages="$errors->get('password')" class="mt-2" />
                 </div>
 
+                <input type="checkbox" id="showPassword" class="mr-2">
+                <label for="showPassword" class="text-sm">Tampilkan kata sandi</label>
+
                 <div class="flex items-center justify-center mt-10">
                     <x-primary-button class="ml-4">
                         {{ __('Masuk') }}
@@ -50,4 +53,14 @@
             </form>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const showPasswordCheckbox = document.getElementById('showPassword');
+            const passwordInput = document.getElementById('password');
+
+            showPasswordCheckbox.addEventListener('change', function() {
+                passwordInput.type = this.checked ? 'text' : 'password';
+            });
+        });
+    </script>
 </x-guest-layout>

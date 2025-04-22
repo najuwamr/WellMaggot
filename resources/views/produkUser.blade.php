@@ -47,6 +47,5 @@
                 </button>
             </a>
         </div>
-
     </div>
 </x-app-layout>

@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Build World with Maggot</title>
   <script src="https://cdn.tailwindcss.com"></script>
+
 </head>
 <body class="bg-white text-gray-800">
     <nav class="flex sticky items-center justify-between px-8 py-4 bg-white shadow-md top-0 left-0 right-0 z-50">
@@ -17,7 +18,7 @@
             @auth
                 <a href="{{ route('dashboardUser') }}" class="text-[#B9C240] font-semibold hover:underline">Dashboard</a>
             @else
-                <a href="{{ route('login') }}" class="text-[#B9C240] ring-2 px-4 ring-[#B9C240] rounded-full">Login</a>
+                <a href="{{ route('login') }}" class="text-[#B9C240] ring-2 px-4 py-1 ring-[#B9C240] rounded-full">Login</a>
                 <a href="{{ route('register') }}" class="bg-[#B9C240] hover:bg-lime-900 text-white px-4 py-2 rounded-full">Daftar</a>
             @endauth
         </div>
