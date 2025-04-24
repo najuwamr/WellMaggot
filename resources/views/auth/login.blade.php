@@ -4,7 +4,7 @@
             <h1 class="tracking-widest md:text-4xl font-bold text-chartreuse">
                 Selamat Datang Di WellMaggot!
             </h1>
-            <img src="{{ asset('images/Reduce plastic bag campaign.png') }}" alt=""
+            <img src="{{ asset('storage/images/Reduce plastic bag campaign.png') }}" alt=""
                 class="md:absolute bottom-0 w-48 md:w-auto">
         </div>
     </div>

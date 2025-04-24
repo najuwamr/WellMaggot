@@ -18,7 +18,7 @@
 
                         <div class="flex items-center justify-between bg-white p-4 rounded-xl shadow">
                             <div class="flex items-center gap-4">
-                                <img src="{{ asset('images/' . ($item->produk->gambar ?? 'default.png')) }}"
+                                <img src="{{ asset('storage/images/' . ($item->produk->gambar ?? 'default.png')) }}"
                                      class="w-16 h-16 object-cover rounded-md" alt="{{ $item->produk->nama }}">
                                 <div>
                                     <h2 class="font-bold text-[#B9C240]">{{ $item->produk->nama_produk }}</h2>

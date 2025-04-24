@@ -5,7 +5,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     @foreach ($produkList as $produk)
                         <div x-data="{ modalEditProduk_{{ $produk->id }}: false }" class="bg-white rounded-2xl shadow-md overflow-hidden w-full max-w-xs mx-auto">
-                            <img src="{{ asset('images/' . $produk->gambar) }}" alt="{{ $produk->nama_produk }}" class="w-full h-40 object-cover" />
+                            <img src="{{ asset('storage/images/' . $produk->gambar) }}" alt="{{ $produk->nama_produk }}" class="w-full h-40 object-cover" />
                             <div class="p-4 text-center">
                                 <h3 class="text-lg font-semibold text-[#B9C240]">{{ $produk->nama_produk }}</h3>
                                 <div class="flex items-center justify-center mt-2 text-[#B9C240]">

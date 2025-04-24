@@ -6,7 +6,7 @@
                 <h1 class="tracking-widest text-3xl md:text-6xl font-bold text-chartreuse mb-8">
                     Daftar untuk fitur lebih banyak...
                 </h1>
-                <img src="{{ asset('images/maggot-img-1.png') }}" alt=""
+                <img src="{{ asset('storage/images/maggot-img-1.png') }}" alt=""
                     class="md:absolute bottom-0 w-40 md:w-auto">
             </div>
         </div>

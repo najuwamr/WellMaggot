@@ -17,7 +17,7 @@
                 </div>
 
                 <div class="flex justify-center items-center">
-                    <img src="{{ asset('images/maggot-2.png') }}" alt="Maggot"
+                    <img src="{{ asset('storage/images/maggot-2.png') }}" alt="Maggot"
                          class="w-52 md:w-64 lg:w-72 drop-shadow-lg" />
                 </div>
             </div>

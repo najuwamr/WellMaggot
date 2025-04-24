@@ -34,7 +34,7 @@ class ProdukController extends Controller
         if ($request->hasFile('gambar')) {
             $file = $request->file('gambar');
             $filename = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('images'), $filename);
+            $file->move(public_path('storage/images'), $filename);
             $validatedData['gambar'] = $filename;
         }
 
@@ -67,13 +67,13 @@ class ProdukController extends Controller
         if ($request->hasFile('gambar')) {
             $file = $request->file('gambar');
 
-            $oldPath = public_path('images/' . $produk->gambar);
+            $oldPath = public_path('storage/images/' . $produk->gambar);
             if (file_exists($oldPath)) {
                 unlink($oldPath);
             }
 
             $filename = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('images'), $filename);
+            $file->move(public_path('storage/images'), $filename);
             $produk->gambar = $filename;
         }
 

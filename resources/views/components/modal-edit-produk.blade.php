@@ -6,7 +6,7 @@
 >
   <div
     x-data="{
-      preview: '{{ $produk->gambar ? asset('images/' . $produk->gambar) : '' }}'
+      preview: '{{ $produk->gambar ? asset('storage/images/' . $produk->gambar) : '' }}'
     }"
     @click.outside="modalEditProduk_{{ $produk->id }} = false"
     class="bg-white rounded-2xl shadow-lg w-[700px] p-8 flex gap-6"

@@ -7,7 +7,7 @@
                         <div x-data="{ modalDetailProduk_{{ $produk->id }}: false }"
                             class="bg-white rounded-2xl shadow-md overflow-hidden w-full max-w-xs mx-auto">
 
-                            <img src="{{ asset('images/' . $produk->gambar) }}"
+                            <img src="{{ asset('storage/images/' . $produk->gambar) }}"
                                  alt="{{ $produk->nama_produk }}"
                                  class="w-full h-40 object-cover" />
 

@@ -3,7 +3,7 @@
         <div class="flex items-center justify-between h-20">
 
             <div class="flex-shrink-0 w-1/4">
-                <img src="{{ asset('images/WellMaggot.png') }}" alt="Logo" class="h-12">
+                <img src="{{ asset('storage/images/WellMaggot.png') }}" alt="Logo" class="h-12">
             </div>
 
             <div class="hidden md:flex items-center justify-center flex-1">

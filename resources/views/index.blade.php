@@ -32,7 +32,7 @@
       </div>
     </div>
     <div class="mt-8 md:mt-0">
-      <img src="{{ asset('images/maggot-2.png') }}" alt="Maggot" class="w-48 md:w-64 mx-auto" />
+      <img src="{{ asset('storage/images/maggot-2.png') }}" alt="Maggot" class="w-48 md:w-64 mx-auto" />
     </div>
   </section>
 
@@ -40,7 +40,7 @@
     <h2 id="tentang-kami" class="text-center text-[#B9C240] font-bold text-lg md:text-xl mb-6">Tentang kami</h2>
   </section>
 
-  <section class="bg-repeat bg-center py-12 md:py-16 bg-[url('/images/maggot-real.png')]">
+  <section class="bg-repeat bg-center py-12 md:py-16 bg-[url('storage/images/maggot-real.png')]">
     <div class="max-w-5xl mx-auto space-y-8 md:space-y-10 px-4">
       <x-card title="Pemilik" content="Lorem ipsum dolor sit amet, consectetur adipiscing elit..." :reverse="false" />
       <x-card title="Perusahaan" content="Lorem ipsum dolor sit amet, consectetur adipiscing elit..." :reverse="true" />

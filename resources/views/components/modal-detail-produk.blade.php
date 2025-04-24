@@ -11,7 +11,7 @@
             class="absolute top-4 right-4 text-red-600 hover:text-red-800">✖</button>
 
         <div class="w-1/2">
-            <img src="{{ asset('images/' . $produk->gambar) }}" alt="{{ $produk->nama_produk }}"
+            <img src="{{ asset('storage/images/' . $produk->gambar) }}" alt="{{ $produk->nama_produk }}"
                 class="w-full h-48 object-cover rounded-lg" />
         </div>
 

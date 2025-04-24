@@ -2,11 +2,11 @@
     <div class="relative flex w-full h-screen">
 
         <div class="w-1/2 bg-[#B9C240] flex items-center justify-center relative">
-            <img src="/images/kunci.png" alt="Gembok Kiri" class="w-3/4 opacity-60">
+            <img src="storage/images/kunci.png" alt="Gembok Kiri" class="w-3/4 opacity-60">
         </div>
 
         <div class="w-1/2 bg-[#F9FFEE] flex items-center justify-center relative">
-            <img src="/images/kunci.png" alt="Gembok Kanan" class="w-3/4 opacity-40">
+            <img src="storage/images/kunci.png" alt="Gembok Kanan" class="w-3/4 opacity-40">
             <button class="absolute top-5 right-5 px-4 py-2 bg-[#B9C240] text-white rounded">Masuk</button>
         </div>
 
