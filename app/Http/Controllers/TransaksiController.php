@@ -5,9 +5,19 @@ namespace App\Http\Controllers;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Midtrans\Snap;
+use Midtrans\Config;
 
 class TransaksiController extends Controller
 {
+    public function __construct()
+    {
+        Config::$serverKey = config('midtrans.server_key');
+        Config::$isProduction = config('midtrans.is_production');
+        Config::$isSanitized = config('midtrans.is_sanitized');
+        Config::$is3ds = config('midtrans.is_3ds');
+    }
+
     public function index()
     {
         $userId = Auth::id();
@@ -20,29 +30,49 @@ class TransaksiController extends Controller
         return view('transaksi.index', compact('transaksiList'));
     }
 
-    public function CancelOrder($request)
+    // public function CancelOrder($request)
+    // {
+    //     $curl = curl_init();
+
+    //     curl_setopt_array($curl, array(
+    //         CURLOPT_URL => 'https://api-sandbox.collaborator.komerce.id/order/api/v1/orders/cancel',
+    //         CURLOPT_RETURNTRANSFER => true,
+    //         CURLOPT_ENCODING => '',
+    //         CURLOPT_MAXREDIRS => 10,
+    //         CURLOPT_TIMEOUT => 0,
+    //         CURLOPT_FOLLOWLOCATION => true,
+    //         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    //         CURLOPT_CUSTOMREQUEST => 'PUT',
+    //         CURLOPT_POSTFIELDS => '{"order_no": "KOM20230607178649"}',
+    //         CURLOPT_HTTPHEADER => array(
+    //             'x-api-key: ENV.'
+    //         ),
+    //     ));
+
+    //     $response = curl_exec($curl);
+
+    //     curl_close($curl);
+    //     echo $response;
+    // }
+
+
+    public function createTransaction(Request $request)
     {
-        $curl = curl_init();
+        $orderId = rand();
+        $params = [
+            'transaction_details' => [
+                'order_id' => $orderId,
+                'gross_amount' => 10000,
+            ],
+            'customer_details' => [
+                'first_name' => 'Budi',
+                'email' => 'budi@example.com',
+            ],
+        ];
 
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://api-sandbox.collaborator.komerce.id/order/api/v1/orders/cancel',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'PUT',
-            CURLOPT_POSTFIELDS => '{"order_no": "KOM20230607178649"}',
-            CURLOPT_HTTPHEADER => array(
-                'x-api-key: ENV.'
-            ),
-        ));
+        $snapToken = Snap::getSnapToken($params);
 
-        $response = curl_exec($curl);
-
-        curl_close($curl);
-        echo $response;
+        return view('pembayaran', compact('snapToken'));
     }
 }
 

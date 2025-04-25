@@ -27,14 +27,11 @@
                             </div>
                             <div class="flex items-center gap-3">
                                 <div class="flex items-center border border-gray-300 rounded-full px-2">
-
                                     <form action="{{ route('keranjang.stok.kurang', $item->id) }}" method="POST">
                                         @csrf
                                         <button type="submit" class="px-1 text-[#B9C240] font-bold">-</button>
                                     </form>
-
                                     <span class="px-2">{{ $item->jumlah_produk }}</span>
-
                                     <form action="{{ route('keranjang.stok.tambah', $item->id) }}" method="POST">
                                         @csrf
                                         <button type="submit" class="px-1 text-[#B9C240] font-bold">+</button>
@@ -62,7 +59,7 @@
                         <span id="total-harga">Rp. {{ number_format($totalHarga, 0, ',', '.') }}</span>
                     </div>
 
-                    <form action="{{ route('transaksi.checkout') }}" method="POST">
+                    <form action="{{ route('payment') }}" method="GET">
                         @csrf
                         <button class="w-full bg-[#B9C240] text-white py-2 rounded-lg hover:bg-lime-800 font-semibold">
                             Lanjut ke Pembayaran

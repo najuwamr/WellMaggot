@@ -56,9 +56,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/transaksi/checkout', [TransaksiController::class, 'checkout'])->name('transaksi.checkout');
 
     // Route::put('/produk-cancel-order', [EdukasiController::class, 'CancelOrder'])->name('produk.cancel');
-
+    Route::get('/payment', [TransaksiController::class, 'createTransaction'])->name('payment');
     Route::put('/produk/{id}', [ProdukController::class, 'update'])->name('produk.update');
-    Route::post('/produk/store', [ProdukController::class, 'store'])->name('produk.store');
+    Route::post('/produk/spaymenttore', [ProdukController::class, 'store'])->name('produk.store');
     Route::get('/transaksi', [TransaksiController::class, 'index'])->name('transaksi.index');
 });
 
