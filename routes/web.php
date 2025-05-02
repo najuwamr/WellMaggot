@@ -54,6 +54,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/keranjang/stok/kurang/{keranjangId}', [KeranjangController::class, 'kurangStok'])->name('keranjang.stok.kurang');
     Route::delete('/keranjang/hapus/{produkId}', [KeranjangController::class, 'hapus'])->name('keranjang.hapus');
     Route::post('/transaksi/checkout', [TransaksiController::class, 'checkout'])->name('transaksi.checkout');
+    Route::get('/checkout', [KeranjangController::class, 'checkout'])->name('checkout');
+
 
     // Route::put('/produk-cancel-order', [EdukasiController::class, 'CancelOrder'])->name('produk.cancel');
     Route::get('/payment', [TransaksiController::class, 'createTransaction'])->name('payment');

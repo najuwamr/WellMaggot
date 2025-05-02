@@ -68,4 +68,18 @@ class KeranjangController extends Controller
 
         return redirect()->back();
     }
+
+    public function checkout()
+    {
+        $userId = Auth::id();
+        $keranjangList = Keranjang::with('produk')->where('user_id', $userId)->get();
+
+        $totalHarga = 0;
+        foreach ($keranjangList as $item) {
+            $totalHarga += $item->produk->harga * $item->jumlah_produk;
+        }
+
+        return view('check-out', compact('keranjangList', 'totalHarga'));
+    }
+
 }

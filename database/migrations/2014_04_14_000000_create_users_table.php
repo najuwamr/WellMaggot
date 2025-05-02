@@ -22,7 +22,6 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreignId('role_id')->constrained('role')->onDelete('cascade');
-            $table->foreignId('alamat_id')->constrained('alamat')->onDelete('cascade');
         });
     }
 

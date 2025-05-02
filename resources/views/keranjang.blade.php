@@ -59,7 +59,7 @@
                         <span id="total-harga">Rp. {{ number_format($totalHarga, 0, ',', '.') }}</span>
                     </div>
 
-                    <form action="{{ route('payment') }}" method="GET">
+                    <form action="{{ route('checkout') }}" method="GET">
                         @csrf
                         <button class="w-full bg-[#B9C240] text-white py-2 rounded-lg hover:bg-lime-800 font-semibold">
                             Lanjut ke Pembayaran

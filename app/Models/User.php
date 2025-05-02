@@ -48,7 +48,7 @@ class User extends Authenticatable
 
     public function alamat()
     {
-        return $this->belongsTo(Alamat::class);
+        return $this->hasMany(Alamat::class);
     }
     public function role()
     {

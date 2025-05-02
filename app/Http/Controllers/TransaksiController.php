@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Keranjang;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -58,16 +59,34 @@ class TransaksiController extends Controller
 
     public function createTransaction(Request $request)
     {
-        $orderId = rand();
+        $userId = Auth::id();
+
+        $keranjangList = Keranjang::with('produk')->where('user_id', $userId)->get();
+
+        $totalHarga = 0;
+        foreach ($keranjangList as $item) {
+            $totalHarga += $item->produk->harga * $item->jumlah_produk;
+        }
+
+        $orderId = 'ORDER-' . time(); // Gunakan ID unik
         $params = [
             'transaction_details' => [
                 'order_id' => $orderId,
-                'gross_amount' => 10000,
+                'gross_amount' => $totalHarga,
             ],
             'customer_details' => [
-                'first_name' => 'Budi',
-                'email' => 'budi@example.com',
+                'first_name' => Auth::user()->name ?? 'Customer',
+                'email' => Auth::user()->email ?? 'noemail@example.com',
             ],
+            // Optional: tambahkan item details agar terlihat di dashboard Midtrans
+            'item_details' => $keranjangList->map(function ($item) {
+                return [
+                    'id' => $item->produk->id,
+                    'price' => $item->produk->harga,
+                    'quantity' => $item->jumlah_produk,
+                    'name' => $item->produk->nama_produk,
+                ];
+            })->toArray(),
         ];
 
         $snapToken = Snap::getSnapToken($params);
