@@ -4,10 +4,11 @@
             <div class="py-4">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     @foreach ($produkListActive as $produk)
-                        <div x-data="{ modalDetailProduk_{{ $produk->id }}: false }"
-                            class="bg-white rounded-2xl shadow-md overflow-hidden w-full max-w-xs mx-auto">
+                    <div x-data="{ modalDetailProduk_{{ $produk->id }}: false }"
+                        class="bg-white rounded-2xl shadow-md overflow-hidden w-full max-w-xs mx-auto">
+                        @include('components.modal-detail-produk', ['produk' => $produk])
 
-                            <img src="{{ asset('storage/images/' . $produk->gambar) }}"
+                        <img src="{{ asset('storage/images/' . $produk->gambar) }}"
                                  alt="{{ $produk->nama_produk }}"
                                  class="w-full h-40 object-cover" />
 
@@ -31,14 +32,13 @@
                                         Detail Produk
                                     </button>
 
-                                    @include('components.modal-detail-produk', ['produk' => $produk])
                                 </div>
                             </div>
                         </div>
-                    @endforeach
+                        @endforeach
+                    </div>
                 </div>
             </div>
-        </div>
 
         <div class="w-1/6 flex justify-end items-start">
             <a href="{{ route('keranjang.index') }}">

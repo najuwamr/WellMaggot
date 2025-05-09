@@ -20,7 +20,6 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('password'),
                 'nomor_hp' => '081234567890',
                 'role_id' => '1',
-                // 'alamat_id' => $alamat->id,
             ],
             [
                 'name' => 'User Test',
@@ -28,7 +27,6 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('userpassword'),
                 'nomor_hp' => '089876543210',
                 'role_id' => '2',
-                // 'alamat_id' => $alamat->id,
             ],
 
         ];

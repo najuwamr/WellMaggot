@@ -15,8 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('nama');
             $table->timestamps();
-
-            $table->foreignId('kabupaten_id')->constrained('kabupaten')->onDelete('cascade');
         });
     }
 

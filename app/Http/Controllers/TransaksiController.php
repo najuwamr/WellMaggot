@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Alamat;
 use App\Models\Keranjang;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
@@ -57,41 +58,60 @@ class TransaksiController extends Controller
     // }
 
 
-    public function createTransaction(Request $request)
-    {
-        $userId = Auth::id();
+    public function checkout()
+        {
+            $userId = Auth::id();
+            $keranjangList = Keranjang::with('produk')->where('user_id', $userId)->get();
+            $alamatList = Alamat::where('user_id', $userId)->get();
 
-        $keranjangList = Keranjang::with('produk')->where('user_id', $userId)->get();
+            $totalHarga = 0;
+            foreach ($keranjangList as $item) {
+                $totalHarga += $item->produk->harga * $item->jumlah_produk;
+            }
 
-        $totalHarga = 0;
-        foreach ($keranjangList as $item) {
-            $totalHarga += $item->produk->harga * $item->jumlah_produk;
+            return view('check-out', compact('keranjangList', 'totalHarga', 'alamatList'));
         }
 
-        $orderId = 'ORDER-' . time(); // Gunakan ID unik
+
+    public function createTransaction(Request $request)
+    {
+        $request->validate([
+            'total' => 'required|numeric',
+            'alamat_id' => 'nullable|exists:alamat,id',
+            'alamat_baru' => 'nullable|string',
+        ]);
+
+        $alamat = null;
+
+        // Jika user isi alamat baru, simpan
+        if ($request->filled('alamat_baru')) {
+            $alamatBaru = Alamat::create([
+                'user_id' => Auth::id(),
+                'detail_alamat' => $request->alamat_baru,
+            ]);
+            $alamat = $alamatBaru->alamat;
+        } elseif ($request->filled('alamat_id')) {
+            $alamatObj = Alamat::find($request->alamat_id);
+            $alamat = $alamatObj ? $alamatObj->detail_alamat : 'Alamat tidak ditemukan';        }
+
         $params = [
             'transaction_details' => [
-                'order_id' => $orderId,
-                'gross_amount' => $totalHarga,
+                'order_id' => 'ORDER-' . uniqid(),
+                'gross_amount' => $request->total,
             ],
             'customer_details' => [
-                'first_name' => Auth::user()->name ?? 'Customer',
-                'email' => Auth::user()->email ?? 'noemail@example.com',
+                'first_name' => Auth::user()->name,
+                'email' => Auth::user()->email,
+                'shipping_address' => [
+                    'address' => $alamat ?? 'Alamat tidak tersedia',
+                ],
             ],
-            // Optional: tambahkan item details agar terlihat di dashboard Midtrans
-            'item_details' => $keranjangList->map(function ($item) {
-                return [
-                    'id' => $item->produk->id,
-                    'price' => $item->produk->harga,
-                    'quantity' => $item->jumlah_produk,
-                    'name' => $item->produk->nama_produk,
-                ];
-            })->toArray(),
         ];
 
-        $snapToken = Snap::getSnapToken($params);
+        $snapToken = \Midtrans\Snap::getSnapToken($params);
 
         return view('pembayaran', compact('snapToken'));
     }
+
 }
 

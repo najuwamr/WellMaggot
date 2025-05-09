@@ -9,24 +9,23 @@ class Transaksi extends Model
 {
     protected $table = 'transaksi';
     protected $fillable = [
-        'users_id', 'metode_pengiriman_id',
-        'total_harga', 'tanggal_transaksi',
-        'status_transaksi', 'ongkir'
+        'detail_alamat_id',
+        'total_pembayaran',
+        'tanggal_transaksi',
+        'status_transaksi_id',
+        'midtrans_order_id',
+        'midtrans_tr_id',
+        'jenis_metode'
     ];
 
-    public function user()
+    public function detailAlamat()
     {
-        return $this->belongsTo(User::class, 'users_id');
+        return $this->belongsTo(DetailAlamat::class, 'users_id');
     }
 
-    public function metodePengiriman()
+    public function status()
     {
-        return $this->belongsTo(MetodePengiriman::class);
-    }
-
-    public function pembayaran()
-    {
-        return $this->belongsTo(Pembayaran::class);
+        return $this->belongsTo(StatusTransaksi::class);
     }
 
     public function detailTransaksi()

@@ -11,7 +11,20 @@ class Penjadwalan extends Model
     protected $table = "penjadwalan";
 
     protected $fillable =[
-        'total_pembayaran',
-        'harga'
+        'tanggal',
+        'waktu',
+        'total_berat', 'gambar',
+        'metode_pengambilan_id',
+        'detail_alamat_id',
     ];
+
+    public function metodePengambilan()
+    {
+        return $this->belongsTo(MetodePengambilan::class);
+    }
+
+    public function detailAlamat()
+    {
+        return $this->belongsTo(detailAlamat::class);
+    }
 }

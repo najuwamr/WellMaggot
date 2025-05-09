@@ -24,11 +24,9 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        $provinsis = Provinsi::all();
-        $kabupatens = Kabupaten::all();
         $kecamatans = Kecamatan::all();
 
-        return view('auth.register', compact('provinsis', 'kabupatens', 'kecamatans'));
+        return view('auth.register', compact('kecamatans'));
     }
 
     /**
@@ -44,17 +42,7 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'phone' => ['required', 'string', 'max:255'],
             'alamat' => ['required', 'string', 'max:255'],
-            'kecamatan' => ['required', 'string'],
-            'kabupaten' => ['required', 'string'],
-            'provinsi' => ['required', 'string'],
-        ]);
-
-        // dd($request->kecamatan->id);
-        $alamat = Alamat ::create([
-            'detail_alamat' => $request->alamat,
-            'kecamatan_id' => $request->kecamatan,
-            // 'kabupaten' => $request->kabupaten,
-            // 'provinsi' => $request->provinsi,
+            'kecamatan' => ['required', 'integer', 'exists:kecamatan,id'],
         ]);
 
         $user = User::create([
@@ -62,12 +50,16 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'phone' => $request->phone,
-            'alamat_id' => $alamat->id,
-            'role_id' => 2,
+            'role_id' => 2, // default role
+        ]);
+
+        Alamat::create([
+            'detail_alamat' => $request->alamat,
+            'kecamatan_id' => $request->kecamatan,
+            'user_id' => $user->id,
         ]);
 
         event(new Registered($user));
-
         Auth::login($user);
 
         return redirect(RouteServiceProvider::HOME);

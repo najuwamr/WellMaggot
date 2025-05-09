@@ -5,17 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Provinsi extends Model
+class StatusTransaksi extends Model
 {
     use HasFactory;
-    protected $table = "provinsi";
+    protected $table = "status_transaksi";
 
     protected $fillable =[
-        'nama'
+        'status',
     ];
 
-    public function kabupaten()
+    public function transaksi()
     {
-        return $this->hasMany(Kabupaten::class);
+        return $this->hasMany(Transaksi::class);
     }
 }

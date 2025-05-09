@@ -11,7 +11,7 @@ class Alamat extends Model
     protected $table = "alamat";
 
     protected $fillable =[
-        'detail_alamat',
+        'jalan',
         'kecamatan_id'
     ];
 
@@ -20,8 +20,9 @@ class Alamat extends Model
         return $this->belongsTo(Kecamatan::class);
     }
 
-    public function users()
+    public function detailAlamat()
     {
-        return $this->belongsTo(User::class);
+        return $this->hasMany(DetailAlamat::class);
     }
+
 }

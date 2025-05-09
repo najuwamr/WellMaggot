@@ -23,7 +23,7 @@ class User extends Authenticatable
         'password',
         'nomor_hp',
         'role_id',
-        'alamat_id',
+        // 'alamat_id',
     ];
 
     /**
@@ -46,9 +46,9 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function alamat()
+    public function detailAlamat()
     {
-        return $this->hasMany(Alamat::class);
+        return $this->hasMany(DetailAlamat::class);
     }
     public function role()
     {

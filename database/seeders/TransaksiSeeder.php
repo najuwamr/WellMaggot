@@ -8,13 +8,13 @@ class TransaksiSeeder extends Seeder
     public function run()
     {
         Transaksi::create([
-            'users_id' => 2,
-            'metode_pengiriman_id' => 1,
-            'pembayaran_id' => 1,
-            'total_harga' => 50000,
-            'ongkir' => 9000,
+            'midtrans_order_id' => 'INV-TEST001',
+            'midtrans_tr_id' => 'TRX-MID-001',
+            'jenis_metode' => 'bank_transfer',
+            'detail_alamat_id' => 1,
+            'total_pembayaran' => 50000,
             'tanggal_transaksi' => now(),
-            'status_transaksi' => 'diproses',
+            'status_transaksi_id' => 1,
         ]);
     }
 }

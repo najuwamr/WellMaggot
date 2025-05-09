@@ -12,8 +12,6 @@ class DetailTransaksiSeeder extends Seeder
         DetTransaksi::create([
             'transaksi_id' => 1,
             'produk_id' => 1,
-            'jumlah' => 2,
-            'harga' => 25000,
         ]);
     }
 }

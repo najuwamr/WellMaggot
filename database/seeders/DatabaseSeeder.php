@@ -25,9 +25,9 @@ class DatabaseSeeder extends Seeder
         $this->call(RoleSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(AlamatSeeder::class);
+        $this->call(DetailAlamatSeeder::class);
         $this->call(SeedersKeranjangSeeder::class);
-        $this->call(MetodePengirimanSeeder::class);
-        $this->call(SeedersPembayaranSeeder::class);
+        $this->call(StatusTransaksiSeeder::class);
         $this->call(SeedersTransaksiSeeder::class);
         $this->call(SeedersDetailTransaksiSeeder::class);
     }

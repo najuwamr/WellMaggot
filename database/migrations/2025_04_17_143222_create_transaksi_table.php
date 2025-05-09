@@ -13,15 +13,15 @@ return new class extends Migration
     {
         Schema::create('transaksi', function (Blueprint $table) {
             $table->id();
-            $table->integer('total_harga');
+            $table->string('midtrans_order_id'); //id yang dikirim ke midtrans
+            $table->string('midtrans_tr_id'); //id dari midtrans
+            $table->string('jenis_metode');
+            $table->timestamp('paid_at')->nullable();
             $table->date('tanggal_transaksi');
-            $table->enum('status_transaksi',['diterima','dikirim', 'diproses']);
-            $table->integer('ongkir');
+            $table->integer('total_pembayaran');
+            $table->foreignId('status_transaksi_id')->constrained('status_transaksi')->onDelete('cascade');
+            $table->foreignId('detail_alamat_id')->constrained('detail_alamat')->onDelete('cascade');
             $table->timestamps();
-
-            $table->foreignId('users_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('metode_pengiriman_id')->constrained('metode_pengiriman')->onDelete('cascade');
-            $table->foreignId('pembayaran_id')->constrained('pembayaran')->onDelete('cascade');
         });
     }
 

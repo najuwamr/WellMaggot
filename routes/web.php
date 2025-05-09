@@ -8,6 +8,7 @@ use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SampahController;
 use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\WebcamController;
 use App\Models\Kabupaten;
 use App\Models\Kecamatan;
 use Illuminate\Support\Facades\Route;
@@ -27,13 +28,13 @@ Route::get('/', function () {
     return view('index');
 })->name('beranda');
 
-Route::get('/get-kabupaten/{provinsi_id}', function ($provinsi_id) {
-    return Kabupaten::where('provinsi_id', $provinsi_id)->get();
-});
+// Route::get('/get-kabupaten/{provinsi_id}', function ($provinsi_id) {
+//     return Kabupaten::where('provinsi_id', $provinsi_id)->get();
+// });
 
-Route::get('/get-kecamatan/{kabupaten_id}', function ($kabupaten_id) {
-    return Kecamatan::where('kabupaten_id', $kabupaten_id)->get();
-});
+// Route::get('/get-kecamatan/{kabupaten_id}', function ($kabupaten_id) {
+//     return Kecamatan::where('kabupaten_id', $kabupaten_id)->get();
+// });
 
 Route::get('/dashboard', function () {
     return view('dashboardUser');
@@ -54,11 +55,13 @@ Route::middleware('auth')->group(function () {
     Route::post('/keranjang/stok/kurang/{keranjangId}', [KeranjangController::class, 'kurangStok'])->name('keranjang.stok.kurang');
     Route::delete('/keranjang/hapus/{produkId}', [KeranjangController::class, 'hapus'])->name('keranjang.hapus');
     Route::post('/transaksi/checkout', [TransaksiController::class, 'checkout'])->name('transaksi.checkout');
-    Route::get('/checkout', [KeranjangController::class, 'checkout'])->name('checkout');
+    Route::get('/checkout', [TransaksiController::class, 'checkout'])->name('checkout');
+    Route::get('webcam', [WebcamController::class, 'index']);
+    Route::post('webcam', [WebcamController::class, 'store'])->name('webcam.capture');
 
-
+    Route::post('/form-bagi-sampah', [SampahController::class, 'store']);
     // Route::put('/produk-cancel-order', [EdukasiController::class, 'CancelOrder'])->name('produk.cancel');
-    Route::get('/payment', [TransaksiController::class, 'createTransaction'])->name('payment');
+    Route::post('/payment', [TransaksiController::class, 'createTransaction'])->name('payment');
     Route::put('/produk/{id}', [ProdukController::class, 'update'])->name('produk.update');
     Route::post('/produk/spaymenttore', [ProdukController::class, 'store'])->name('produk.store');
     Route::get('/transaksi', [TransaksiController::class, 'index'])->name('transaksi.index');
