@@ -4,8 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\Alamat;
-use App\Models\Provinsi;
-use App\Models\Kabupaten;
+use App\Models\DetailAlamat;
 use App\Models\Kecamatan;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
@@ -53,9 +52,14 @@ class RegisteredUserController extends Controller
             'role_id' => 2, // default role
         ]);
 
-        Alamat::create([
-            'detail_alamat' => $request->alamat,
+        $alamat = Alamat::create([
+            'jalan' => $request->alamat,
             'kecamatan_id' => $request->kecamatan,
+            'user_id' => $user->id,
+        ]);
+
+        DetailAlamat::create([
+            'alamat_id' => $alamat->id,
             'user_id' => $user->id,
         ]);
 
@@ -64,4 +68,5 @@ class RegisteredUserController extends Controller
 
         return redirect(RouteServiceProvider::HOME);
     }
+
 }

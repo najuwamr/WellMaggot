@@ -1,6 +1,6 @@
 <x-guest-layout>
 
-    <body class="h-screen flex flex-wrap font-sans">
+    <body class="h-screen flex flex-wrap font-roboto">
         <div class="w-full md:w-2/5 p-10 relative flex justify-center items-start">
             <div>
                 <h1 class="tracking-widest text-3xl md:text-6xl font-bold text-chartreuse mb-8">
@@ -89,33 +89,6 @@
                                         <option value="{{ $kecamatan->id }}">{{ $kecamatan->nama }}</option>
                                     @endforeach
                                 </select>
-
-                            </div>
-
-                            <div>
-                                <label for="regency" class="block mb-2 font-semibold">Kabupaten</label>
-                                <select name="kabupaten" id="regency"
-                                    class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-chartreuse"
-                                    required>
-                                    <option value="">Pilih Kabupaten</option>
-                                    @foreach ($kabupatens as $kabupaten)
-                                        <option value="{{ $kabupaten->id }}">{{ $kabupaten->nama }}</option>
-                                    @endforeach
-                                </select>
-
-                            </div>
-
-                            <div>
-                                <label for="province" class="block mb-2 font-semibold">Provinsi</label>
-                                <select name="provinsi" id="province"
-                                    class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-chartreuse"
-                                    required>
-                                    <option value="">Pilih Provinsi</option>
-                                    @foreach ($provinsis as $provinsi)
-                                        <option value="{{ $provinsi->id }}">{{ $provinsi->nama }}</option>
-                                    @endforeach
-                                </select>
-
                             </div>
                         </div>
                     </div>
@@ -132,48 +105,8 @@
 
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-                const provinceSelect = document.getElementById('province');
-                const regencySelect = document.getElementById('regency');
                 const districtSelect = document.getElementById('district');
 
-                provinceSelect.addEventListener('change', function() {
-                    const provinceId = this.value;
-
-                    regencySelect.innerHTML = '<option value="">Pilih Kabupaten</option>';
-                    districtSelect.innerHTML = '<option value="">Pilih Kecamatan</option>';
-
-                    if (provinceId) {
-                        fetch(`/get-kabupaten/${provinceId}`)
-                            .then(res => res.json())
-                            .then(data => {
-                                data.forEach(kabupaten => {
-                                    const option = document.createElement('option');
-                                    option.value = kabupaten.id;
-                                    option.text = kabupaten.nama;
-                                    regencySelect.appendChild(option);
-                                });
-                            });
-                    }
-                });
-
-                regencySelect.addEventListener('change', function() {
-                    const regencyId = this.value;
-
-                    districtSelect.innerHTML = '<option value="">Pilih Kecamatan</option>';
-
-                    if (regencyId) {
-                        fetch(`/get-kecamatan/${regencyId}`)
-                            .then(res => res.json())
-                            .then(data => {
-                                data.forEach(kecamatan => {
-                                    const option = document.createElement('option');
-                                    option.value = kecamatan.id;
-                                    option.text = kecamatan.nama;
-                                    districtSelect.appendChild(option);
-                                });
-                            });
-                    }
-                });
                 const showPasswordCheckbox = document.getElementById('showPassword');
                 const passwordInput = document.getElementById('password');
 

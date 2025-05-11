@@ -11,6 +11,7 @@
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
+        <link href="https://fonts.googleapis.com/css2?family=Comic+Neue&family=Poppins&display=swap" rel="stylesheet">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
         <script src="https://cdn.tailwindcss.com"></script>
         <style type="text/tailwindcss">
@@ -18,12 +19,13 @@
               .bg-chartreuse { background-color: #B9C240; }
               .text-chartreuse { color: #B9C240; }
               .focus\:ring-chartreuse:focus { --tw-ring-color: #B9C240; }
+              .font-roboto {font-family: 'Roboto', sans-serif;}
             }
         </style>
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased">
+    <body class="font-roboto antialiased">
         <div class="min-h-screen bg-gray-100">
             @include('layouts.navigation')
 

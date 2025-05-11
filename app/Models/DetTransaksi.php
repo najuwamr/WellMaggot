@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class DetTransaksi extends Model
 {
     use HasFactory;
+
     protected $table = "detail_transaksi";
 
     protected $fillable = [

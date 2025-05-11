@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('keranjang', function (Blueprint $table) {
             $table->id();
             $table->integer('jumlah_produk');
-            $table->timestamps();
-
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('produk_id')->constrained('produk')->onDelete('cascade');
+            $table->timestamps();
+
         });
     }
 

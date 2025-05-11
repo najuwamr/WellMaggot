@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('transaksi', function (Blueprint $table) {
             $table->id();
-            $table->string('midtrans_order_id'); //id yang dikirim ke midtrans
+            $table->integer('total_pembayaran');
+             $table->string('midtrans_order_id'); //id yang dikirim ke midtrans
             $table->string('midtrans_tr_id'); //id dari midtrans
             $table->string('jenis_metode');
             $table->timestamp('paid_at')->nullable();
             $table->date('tanggal_transaksi');
-            $table->integer('total_pembayaran');
             $table->foreignId('status_transaksi_id')->constrained('status_transaksi')->onDelete('cascade');
             $table->foreignId('detail_alamat_id')->constrained('detail_alamat')->onDelete('cascade');
             $table->timestamps();

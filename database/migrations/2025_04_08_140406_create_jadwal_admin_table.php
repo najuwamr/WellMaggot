@@ -23,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('detail_jadwal_admin');
+        Schema::dropIfExists('jadwal_admin');
     }
 };

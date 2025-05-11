@@ -53,7 +53,7 @@
       <div class="flex flex-col md:flex-row justify-between items-center">
         <div class="mb-4 md:mb-0">
           <h3 class="text-xl font-bold">Build World with Maggot</h3>
-          <p class="text-sm mt-1">© 2025 All Rights Reserved</p>
+          <p class="text-sm mt-1">© 2025 PPLAgro-A6</p>
         </div>
 
         <div class="flex space-x-6">

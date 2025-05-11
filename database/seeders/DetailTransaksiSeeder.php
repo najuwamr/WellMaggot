@@ -1,13 +1,18 @@
 <?php
 
 namespace Database\Seeders;
-use App\Models\DetailTransaksi;
+
 use App\Models\DetTransaksi;
+use App\Models\User;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DetailTransaksiSeeder extends Seeder
 {
-    public function run()
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
     {
         DetTransaksi::create([
             'transaksi_id' => 1,

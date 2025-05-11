@@ -59,7 +59,8 @@ Route::middleware('auth')->group(function () {
     Route::get('webcam', [WebcamController::class, 'index']);
     Route::post('webcam', [WebcamController::class, 'store'])->name('webcam.capture');
 
-    Route::post('/form-bagi-sampah', [SampahController::class, 'store']);
+    Route::post('bagi-sampah', [SampahController::class, 'store'])->name('bagi-sampah.store');
+
     // Route::put('/produk-cancel-order', [EdukasiController::class, 'CancelOrder'])->name('produk.cancel');
     Route::post('/payment', [TransaksiController::class, 'createTransaction'])->name('payment');
     Route::put('/produk/{id}', [ProdukController::class, 'update'])->name('produk.update');

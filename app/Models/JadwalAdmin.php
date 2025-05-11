@@ -8,10 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class JadwalAdmin extends Model
 {
     use HasFactory;
+
     protected $table = "jadwal_admin";
 
     protected $fillable =[
         'tanggal',
-        'waktu'
     ];
+
+    public function penjadwalan()
+    {
+        return $this->hasMany(Penjadwalan::class);
+    }
 }

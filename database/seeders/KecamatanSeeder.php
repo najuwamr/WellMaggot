@@ -2,13 +2,14 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\Kecamatan;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
 
-class RegencySeeder extends Seeder
+class KecamatanSeeder extends Seeder
 {
     /**
-     * Jalankan seeder.
+     * Run the database seeds.
      */
     public function run(): void
     {
