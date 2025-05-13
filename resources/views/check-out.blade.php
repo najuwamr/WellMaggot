@@ -23,25 +23,39 @@
                 <div class="mt-6 mb-4">
                     <label for="alamat_id" class="block font-semibold text-gray-700 mb-2">Pilih Alamat Pengiriman</label>
                     <select name="alamat_id" id="alamat_id" required class="w-full p-2 border border-gray-300 rounded-md">
-                        @foreach($alamatList as $alamat)
-                            <option value="{{ $alamat->id }}">{{ $alamat->detail_alamat }}</option>
+                        @foreach($alamatList as $detail)
+                            <option value="{{ $detail->id }}">
+                                {{ $detail->detail_alamat }} {{ $detail->alamat->jalan ?? '' }}
+                            </option>
                         @endforeach
                     </select>
                 </div>
 
-                <div class="mb-4">
-                    <label for="alamat_baru" class="block font-semibold text-gray-700 mb-2">Atau Tambah Alamat Baru</label>
-                    <textarea name="alamat_baru" id="alamat_baru" rows="2"
-                              class="w-full p-2 border border-gray-300 rounded-md"
-                              placeholder="Kosongkan jika tidak menambah alamat baru"></textarea>
-                </div>
-
                 <input type="hidden" name="total" value="{{ $totalHarga }}">
-
-                <button class="bg-[#B9C240] text-white px-4 py-2 rounded-lg hover:bg-lime-800">
-                    Bayar Sekarang
+                <button id="pay-button" class="bg-[#B9C240] text-white px-4 py-2 rounded-lg hover:bg-lime-800">
+                    Pesan
                 </button>
             </form>
+            <x-modal-alamat-baru :kecamatanList="$kecamatanList" />
         </div>
     </div>
+
+    <script type="text/javascript">
+        document.getElementById('pay-button').onclick = function () {
+            window.snap.pay('{{ $snapToken }}', {
+                onSuccess: function(result){
+                    alert("Pembayaran berhasil!");
+                    console.log(result);
+                },
+                onPending: function(result){
+                    alert("Menunggu pembayaran!");
+                    console.log(result);
+                },
+                onError: function(result){
+                    alert("Pembayaran gagal!");
+                    console.log(result);
+                }
+            });
+        };
+    </script>
 </x-app-layout>

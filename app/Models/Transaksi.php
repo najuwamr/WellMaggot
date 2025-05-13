@@ -23,7 +23,7 @@ class Transaksi extends Model
 
     public function detailAlamat()
     {
-        return $this->belongsTo(DetailAlamat::class, 'users_id');
+        return $this->belongsTo(DetailAlamat::class);
     }
 
     public function status()

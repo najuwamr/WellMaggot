@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('total_pembayaran');
              $table->string('midtrans_order_id'); //id yang dikirim ke midtrans
-            $table->string('midtrans_tr_id'); //id dari midtrans
+            $table->string('midtrans_tr_id')->nullable(); //id dari midtrans
             $table->string('jenis_metode');
             $table->timestamp('paid_at')->nullable();
             $table->date('tanggal_transaksi');

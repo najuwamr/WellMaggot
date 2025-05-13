@@ -47,6 +47,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/edukasi', [EdukasiController::class, 'index'])->name('edukasi.index');
     Route::get('/produk', [ProdukController::class, 'index'])->name('produk.index');
     Route::get('/bagi-sampah', [SampahController::class, 'index'])->name('bagi-sampah.index');
+// routes/web.php
+    Route::post('/alamat-baru', [TransaksiController::class, 'alamatBaru'])->name('alamat.baru');
 
     Route::get('/dashboardUser', [HomeController::class, 'dashboardUser'])->name('dashboardUser');
     Route::get('/keranjang', [KeranjangController::class, 'index'])->name('keranjang.index');
@@ -54,12 +56,13 @@ Route::middleware('auth')->group(function () {
     Route::post('/keranjang/stok/tambah/{keranjangId}', [KeranjangController::class, 'tambahStok'])->name('keranjang.stok.tambah');
     Route::post('/keranjang/stok/kurang/{keranjangId}', [KeranjangController::class, 'kurangStok'])->name('keranjang.stok.kurang');
     Route::delete('/keranjang/hapus/{produkId}', [KeranjangController::class, 'hapus'])->name('keranjang.hapus');
-    Route::post('/transaksi/checkout', [TransaksiController::class, 'checkout'])->name('transaksi.checkout');
+    // Route::post('/transaksi/checkout', [TransaksiController::class, 'checkout'])->name('transaksi.checkout');
     Route::get('/checkout', [TransaksiController::class, 'checkout'])->name('checkout');
     Route::get('webcam', [WebcamController::class, 'index']);
     Route::post('webcam', [WebcamController::class, 'store'])->name('webcam.capture');
 
     Route::post('bagi-sampah', [SampahController::class, 'store'])->name('bagi-sampah.store');
+    // Route::post('/penjemputan', [JadwalAdminContriller]);
 
     // Route::put('/produk-cancel-order', [EdukasiController::class, 'CancelOrder'])->name('produk.cancel');
     Route::post('/payment', [TransaksiController::class, 'createTransaction'])->name('payment');

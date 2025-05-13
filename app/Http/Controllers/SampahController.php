@@ -30,6 +30,7 @@ class SampahController extends Controller
             'image' => 'required|string',
             'metode_pengambilan_id' => 'required|exists:metode_pengambilan,id',
             'detail_alamat_id' => 'required|exists:detail_alamat,id',
+            'jadwal_admin_id' => 'required|exists:jadwal_admin,id',
         ]);
 
         // Proses base64 gambar
@@ -44,12 +45,11 @@ class SampahController extends Controller
 
         // Simpan data ke database
         Penjadwalan::create([
-            'tanggal' => $request->tanggal,
-            'waktu' => $request->waktu,
             'total_berat' => $request->total_berat,
             'gambar' => $imageName,
             'metode_pengambilan_id' => $request->metode_pengambilan_id,
             'detail_alamat_id' => $request->detail_alamat_id,
+            'jadwal_admin_id' => $request->jadwal_admin_id,
         ]);
 
         return redirect()->back()->with('success', 'Pengajuan penjadwalan berhasil disimpan.');
