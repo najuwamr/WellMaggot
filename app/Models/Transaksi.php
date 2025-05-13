@@ -7,15 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Transaksi extends Model
 {
-    protected $table = 'transaksi';
+    use HasFactory;
+
+    protected $table = "transaksi";
+
     protected $fillable = [
-        'detail_alamat_id',
         'total_pembayaran',
         'tanggal_transaksi',
-        'status_transaksi_id',
-        'midtrans_order_id',
+        'jenis_metode',
         'midtrans_tr_id',
-        'jenis_metode'
+        'midtrans_order_id',
+        'detail_alamat_id',
+        'status_transaksi_id',
     ];
 
     public function detailAlamat()
@@ -33,4 +36,3 @@ class Transaksi extends Model
         return $this->hasMany(DetTransaksi::class);
     }
 }
-

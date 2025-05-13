@@ -12,6 +12,10 @@ class JadwalAdmin extends Model
 
     protected $fillable =[
         'tanggal',
-        'waktu'
     ];
+
+    public function penjadwalan()
+    {
+        return $this->hasMany(Penjadwalan::class);
+    }
 }

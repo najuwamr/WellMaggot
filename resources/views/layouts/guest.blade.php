@@ -17,7 +17,7 @@
         }
     </style>
 </head>
-<body class="h-screen flex flex-wrap font-sans">
+<body class="h-screen flex flex-wrap font-roboto">
     {{ $slot }}
 </body>
 </html>

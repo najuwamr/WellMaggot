@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
 use App\Models\Alamat;
 use App\Models\DetailAlamat;
+use App\Models\User;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DetailAlamatSeeder extends Seeder
@@ -14,8 +15,8 @@ class DetailAlamatSeeder extends Seeder
      */
     public function run(): void
     {
-        $user = User::first();     // Ambil user pertama
-        $alamat = Alamat::first(); // Ambil alamat pertama
+        $user = User::first();
+        $alamat = Alamat::first();
 
         if ($user && $alamat) {
             DetailAlamat::create([

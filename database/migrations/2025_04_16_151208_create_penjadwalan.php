@@ -13,14 +13,12 @@ return new class extends Migration
     {
         Schema::create('penjadwalan', function (Blueprint $table) {
             $table->id();
-            // $table->string('lokasi');
-            $table->date('tanggal');
-            $table->time('waktu');
             $table->integer('total_berat');
             $table->string('gambar');
-            $table->timestamps();
             $table->foreignId('metode_pengambilan_id')->constrained('metode_pengambilan')->onDelete('cascade');
             $table->foreignId('detail_alamat_id')->constrained('detail_alamat')->onDelete('cascade');
+            $table->foreignId('jadwal_admin_id')->constrained('jadwal_admin')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 

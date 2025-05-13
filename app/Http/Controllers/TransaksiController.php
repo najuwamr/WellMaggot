@@ -72,7 +72,6 @@ class TransaksiController extends Controller
             return view('check-out', compact('keranjangList', 'totalHarga', 'alamatList'));
         }
 
-
     public function createTransaction(Request $request)
     {
         $request->validate([
@@ -83,7 +82,6 @@ class TransaksiController extends Controller
 
         $alamat = null;
 
-        // Jika user isi alamat baru, simpan
         if ($request->filled('alamat_baru')) {
             $alamatBaru = Alamat::create([
                 'user_id' => Auth::id(),
@@ -114,4 +112,3 @@ class TransaksiController extends Controller
     }
 
 }
-

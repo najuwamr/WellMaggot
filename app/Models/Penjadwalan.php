@@ -8,14 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Penjadwalan extends Model
 {
     use HasFactory;
+
     protected $table = "penjadwalan";
 
     protected $fillable =[
-        'tanggal',
-        'waktu',
-        'total_berat', 'gambar',
+        'total_berat',
+        'gambar',
         'metode_pengambilan_id',
         'detail_alamat_id',
+        'jadwal_admin_id',
     ];
 
     public function metodePengambilan()
@@ -25,6 +26,16 @@ class Penjadwalan extends Model
 
     public function detailAlamat()
     {
-        return $this->belongsTo(detailAlamat::class);
+        return $this->belongsTo(DetailAlamat::class);
+    }
+
+    public function jadwalAdmin()
+    {
+        return $this->belongsTo(JadwalAdmin::class);
+    }
+
+    public function user()
+    {
+        return $this->hasOneThrough(User::class, DetailAlamat::class, 'id', 'id', 'detail_alamat_id', 'user_id');
     }
 }

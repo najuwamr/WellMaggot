@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('detail_alamat', function (Blueprint $table) {
+        Schema::create('jadwal_admin', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('alamat_id')->constrained('alamat')->onDelete('cascade');
+            $table->date('tanggal');
             $table->timestamps();
         });
     }
@@ -24,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('detail_alamat');
+        Schema::dropIfExists('jadwal_admin');
     }
 };

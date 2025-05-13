@@ -2,35 +2,57 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Penjadwalan;
 use Illuminate\Http\Request;
 
 class SampahController extends Controller
 {
     public function index()
     {
-        return view('bagi-sampah');
+        $userId = auth()->id();
+
+        $penjadwalanList = Penjadwalan::with(['metodePengambilan', 'detailAlamat'])
+            ->whereHas('detailAlamat', function ($query) use ($userId) {
+                $query->where('user_id', $userId);
+            })
+            ->get();
+
+        return view('bagi-sampah-cust', compact('penjadwalanList'));
     }
+
 
     public function store(Request $request)
     {
-        // $validatedData = $request->validate([
-        //     'nama' => 'required|string|max:255',
-        //     'upload_gambar' => 'required|string',
-        //     'alamat' => 'required|numeric|min:0',
-        //     'stok' => 'required|integer|min:0',
-        //     'gambar' => 'required|image|mimes:jpg,jpeg,png|max:2048',
-        // ]);
+        $request->validate([
+            'tanggal' => 'required|date',
+            'waktu' => 'required',
+            'total_berat' => 'required|numeric|min:1',
+            'image' => 'required|string',
+            'metode_pengambilan_id' => 'required|exists:metode_pengambilan,id',
+            'detail_alamat_id' => 'required|exists:detail_alamat,id',
+        ]);
 
-        // if ($request->hasFile('gambar')) {
-        //     $file = $request->file('gambar');
-        //     $filename = time() . '_' . $file->getClientOriginalName();
-        //     $file->move(public_path('storage/images'), $filename);
-        //     $validatedData['gambar'] = $filename;
-        // }
+        // Proses base64 gambar
+        $image = $request->image;
+        $imageParts = explode(";base64,", $image);
+        $imageType = explode("/", $imageParts[0])[1];
+        $imageBase64 = base64_decode($imageParts[1]);
 
-        // Produk::create($validatedData);
+        $imageName = uniqid() . '.' . $imageType;
+        $path = public_path('storage/images/' . $imageName);
+        file_put_contents($path, $imageBase64);
 
-        // return redirect()->route('produk.index')->with('success', 'added');
+        // Simpan data ke database
+        Penjadwalan::create([
+            'tanggal' => $request->tanggal,
+            'waktu' => $request->waktu,
+            'total_berat' => $request->total_berat,
+            'gambar' => $imageName,
+            'metode_pengambilan_id' => $request->metode_pengambilan_id,
+            'detail_alamat_id' => $request->detail_alamat_id,
+        ]);
 
+        return redirect()->back()->with('success', 'Pengajuan penjadwalan berhasil disimpan.');
     }
+
 }

@@ -1,11 +1,17 @@
 <?php
+
 namespace Database\Seeders;
+
 use App\Models\Transaksi;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class TransaksiSeeder extends Seeder
 {
-    public function run()
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
     {
         Transaksi::create([
             'midtrans_order_id' => 'INV-TEST001',
