@@ -104,55 +104,6 @@ class TransaksiController extends Controller
         return redirect()->route('checkout')->with('success', 'Alamat baru berhasil disimpan.');
     }
 
-    // public function createTransaction(Request $request)
-    // {
-    //     $request->validate([
-    //         'total' => 'required|numeric',
-    //         'alamat_id' => 'nullable|exists:alamat,id',
-    //     ]);
-
-    //     $user = Auth::user();
-    //     $userId = $user->id;
-
-    //     $alamat = Alamat::find($request->alamat_id);
-
-    //     if (!$alamat) {
-    //         return back()->withErrors(['Alamat tidak ditemukan.']);
-    //     }
-
-    //     $keranjangList = Keranjang::with('produk')->where('user_id', $userId)->get();
-
-    //     // Buat detail transaksi (belum disimpan ke DB di tahap ini)
-    //     $items = [];
-    //     foreach ($keranjangList as $item) {
-    //         $items[] = [
-    //             'id' => $item->produk->id,
-    //             'price' => $item->produk->harga,
-    //             'quantity' => $item->jumlah_produk,
-    //             'name' => $item->produk->nama_produk,
-    //         ];
-    //     }
-
-    //     $params = [
-    //         'transaction_details' => [
-    //             'order_id' => 'ORDER-' . uniqid(),
-    //             'gross_amount' => $request->total,
-    //         ],
-    //         'item_details' => $items,
-    //         'customer_details' => [
-    //             'first_name' => $user->name,
-    //             'email' => $user->email,
-    //             'shipping_address' => [
-    //                 'address' => $alamat->detail_alamat,
-    //             ],
-    //         ],
-    //     ];
-
-    //     $snapToken = Snap::getSnapToken($params);
-
-    //     return view('check-out', compact('snapToken'));
-    // }
-
     public function createTransaction(Request $request)
     {
         $request->validate([
@@ -166,7 +117,7 @@ class TransaksiController extends Controller
         $keranjangList = Keranjang::with('produk')->where('user_id', $userId)->get();
 
         if ($keranjangList->isEmpty()) {
-            return back()->withErrors(['Keranjang kosong.']);
+            return response()->json(['error' => 'Keranjang kosong.'], 400);
         }
 
         $orderId = 'ORDER-' . uniqid();
@@ -176,7 +127,7 @@ class TransaksiController extends Controller
             'tanggal_transaksi' => now()->toDateString(),
             'jenis_metode' => 'midtrans',
             'midtrans_order_id' => $orderId,
-            'status_transaksi_id' => 5, // default "pending"
+            'status_transaksi_id' => 5,
             'detail_alamat_id' => $request->detail_alamat_id,
         ]);
 
@@ -208,13 +159,13 @@ class TransaksiController extends Controller
                 'first_name' => $user->name,
                 'email' => $user->email,
                 'shipping_address' => [
-                    'address' => $alamat->detail_alamat . ', ' . ($alamat->alamat->jalan ?? 'Tanpa jalan'),
+                    'address' => $alamat->detail_alamat . ', ' . ($alamat->alamat->jalan ?? ''),
                 ],
             ],
         ];
 
         $snapToken = Snap::getSnapToken($params);
 
-        return redirect()->route('payment')->with('snapToken', $snapToken);
+        return response()->json(['snap_token' => $snapToken]);
     }
 }

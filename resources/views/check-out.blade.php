@@ -18,21 +18,24 @@
         </div>
 
         <div class="mt-6">
-            <form action="{{ route('payment') }}" method="POST">
+            <form id="payment-form" action="{{ route('payment') }}" method="POST">
                 @csrf
                 <div class="mt-6 mb-4">
-                    <label for="alamat_id" class="block font-semibold text-gray-700 mb-2">Pilih Alamat Pengiriman</label>
-                    <select name="alamat_id" id="alamat_id" required class="w-full p-2 border border-gray-300 rounded-md">
-                        @foreach($alamatList as $detail)
+                    <label for="alamat_id" class="block font-semibold text-gray-700 mb-2">Pilih Alamat
+                        Pengiriman</label>
+                    <select name="alamat_id" id="alamat_id" required
+                        class="w-full p-2 border border-gray-300 rounded-md">
+                        @foreach ($alamatList as $detail)
                             <option value="{{ $detail->id }}">
                                 {{ $detail->detail_alamat }} {{ $detail->alamat->jalan ?? '' }}
                             </option>
                         @endforeach
                     </select>
                 </div>
+                <input type="hidden" id="csrf_token" value="{{ csrf_token() }}">
 
-                <input type="hidden" name="total" value="{{ $totalHarga }}">
-                <button type="submit" class="bg-[#B9C240] text-white px-4 py-2 rounded-lg hover:bg-lime-800">
+                <input type="hidden" name="total" id="total" value="{{ $totalHarga }}">
+                <button id="btn-bayar" class="bg-[#B9C240] text-white px-4 py-2 rounded-lg hover:bg-lime-800">
                     Pesan
                 </button>
             </form>
@@ -40,25 +43,61 @@
         </div>
     </div>
 
-    {{-- @if ($snapToken)
-    <script type="text/javascript">
-        window.onload = function () {
-            window.snap.pay('{{ $snapToken }}', {
-                onSuccess: function(result){
-                    alert("Pembayaran berhasil!");
-                    console.log(result);
-                    // redirect atau kirim data ke server jika perlu
-                },
-                onPending: function(result){
-                    alert("Menunggu pembayaran!");
-                    console.log(result);
-                },
-                onError: function(result){
-                    alert("Pembayaran gagal!");
-                    console.log(result);
-                }
-            });
-        };
-    </script> --}}
-    {{-- @endif --}}
+    <script>
+        document.getElementById('btn-bayar').addEventListener('click', function(e) {
+            e.preventDefault();
+
+            const alamatSelect = document.getElementById('alamat_id');
+            if (!alamatSelect) {
+                alert("Alamat belum tersedia.");
+                return;
+            }
+
+            const alamatId = alamatSelect.value;
+            const total = document.getElementById('total')?.value;
+            const token = document.getElementById('csrf_token')?.value;
+
+            if (!alamatId || !total || !token) {
+                alert("Data tidak lengkap.");
+                return;
+            }
+
+            fetch("{{ route('payment') }}", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": token,
+                        "Accept": "application/json"
+                    },
+                    body: JSON.stringify({
+                        detail_alamat_id: alamatId,
+                        total: total
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.snap_token) {
+                        snap.pay(data.snap_token, {
+                            onSuccess: function(result) {
+                                alert("Pembayaran berhasil!");
+                                window.location.href = "/transaksi";
+                            },
+                            onPending: function(result) {
+                                alert("Menunggu pembayaran!");
+                                window.location.href = "/transaksi";
+                            },
+                            onError: function(result) {
+                                alert("Pembayaran gagal!");
+                                console.error(result);
+                            }
+                        });
+                    } else {
+                        alert("Gagal mendapatkan Snap Token.");
+                    }
+                })
+                .catch(error => {
+                    console.error("AJAX Error:", error);
+                });
+        });
+    </script>
 </x-app-layout>

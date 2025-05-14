@@ -48,7 +48,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/produk', [ProdukController::class, 'index'])->name('produk.index');
     Route::get('/bagi-sampah', [SampahController::class, 'index'])->name('bagi-sampah.index');
     Route::get('/jadwal-sampah', [SampahController::class, 'ambilSampah'])->name('ambil-sampah.index');
-// routes/web.php
+    // routes/web.php
     Route::post('/alamat-baru', [TransaksiController::class, 'alamatBaru'])->name('alamat.baru');
 
     Route::get('/dashboardUser', [HomeController::class, 'dashboardUser'])->name('dashboardUser');
