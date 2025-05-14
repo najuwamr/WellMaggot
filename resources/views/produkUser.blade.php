@@ -1,4 +1,4 @@
-<x-app-layout>
+    <x-app-layout>
     <div class="flex m-8 space-x-4">
         <div class="w-5/6">
             <div class="py-4">
@@ -8,7 +8,7 @@
                         class="bg-white rounded-2xl shadow-md overflow-hidden w-full max-w-xs mx-auto">
                         @include('components.modal-detail-produk', ['produk' => $produk])
 
-                        <img src="{{ asset('storage/images/' . $produk->gambar) }}"
+                        <img src="{{ asset('assets/' . $produk->gambar) }}"
                                  alt="{{ $produk->nama_produk }}"
                                  class="w-full h-40 object-cover" />
 
@@ -28,7 +28,7 @@
 
                                 <div class="mt-3">
                                     <button @click="modalDetailProduk_{{ $produk->id }} = true"
-                                        class="bg-[#B9C240] text-white py-1 px-4 rounded-lg hover:bg-lime-800 transition duration-300">
+                                        class="bg-amber-500 text-white font-semibold hover:bg-white hover:text-amber-500 py-1 px-4 rounded-lg transition duration-500">
                                         Detail Produk
                                     </button>
 
@@ -42,7 +42,7 @@
 
         <div class="w-1/6 flex justify-end items-start">
             <a href="{{ route('keranjang.index') }}">
-                <button class="bg-[#B9C240] hover:bg-[#9da836] text-white font-semibold py-3 px-6 rounded-full transition duration-300">
+                <button class="bg-amber-500 hover:bg-white hover:text-amber-500 text-white font-semibold py-3 px-6 rounded-xl transition duration-500">
                     Keranjang
                 </button>
             </a>

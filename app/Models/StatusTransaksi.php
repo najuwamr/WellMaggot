@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class StatusTransaksi extends Model
 {
     use HasFactory;
-
     protected $table = "status_transaksi";
 
     protected $fillable =[

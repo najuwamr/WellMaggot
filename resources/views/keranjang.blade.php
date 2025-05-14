@@ -1,5 +1,6 @@
 <x-app-layout>
-    <div class="flex min-h-screen">
+    <div class="flex min-h-screen"
+         style="background-image: url('{{ asset('assets/keranjang_bg3.jpg') }}'); background-size: cover; background-position: center;">
         <main class="flex-1 p-6 md:p-10">
             <h1 class="text-3xl font-bold text-[#B9C240] mb-6 flex items-center gap-2">
                 Keranjang <i data-feather="shopping-cart"></i>
@@ -51,7 +52,7 @@
                     @endforelse
                 </div>
 
-                <div class="w-full lg:w-1/3 bg-white p-4 rounded-xl shadow space-y-4">
+                <div class="w-full lg:w-1/3 bg-white bg-opacity-90 p-4 rounded-xl shadow space-y-4">
                     <h3 class="text-lg font-bold text-[#B9C240]">Ringkasan belanja</h3>
 
                     <div class="flex justify-between font-bold text-gray-800">

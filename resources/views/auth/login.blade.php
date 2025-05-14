@@ -1,21 +1,24 @@
 <x-guest-layout>
-    <div class="w-full md:w-2/5 p-10 relative flex justify-center items-start">
+    <div class="flex flex-row min-h-screen">
         <div>
-            <h1 class="tracking-widest md:text-4xl font-bold text-chartreuse">
-                Selamat Datang Di WellMaggot!
+            <h1 class=" mt-10 text-center md:text-4xl font-semibold text-amber-500">
+                Selamat Datang Di <span class="text-chartreuse font-bold">WellMaggot!</span>
             </h1>
-            <img src="{{ asset('storage/images/Reduce plastic bag campaign.png') }}" alt=""
-                class="md:absolute bottom-0 w-48 md:w-auto">
+            <img src="{{ asset('assets/login_ilus.jpg') }}" alt=""
+     class="mt-16 w-full h-auto max-w-md mx-auto">
+
+
         </div>
     </div>
 
-    <div class="w-full md:w-3/5 bg-chartreuse rounded-t-lg md:rounded-r-none md:rounded-l-lg p-10">
+    <div class="w-full md:w-3/5 bg-amber-500 rounded-t-lg md:rounded-r-none md:rounded-l-lg p-10">
         <ul class="flex items-center justify-between">
-            <li class="text-white font-semibold">Beranda</li>
+            <a href="{{ route('beranda') }}" class="text-white cursor-pointer font-light hover:bg-amber-500 rounded-xl hover:white hover:font-bold duration-500 px-4 py-2">
+                Beranda  </a>
             <div class="flex items-center space-x-4">
-              <li class="text-white font-semibold">Login</li>
+              <li class="shadow-lg rounded-lg px-4 py-2 text-white font-semibold">Login</li>
                 <li>
-                    <a href="{{ route('register') }}" class="bg-white text-chartreuse cursor-pointer font-bold px-4 py-2 rounded-lg">
+                    <a href="{{ route('register') }}" class="bg-white text-chartreuse cursor-pointer hover:bg-amber-500 hover:text-white hover:font-extrabold shadow-xl duration-500 px-4 py-2 rounded-lg">
                         Daftar
                     </a>
                 </li>
