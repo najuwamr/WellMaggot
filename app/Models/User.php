@@ -22,6 +22,7 @@ class User extends Authenticatable
         'email',
         'password',
         'nomor_hp',
+        'point',
         'role_id',
         // 'alamat_id',
     ];
@@ -50,9 +51,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(DetailAlamat::class);
     }
-    
+
     public function role()
     {
         return $this->belongsTo(Role::class);
+    }
+
+    public function point()
+    {
+        return $this->hasMany(Point::class);
     }
 }

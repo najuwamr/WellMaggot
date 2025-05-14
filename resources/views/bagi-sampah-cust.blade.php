@@ -11,10 +11,12 @@
                     @forelse ($penjadwalanList as $item)
                         <div class="bg-white p-4 rounded-xl shadow flex justify-between items-center">
                             <div class="space-y-1">
-                                <h2 class="font-bold text-[#B9C240] text-lg">{{ $item->tanggal }} - {{ $item->waktu }}</h2>
+                                <h2 class="font-bold text-[#B9C240] text-lg">{{ $item->jadwalAdmin->tanggal }}</h2>
                                 <p class="text-sm text-gray-600">Berat: {{ $item->total_berat }} kg</p>
-                                <p class="text-sm text-gray-600">Metode: {{ $item->metodePengambilan->nama }}</p>
-                                <p class="text-sm text-gray-600">Alamat: {{ $item->detailAlamat->jalan }}, {{ $item->detailAlamat->kecamatan }}</p>
+                                <p class="text-sm text-gray-600">Metode: {{ $item->metodePengambilan->metode }}</p>
+                                <p class="text-sm text-gray-600">
+                                    Alamat: {{ $item->detailAlamat->alamat->jalan ?? '-' }}, {{ $item->detailAlamat->alamat->kecamatan->nama ?? '-' }}
+                                </p>
                             </div>
                             <img src="{{ $item->gambar }}" alt="Gambar" class="w-20 h-20 rounded object-cover">
                         </div>
@@ -33,7 +35,7 @@
                         @csrf
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Tanggal</label>
-                            <select name="metode_pengambilan_id" class="mt-1 w-full border rounded-lg p-2">
+                            <select name="jadwal_admin_id" class="mt-1 w-full border rounded-lg p-2">
                                 @foreach ($jadwalAdminList as $jadwal)
                                     <option value="{{ $jadwal->id }}">{{ $jadwal->tanggal }}</option>
                                 @endforeach
@@ -49,27 +51,29 @@
                         </div>--}}
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Total Berat (,00 kg)</label>
-                            <input type="number" name="total_berat" min="0.01" max="100" step="0.01" class="mt-1 w-full border rounded-lg p-2">
+                            <input type="number" name="total_berat" id="total_berat" min="0.01" max="100" step="0.01" class="mt-1 w-full border rounded-lg p-2">
                         </div>
 
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Metode Pengambilan</label>
-                            <select name="metode_pengambilan_id" class="mt-1 w-full border rounded-lg p-2">
+                            <select name="metode_pengambilan_id" id="metode_pengambilan_id" class="mt-1 w-full border rounded-lg p-2">
+                                <option value=""></option>
                                 @foreach ($metodeList as $metode)
-                                    <option value="{{ $metode->id }}">{{ $metode->metode }}</option>
+                                    <option value="{{ $metode->id }}" data-metode="{{ strtolower($metode->metode) }}">{{ $metode->metode }}</option>
                                 @endforeach
                             </select>
+
                         </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">Pilih Alamat</label>
-                            {{-- <select name="detail_alamat_id" class="mt-1 w-full border rounded-lg p-2">
-                                @foreach ($alamatList as $alamat)
-                                    <option value="{{ $alamat->id }}">{{ $alamat->jalan }} - {{ $alamat->kecamatan }}</option>
+                        <div class="mt-6 mb-4">
+                            <label for="detail_alamat_id" class="block font-semibold text-gray-700 mb-2">Pilih Alamat</label>
+                            <select name="detail_alamat_id" id="detail_alamat_id" required
+                                class="w-full p-2 border border-gray-300 rounded-md">
+                                @foreach ($alamatList as $detail)
+                                    <option value="{{ $detail->id }}">
+                                        {{ $detail->detail_alamat }} {{ $detail->alamat->jalan ?? '' }}
+                                    </option>
                                 @endforeach
-                            </select> --}}
-                            {{-- <a href="{{ route('alamat.create') }}" class="text-blue-600 text-sm hover:underline mt-1 inline-block">
-                                Tambah Alamat Baru
-                            </a> --}}
+                            </select>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Gambar Sampah</label>
@@ -91,6 +95,7 @@
                             Kirim Pengajuan
                         </button>
                     </form>
+            <x-modal-alamat-bagisampah :kecamatanList="$kecamatanList" />
                 </div>
             </div>
         </main>
@@ -128,5 +133,33 @@
                 toggleModal(false);
             });
         }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const beratInput = document.getElementById('total_berat');
+            const metodeSelect = document.getElementById('metode_pengambilan_id');
+
+            beratInput.addEventListener('input', function () {
+                const berat = parseFloat(this.value) || 0;
+
+                // Tampilkan semua opsi dulu
+                Array.from(metodeSelect.options).forEach(option => {
+                    option.hidden = false;
+                });
+
+                if (berat < 5) {
+                    Array.from(metodeSelect.options).forEach(option => {
+                        if (option.dataset.metode === 'diambil') {
+                            option.hidden = true;
+
+                            // Jika opsi yang tersembunyi sedang dipilih, ganti ke yang lain
+                            if (metodeSelect.value == option.value) {
+                                metodeSelect.selectedIndex = 0;
+                            }
+                        }
+                    });
+                }
+            });
+        });
     </script>
 </x-app-layout>

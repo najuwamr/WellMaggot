@@ -4,6 +4,7 @@ use App\Http\Controllers\EdukasiController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KeranjangController;
 use App\Http\Controllers\LandingController;
+use App\Http\Controllers\PointController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SampahController;
@@ -44,12 +45,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/edukasi', [EdukasiController::class, 'index'])->name('edukasi.index');
+    Route::get('/edukasi', [PointController::class, 'index'])->name('edukasi.index');
     Route::get('/produk', [ProdukController::class, 'index'])->name('produk.index');
     Route::get('/bagi-sampah', [SampahController::class, 'index'])->name('bagi-sampah.index');
     Route::get('/jadwal-sampah', [SampahController::class, 'ambilSampah'])->name('ambil-sampah.index');
     // routes/web.php
     Route::post('/alamat-baru', [TransaksiController::class, 'alamatBaru'])->name('alamat.baru');
+    Route::post('/alamat-baru', [SampahController::class, 'alamatBaru'])->name('alamat.new');
 
     Route::get('/dashboardUser', [HomeController::class, 'dashboardUser'])->name('dashboardUser');
     Route::get('/keranjang', [KeranjangController::class, 'index'])->name('keranjang.index');
