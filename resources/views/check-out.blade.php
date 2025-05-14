@@ -32,7 +32,7 @@
                 </div>
 
                 <input type="hidden" name="total" value="{{ $totalHarga }}">
-                <button id="pay-button" class="bg-[#B9C240] text-white px-4 py-2 rounded-lg hover:bg-lime-800">
+                <button type="submit" class="bg-[#B9C240] text-white px-4 py-2 rounded-lg hover:bg-lime-800">
                     Pesan
                 </button>
             </form>
@@ -40,12 +40,14 @@
         </div>
     </div>
 
+    {{-- @if ($snapToken)
     <script type="text/javascript">
-        document.getElementById('pay-button').onclick = function () {
+        window.onload = function () {
             window.snap.pay('{{ $snapToken }}', {
                 onSuccess: function(result){
                     alert("Pembayaran berhasil!");
                     console.log(result);
+                    // redirect atau kirim data ke server jika perlu
                 },
                 onPending: function(result){
                     alert("Menunggu pembayaran!");
@@ -57,5 +59,6 @@
                 }
             });
         };
-    </script>
+    </script> --}}
+    {{-- @endif --}}
 </x-app-layout>

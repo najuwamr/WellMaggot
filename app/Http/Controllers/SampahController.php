@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\JadwalAdmin;
+use App\Models\MetodePengambilan;
 use App\Models\Penjadwalan;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class SampahController extends Controller
 {
@@ -16,9 +19,26 @@ class SampahController extends Controller
                 $query->where('user_id', $userId);
             })
             ->get();
+        $besok = Carbon::today()->addDay(); 
 
-        return view('bagi-sampah-cust', compact('penjadwalanList'));
+        $jadwalAdminList = JadwalAdmin::whereDate('tanggal', '>=', $besok)->get();
+        $metodeList = MetodePengambilan::all();
+
+        return view('bagi-sampah-cust', compact('penjadwalanList', 'metodeList', 'jadwalAdminList'));
     }
+
+    // public function ambilSampah()
+    // {
+    //     $userId = auth()->id();
+
+    //     $penjadwalanList = Penjadwalan::with(['metodePengambilan', 'detailAlamat'])
+    //         ->whereHas('detailAlamat', function ($query) use ($userId) {
+    //             $query->where('user_id', $userId);
+    //         })
+    //         ->get();
+
+    //     return view('bagi-sampah-admin', compact('penjadwalanList'));
+    // }
 
 
     public function store(Request $request)

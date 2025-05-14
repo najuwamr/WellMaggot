@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Alamat;
 use App\Models\DetailAlamat;
+use App\Models\DetTransaksi;
 use App\Models\Kecamatan;
 use App\Models\Keranjang;
 use App\Models\Transaksi;
@@ -77,6 +78,7 @@ class TransaksiController extends Controller
         $kecamatanList = Kecamatan::all();
 
         $snapToken = null; // <-- Tambahkan ini untuk mencegah error
+        $snapToken = session('snapToken'); // Ambil snapToken dari session, jika ada
 
         return view('check-out', compact('keranjangList', 'totalHarga', 'alamatList', 'kecamatanList', 'snapToken'));
     }
@@ -155,41 +157,64 @@ class TransaksiController extends Controller
     {
         $request->validate([
             'total' => 'required|numeric',
-            'detail_alamat_id' => 'required|exists:detail_alamat,id', // asumsi kamu pakai ID dari detail_alamat
+            'detail_alamat_id' => 'required|exists:detail_alamat,id',
         ]);
 
         $user = Auth::user();
+        $userId = $user->id;
 
-        // Generate order_id
+        $keranjangList = Keranjang::with('produk')->where('user_id', $userId)->get();
+
+        if ($keranjangList->isEmpty()) {
+            return back()->withErrors(['Keranjang kosong.']);
+        }
+
         $orderId = 'ORDER-' . uniqid();
 
-        // Simpan transaksi ke DB
         $transaksi = Transaksi::create([
             'total_pembayaran' => $request->total,
             'tanggal_transaksi' => now()->toDateString(),
-            'jenis_metode' => 'midtrans', // bisa kamu sesuaikan
+            'jenis_metode' => 'midtrans',
             'midtrans_order_id' => $orderId,
-            'status_transaksi_id' => 5, // misalnya 1 = "Pending" di tabel status_transaksi
+            'status_transaksi_id' => 5, // default "pending"
             'detail_alamat_id' => $request->detail_alamat_id,
         ]);
+
+        foreach ($keranjangList as $item) {
+            DetTransaksi::create([
+                'produk_id' => $item->produk->id,
+                'transaksi_id' => $transaksi->id,
+            ]);
+        }
+
+        $items = $keranjangList->map(function ($item) {
+            return [
+                'id' => $item->produk->id,
+                'price' => $item->produk->harga,
+                'quantity' => $item->jumlah_produk,
+                'name' => $item->produk->nama_produk,
+            ];
+        })->toArray();
+
+        $alamat = DetailAlamat::with('alamat')->find($request->detail_alamat_id);
 
         $params = [
             'transaction_details' => [
                 'order_id' => $orderId,
                 'gross_amount' => $request->total,
             ],
+            'item_details' => $items,
             'customer_details' => [
                 'first_name' => $user->name,
                 'email' => $user->email,
                 'shipping_address' => [
-                    'address' => $transaksi->detailAlamat->alamat->jalan ?? 'Tidak ada alamat',
+                    'address' => $alamat->detail_alamat . ', ' . ($alamat->alamat->jalan ?? 'Tanpa jalan'),
                 ],
             ],
         ];
 
-        // Ambil Snap Token
         $snapToken = Snap::getSnapToken($params);
 
-        return view('check-out', compact('snapToken'));
+        return redirect()->route('payment')->with('snapToken', $snapToken);
     }
 }

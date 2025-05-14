@@ -33,24 +33,33 @@
                         @csrf
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Tanggal</label>
+                            <select name="metode_pengambilan_id" class="mt-1 w-full border rounded-lg p-2">
+                                @foreach ($jadwalAdminList as $jadwal)
+                                    <option value="{{ $jadwal->id }}">{{ $jadwal->tanggal }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        {{-- <div>
+                            <label class="block text-sm font-medium text-gray-700">Tanggal</label>
                             <input type="date" name="tanggal" class="mt-1 w-full border rounded-lg p-2">
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Waktu</label>
                             <input type="time" name="waktu" class="mt-1 w-full border rounded-lg p-2">
-                        </div>
+                        </div>--}}
                         <div>
-                            <label class="block text-sm font-medium text-gray-700">Total Berat (kg)</label>
-                            <input type="number" name="total_berat" class="mt-1 w-full border rounded-lg p-2">
+                            <label class="block text-sm font-medium text-gray-700">Total Berat (,00 kg)</label>
+                            <input type="number" name="total_berat" min="0.01" max="100" step="0.01" class="mt-1 w-full border rounded-lg p-2">
                         </div>
-                        {{-- <div>
+
+                        <div>
                             <label class="block text-sm font-medium text-gray-700">Metode Pengambilan</label>
                             <select name="metode_pengambilan_id" class="mt-1 w-full border rounded-lg p-2">
                                 @foreach ($metodeList as $metode)
-                                    <option value="{{ $metode->id }}">{{ $metode->nama }}</option>
+                                    <option value="{{ $metode->id }}">{{ $metode->metode }}</option>
                                 @endforeach
                             </select>
-                        </div> --}}
+                        </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Pilih Alamat</label>
                             {{-- <select name="detail_alamat_id" class="mt-1 w-full border rounded-lg p-2">
@@ -64,7 +73,6 @@
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Gambar Sampah</label>
-
                             <!-- Tombol trigger modal -->
                             <button type="button"
                                     onclick="toggleModal(true)"
