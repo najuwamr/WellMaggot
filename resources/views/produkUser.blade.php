@@ -32,7 +32,7 @@
                                     Detail Produk
                                 </button>
 
-                                {{-- @include('components.modal-detail-produk', ['produk' => $produk]) --}}
+                                @include('components.modal-detail-produk', ['produk' => $produk])
                             </div>
                         </div>
                     </div>

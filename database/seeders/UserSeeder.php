@@ -28,6 +28,13 @@ class UserSeeder extends Seeder
                 'nomor_hp' => '089876543210',
                 'role_id' => '2',
             ],
+            [
+                'name' => 'Ken',
+                'email' => 'Kenuser@test.com',
+                'password' => Hash::make('kenpassword'),
+                'nomor_hp' => '089876543210',
+                'role_id' => '2',
+            ],
 
         ];
 

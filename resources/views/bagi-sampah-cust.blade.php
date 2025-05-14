@@ -1,9 +1,8 @@
 <x-app-layout>
     <div class="flex min-h-screen">
-        <main class="flex-1 p-6 md:p-10">
-            <h1 class="text-3xl font-bold text-[#B9C240] mb-6 flex items-center gap-2">
-                Bagi Sampah <i data-feather="refresh-cw"></i>
-            </h1>
+        <main class="flex-1 p-6 md:p-10 bg-cover bg-center" style="background-image: url('{{ asset('assets/bagi-sampah.png') }}');">
+
+
 
             <div class="flex flex-col lg:flex-row gap-6">
                 {{-- Kiri: daftar penjadwalan --}}
@@ -19,15 +18,15 @@
                             <img src="{{ $item->gambar }}" alt="Gambar" class="w-20 h-20 rounded object-cover">
                         </div>
                     @empty
-                        <div class="text-gray-600">
+                        <div class="bg-white rounded-2xl shadow-2xl flex items-center justify-center px-2 w-full min-h-[500px] text-center text-gray-500">
                             Belum ada penjadwalan sampah yang diajukan.
                         </div>
                     @endforelse
                 </div>
 
                 {{-- Kanan: form ajukan sampah baru --}}
-                <div class="w-full lg:w-1/3 bg-white p-6 rounded-xl shadow space-y-4">
-                    <h3 class="text-lg font-bold text-[#B9C240]">Ajukan Sampah Baru</h3>
+                <div class="w-full lg:w-1/3 bg-white p-6 rounded-xl shadow-2xl space-y-4">
+                    <h3 class="text-lg font-semibold text-center text-black">Ajukan Sampah Baru</h3>
 
                     <form action="{{ route('bagi-sampah.store') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
                         @csrf
@@ -76,8 +75,8 @@
                             <!-- Tombol trigger modal -->
                             <button type="button"
                                     onclick="toggleModal(true)"
-                                    class="mt-1 w-full bg-gray-100 border rounded-lg p-2 hover:bg-gray-200 text-left">
-                                Ambil Gambar via Kamera
+                                    class="mt-1 w-full min-h-[200px] bg-gray-100 flex justify-center items-center gap-3 rounded-lg p-2 hover:bg-gray-200 text-left">
+                                Ambil Gambar<i data-feather="camera"></i>
                             </button>
 
                             <!-- Input hidden untuk simpan base64 -->
@@ -87,7 +86,7 @@
                             <div id="preview-container" class="mt-2"></div>
                         </div>
 
-                        <button type="submit" class="w-full bg-[#B9C240] text-white py-2 rounded-lg hover:bg-lime-800 font-semibold">
+                        <button type="submit" class="w-full bg-amber-500 text-white py-2 rounded-lg hover:bg-lime-500 hover:font-bold font-semibold duration-500">
                             Kirim Pengajuan
                         </button>
                     </form>

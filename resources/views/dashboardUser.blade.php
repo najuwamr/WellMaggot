@@ -1,45 +1,83 @@
 <x-app-layout>
     <div class="flex flex-col min-h-screen">
         <!-- Hero Section -->
-        <section class="bg-white w-full text-[#111B21] px-4 md:px-16 py-12 flex-1 flex rounded-fullitems-center">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 w-full">
-                <div class="space-y-6 flex flex-col justify-center">
-                    <h1 class="text-3xl md:text-5xl font-light leading-tight">
-                        Selamat Datang di
-                        <span class="text-amber-500 font-semibold">WellMaggot</span>
-                    </h1>
-                    <p class="text-base md:text-lg text-slate-400">
-                        WellMaggot adalah media web yang dirancang untuk mengelola pengajuan sampah organik dan distribusi maggot secara efisien.
-                    </p>
-                    <a href="{{ route('produk.index') }}"
-                       class="inline-block w-40 text-center bg-amber-500 text-white font-semibold px-6 py-3 rounded-lg shadow hover:bg-white hover:text-amber-500 hover:font-bold transition duration-500">
-                        Lihat Produk
-                    </a>
+        <section class="bg-white w-full text-slate-600 px-4 md:px-16 py-12 flex-1 flex rounded-fullitems-center">
+            <div class="grid grid-cols-1 md:grid-cols-2 items-center gap-10 w-full">
+                <div data-aos="fade-up">
+                    <div class="space-y-6 flex flex-col justify-center">
+                        <h1 class="text-3xl md:text-5xl font-semibold leading-tight">
+                            Selamat Datang di
+                            <span class="text-amber-500 font-semibold">WellMaggot</span>
+                        </h1>
+                        <p class="text-base md:text-lg text-slate-400">
+                            WellMaggot adalah media web yang dirancang untuk mengelola pengajuan sampah organik dan
+                            distribusi maggot secara efisien.
+                        </p>
+                        <a href="{{ route('produk.index') }}"
+                            class="inline-block w-40 text-center bg-amber-500 text-white font-semibold px-6 py-3 rounded-lg shadow-2xl hover:bg-white hover:text-amber-500 hover:font-bold transition duration-500">
+                            Lihat Produk
+                        </a>
+                    </div>
                 </div>
 
                 <div class="flex justify-center items-center">
-                    <img src="{{ asset('assets/lingkungan2.png') }}" alt=""
-                         class="transform scale-150 md:w-transform scale-20 lg:w-4/5 drop-shadow-lg" />
+                    <div data-aos="fade-right">
+                        <img src="{{ asset('assets/lingkungan2.png') }}" alt=""
+                            class="w-full max-w-md lg:max-w-lg object-contain mx-auto drop-shadow-md" />
+                    </div>
                 </div>
             </div>
         </section>
 
-        {{-- <section id="Halaman-Edukasi">
-            <div>
-                <div>
-                    <h1>Maggot</h1>
+        <section class="bg-white relative py-10">
+            <div data-aos="fade-up">
+                <div class="max-w-6xl mx-auto flex flex-col md:flex-row gap-8 px-4 md:items-center">
+                    <div class="md:w-1/2 flex items-start">
+                        <img src="{{ asset('assets/coin.jpg') }}" alt="Kandang"
+                            class="w-full max-w-md rounded-md" />
+                    </div>
+                    <div class="md:w-1/2 flex flex-col justify-center text-center mt-20">
+                        <h2 class="text-2xl md:text-3xl font-bold text-slate-300 leading-tight">TUKARKAN POIN<span
+                                class="text-slate-500"> BISA DAPAT </span>
+                            <span class="text-yellow-400">BERAS?</span>
+                        </h2>
+                        <p class="text-gray-400 mt-4 text-left leading-relaxed">Poin adalah alat tukar untuk kamu yang
+                            ingin mendapatkan benefit dari bagi sampah. Nah, kamu bisa pilih barang apa aja yang kamu
+                            mau, TAPI kalau ada ya! Kalau kepo barang apa aj bisa langsung checkidot!
+                        </p>
+                        <a href="{{ route('produk.index') }}"
+                            class="mt-3 w-[120px] text-left bg-yellow-300 text-yellow-500 font-semibold px-4 py-3 rounded-lg shadow hover:bg-white hover:text-amber-500 hover:font-bold transition duration-500">
+                            Tukar Poin!
+                        </a>
+                    </div>
+
                 </div>
-                <div>
+            </div>
+        </section>
+        <section class="bg-[#111B21] h-[1000px] relative py-10">
+            <div data-aos="fade-up">
+                <div class="max-w-6xl mx-auto flex flex-col md:flex-row gap-8 px-4 md:items-center">
+                    <div class="md:w-1/2 flex items-start">
+                        <img src="{{ asset('assets/calender3.png') }}" alt="Kandang"
+                            class="w-full max-w-md rounded-md" />
+                    </div>
+                    <div class="md:w-1/2 flex flex-col justify-center text-center mt-20">
+                        <h2 class="text-2xl md:text-3xl font-bold text-slate-300 leading-tight">TUKARKAN POIN<span
+                                class="text-white"> BISA DAPAT </span>
+                            <span class="text-yellow-400">BERAS?</span>
+                        </h2>
+                        <p class="text-white mt-4 text-left leading-relaxed">Poin adalah alat tukar untuk kamu yang
+                            ingin mendapatkan benefit dari bagi sampah. Nah, kamu bisa pilih barang apa aja yang kamu
+                            mau, TAPI kalau ada ya! Kalau kepo barang apa aj bisa langsung checkidot!
+                        </p>
+                        <a href="{{ route('produk.index') }}"
+                            class="mt-3 w-[120px] text-left bg-yellow-300 text-yellow-500 font-semibold px-4 py-3 rounded-lg shadow hover:bg-white hover:text-amber-500 hover:font-bold transition duration-500">
+                            Tukar Poin!
+                        </a>
+                    </div>
+
                 </div>
-
             </div>
-        </section> --}}
-
-
-        <footer class="bg-[#B9C240] text-white py-4 mb-0">
-            <div class="w-full px-4 text-center">
-                <p class="text-sm">&copy; 2025 WellMaggot. All Rights Reserved.</p>
-            </div>
-        </footer>
+        </section>
     </div>
 </x-app-layout>
