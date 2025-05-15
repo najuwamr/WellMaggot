@@ -33,11 +33,10 @@
             <div data-aos="fade-up">
                 <div class="max-w-6xl mx-auto flex flex-col md:flex-row gap-8 px-4 md:items-center">
                     <div class="md:w-1/2 flex items-start">
-                        <img src="{{ asset('assets/coin.jpg') }}" alt="Kandang"
-                            class="w-full max-w-md rounded-md" />
+                        <img src="{{ asset('assets/coin.jpg') }}" alt="Kandang" class="w-full max-w-md rounded-md" />
                     </div>
                     <div class="md:w-1/2 flex flex-col justify-center text-center mt-20">
-                        <h2 class="text-2xl md:text-3xl font-bold text-slate-300 leading-tight">TUKARKAN POIN<span
+                        <h2 class="text-2xl md:text-3xl font-bold text-slate-300 shadow-2xlleading-tight">TUKARKAN POIN<span
                                 class="text-slate-500"> BISA DAPAT </span>
                             <span class="text-yellow-400">BERAS?</span>
                         </h2>
@@ -54,26 +53,29 @@
                 </div>
             </div>
         </section>
-        <section class="bg-[#111B21] h-[1000px] relative py-10">
-            <div data-aos="fade-up">
-                <div class="max-w-6xl mx-auto flex flex-col md:flex-row gap-8 px-4 md:items-center">
-                    <div class="md:w-1/2 flex items-start">
-                        <img src="{{ asset('assets/calender3.png') }}" alt="Kandang"
-                            class="w-full max-w-md rounded-md" />
-                    </div>
-                    <div class="md:w-1/2 flex flex-col justify-center text-center mt-20">
-                        <h2 class="text-2xl md:text-3xl font-bold text-slate-300 leading-tight">TUKARKAN POIN<span
-                                class="text-white"> BISA DAPAT </span>
-                            <span class="text-yellow-400">BERAS?</span>
+
+        <section class="bg-[#111B21] min-h-screen flex items-center">
+            <div data-aos="fade-up" class="w-full">
+                <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-center gap-8 px-4">
+
+
+                    <div class="md:w-1/2 flex flex-col justify-center text-left">
+
+                        <h2 class="text-2xl md:text-3xl font-bold text-slate-100 leading-tight">ATUR JADWAL<span
+                                class="text-purple-300">, KITA JEMPUT </span>
+
                         </h2>
-                        <p class="text-white mt-4 text-left leading-relaxed">Poin adalah alat tukar untuk kamu yang
-                            ingin mendapatkan benefit dari bagi sampah. Nah, kamu bisa pilih barang apa aja yang kamu
-                            mau, TAPI kalau ada ya! Kalau kepo barang apa aj bisa langsung checkidot!
+                        <p class="text-white mt-4 text-left leading-relaxed">Jadi nanti waktu kamu ingin bagi sampah kamu ke kami, kamu gaperlu repot untuk jauh dateng ke tempat kami lho! Sampah kamu nanti kita yang jemput OK?
                         </p>
                         <a href="{{ route('produk.index') }}"
-                            class="mt-3 w-[120px] text-left bg-yellow-300 text-yellow-500 font-semibold px-4 py-3 rounded-lg shadow hover:bg-white hover:text-amber-500 hover:font-bold transition duration-500">
+                            class="mt-7 w-[120px] text-left bg-yellow-300 text-yellow-500 font-semibold px-4 py-3 rounded-lg shadow hover:bg-white hover:text-amber-500 hover:font-bold transition duration-500">
                             Tukar Poin!
                         </a>
+                    </div>
+
+                    <div class="md:w-1/2 flex">
+                        <img src="{{ asset('assets/calender3.png') }}" alt="Kandang"
+                            class="w-full max-w-md rounded-md" />
                     </div>
 
                 </div>

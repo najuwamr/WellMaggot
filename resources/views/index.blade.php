@@ -12,18 +12,18 @@
 </head>
 
 <body class="bg-[#fff4e8] text-gray-800">
-    <nav class="flex sticky items-center justify-between px-8 py-4 bg-white shadow-md top-0 left-0 right-0 z-50">
+    <nav class="flex sticky items-center justify-between px-8 py-6 bg-amber-500 shadow-md top-0 left-0 right-0 z-50">
         <div>
-            <a href="{{ route('beranda') }}" class="text-3xl font-bold italic text-[#B9C240]">WellMaggot</a>
+            <a href="{{ route('beranda') }}" class="text-xl bg-white px-2 py-3 rounded-full font-bold italic text-[#B9C240]">WellMaggot</a>
         </div>
-        <div class="space-x-6">
+        <div class="space-x-6 font-semibold">
 
             @auth
                 <a href="{{ route('dashboardUser') }}" class="text-[#B9C240] font-semibold hover:underline">Dashboard</a>
             @else
                 <a href="{{ route('login') }}"
-                    class="text-[#B9C240] px-4 py-1 hover:bg-amber-500 hover:text-white hover:font-bold duration-500 rounded-full">Login</a>
-                <a href="{{ route('register') }}" class="text-[#B9C240] px-4 py-2">Daftar</a>
+                    class="text-white px-4 py-1 hover:bg-white hover:text-amber-500 hover:font-bold duration-500 rounded-full">Login</a>
+                <a href="{{ route('register') }}" class="text-white px-4 py-1 hover:bg-white hover:text-amber-500 hover:font-bold duration-500 rounded-full">Daftar</a>
             @endauth
         </div>
     </nav>
@@ -39,7 +39,7 @@
         <!-- CONTENT -->
         <div class="relative z-10 flex flex-col md:flex-row items-center justify-between px-4 md:px-8">
             <div class="max-w-xl space-y-4 text-center md:text-left">
-                <h1 class="text-3xl md:text-4xl font-bold text-[#B9C240]">Build World <br />With Maggot</h1>
+                <h1 class="text-3xl md:text-4xl font-bold text-amber-500 shadow-2xl">Build World <br />With Maggot</h1>
                 <p class="text-sm md:text-base text-white italic">“Menyenangkan bila tempat tinggal yang kita huni hari
                     ini masih terjaga dengan baik hingga anak, cucu, dan generasi penerus kita. Untuk itu telah menjadi
                     tanggung jawab kita untuk menjaga lingkungan lebih baik dan jauh lebih baik lagi.”</p>
