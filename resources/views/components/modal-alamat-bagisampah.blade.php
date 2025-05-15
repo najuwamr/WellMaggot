@@ -1,7 +1,7 @@
 <div x-data="{ open: false }">
     <button type="button" @click="open = true"
-        class="text-sm text-lime-700 underline hover:text-lime-900 mb-4">
-        Atau tambah alamat baru
+        class="text-sm text-black underline hover:bg-amber-500 hover:text-white rounded-lg font-semibold duration-500 py-2 px-2 mb-4">
+        Tambah alamat baru?
     </button>
 
     <div x-show="open" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -33,9 +33,9 @@
 
                 <div class="mt-6 flex justify-end gap-2">
                     <button type="button" @click="open = false"
-                        class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">Batal</button>
+                        class="px-4 py-2 bg-red-500 text-white font-semibold rounded hover:bg-white hover:text-red-500 duration-500">Batal</button>
                     <button type="submit"
-                        class="px-4 py-2 bg-[#B9C240] text-white rounded hover:bg-lime-800">Simpan Alamat</button>
+                        class="px-4 py-2 bg-lime-500 text-white font-semibold rounded hover:bg-white hover:text-lime-500 duration-500">Simpan Alamat</button>
                 </div>
             </form>
         </div>
