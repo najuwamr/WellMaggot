@@ -11,7 +11,7 @@
                     @php
                         $navItems = [
                             ['label' => 'Dashboard', 'route' => 'dashboardUser'],
-                            ['label' => 'Edukasi', 'route' => 'edukasi.index', 'pattern' => 'edukasi.*'],
+                            ['label' => 'Poin', 'route' => 'point.index', 'pattern' => 'point.*'],
                             ['label' => 'Bagi Sampah', 'route' => 'bagi-sampah.index', 'pattern' => 'bagi-sampah.*'],
                             ['label' => 'Produk', 'route' => 'produk.index', 'pattern' => 'produk.*'],
                             ['label' => 'Transaksi', 'route' => 'transaksi.index', 'pattern' => 'transaksi.*'],

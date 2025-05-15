@@ -45,7 +45,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/edukasi', [PointController::class, 'index'])->name('edukasi.index');
+    Route::get('/point', [PointController::class, 'index'])->name('point.index');
     Route::get('/produk', [ProdukController::class, 'index'])->name('produk.index');
     Route::get('/bagi-sampah', [SampahController::class, 'index'])->name('bagi-sampah.index');
     Route::get('/jadwal-sampah', [SampahController::class, 'ambilSampah'])->name('ambil-sampah.index');
