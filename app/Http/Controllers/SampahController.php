@@ -85,7 +85,7 @@ class SampahController extends Controller
         return redirect()->back()->with('success', 'Pengajuan penjadwalan berhasil disimpan.');
     }
 
-    public function alamatBaru(Request $request)
+    public function alamatNew(Request $request)
     {
         $request->validate([
             'jalan' => 'required|string|max:255',

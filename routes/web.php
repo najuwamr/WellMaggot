@@ -50,8 +50,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/bagi-sampah', [SampahController::class, 'index'])->name('bagi-sampah.index');
     Route::get('/jadwal-sampah', [SampahController::class, 'ambilSampah'])->name('ambil-sampah.index');
     // routes/web.php
-    Route::post('/alamat-baru', [TransaksiController::class, 'alamatBaru'])->name('alamat.baru');
-    Route::post('/alamat-baru', [SampahController::class, 'alamatBaru'])->name('alamat.new');
+    Route::post('/check-out/alamat-baru', [TransaksiController::class, 'alamatBaru'])->name('alamat.baru');
+    Route::post('/bagi-sampah/alamat-baru', [SampahController::class, 'alamatNew'])->name('alamat.new');
 
     Route::get('/dashboardUser', [HomeController::class, 'dashboardUser'])->name('dashboardUser');
     Route::get('/keranjang', [KeranjangController::class, 'index'])->name('keranjang.index');
