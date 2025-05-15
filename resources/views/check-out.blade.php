@@ -25,6 +25,7 @@
                         Pengiriman</label>
                     <select name="alamat_id" id="alamat_id" required
                         class="w-full p-2 border border-gray-300 rounded-md">
+                        <option value=""></option>
                         @foreach ($alamatList as $detail)
                             <option value="{{ $detail->id }}">
                                 {{ $detail->detail_alamat }} {{ $detail->alamat->jalan ?? '' }}

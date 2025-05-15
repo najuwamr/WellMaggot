@@ -19,7 +19,7 @@ class SampahController extends Controller
         $userId = auth()->id();
 
         $penjadwalanList = Penjadwalan::with(['metodePengambilan', 'detailAlamat'])
-            ->whereHas('detailAlamat', function ($query) use ($userId) {
+        ->whereHas('detailAlamat', function ($query) use ($userId) {
                 $query->where('user_id', $userId);
             })
             ->get();
@@ -28,27 +28,20 @@ class SampahController extends Controller
         $jadwalAdminList = JadwalAdmin::whereDate('tanggal', '>=', $besok)->get();
         $metodeList = MetodePengambilan::all();
         $alamatList = DetailAlamat::with('alamat')
-            ->where('user_id', $userId)
-            ->get();
+        ->where('user_id', $userId)
+        ->get();
 
         $kecamatanList = Kecamatan::all();
 
-        return view('bagi-sampah-cust', compact('penjadwalanList', 'metodeList', 'jadwalAdminList', 'alamatList', 'kecamatanList'));
+        $user = auth()->user();
+        if ($user->role_id === 1) {
+            return view('bagi-sampah-admin', compact('jadwalAdminList'));
+        } else {
+            return view('bagi-sampah-cust', compact('penjadwalanList', 'metodeList', 'jadwalAdminList', 'alamatList', 'kecamatanList'));
+        }
+
+        // return view('bagi-sampah-cust', compact('penjadwalanList', 'metodeList', 'jadwalAdminList', 'alamatList', 'kecamatanList'));
     }
-
-    // public function ambilSampah()
-    // {
-    //     $userId = auth()->id();
-
-    //     $penjadwalanList = Penjadwalan::with(['metodePengambilan', 'detailAlamat'])
-    //         ->whereHas('detailAlamat', function ($query) use ($userId) {
-    //             $query->where('user_id', $userId);
-    //         })
-    //         ->get();
-
-    //     return view('bagi-sampah-admin', compact('penjadwalanList'));
-    // }
-
 
     public function store(Request $request)
     {
@@ -63,7 +56,6 @@ class SampahController extends Controller
             return redirect()->back()->withErrors(['metode_pengambilan_id' => 'Metode "Diantar" tidak tersedia untuk berat di bawah 5 kg.'])->withInput();
         }
 
-        // Proses base64 gambar
         $image = $request->gambar;
         $imageParts = explode(";base64,", $image);
         $imageType = explode("/", $imageParts[0])[1];
@@ -73,7 +65,6 @@ class SampahController extends Controller
         $path = public_path('storage/images/' . $imageName);
         file_put_contents($path, $imageBase64);
 
-        // Simpan data ke database
         Penjadwalan::create([
             'total_berat' => $request->total_berat,
             'gambar' => 'storage/images/' . $imageName,

@@ -52,8 +52,8 @@ class TransaksiController extends Controller
 
         $kecamatanList = Kecamatan::all();
 
-        $snapToken = null; // <-- Tambahkan ini untuk mencegah error
-        $snapToken = session('snapToken'); // Ambil snapToken dari session, jika ada
+        $snapToken = null;
+        $snapToken = session('snapToken');
 
         return view('check-out', compact('keranjangList', 'totalHarga', 'alamatList', 'kecamatanList', 'snapToken'));
     }
@@ -102,7 +102,7 @@ class TransaksiController extends Controller
             'tanggal_transaksi' => now()->toDateString(),
             'jenis_metode' => 'midtrans',
             'midtrans_order_id' => $orderId,
-            'status_transaksi_id' => 5,
+            'status_transaksi_id' => 4,
             'detail_alamat_id' => $request->detail_alamat_id,
         ]);
 
@@ -111,7 +111,13 @@ class TransaksiController extends Controller
                 'produk_id' => $item->produk->id,
                 'transaksi_id' => $transaksi->id,
             ]);
+
+            $produk = $item->produk;
+            $produk->stok -= $item->jumlah_produk;
+            $produk->save();
         }
+
+        Keranjang::where('user_id', $userId)->delete();
 
         $items = $keranjangList->map(function ($item) {
             return [
