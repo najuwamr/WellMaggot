@@ -25,9 +25,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-})->name('beranda');
+// Route::get('/', function () {
+//     return view('index');
+// })->name('beranda');
+
+
+Route::get('/', [HomeController::class, 'index'])->name('beranda');
+
 
 // Route::get('/get-kabupaten/{provinsi_id}', function ($provinsi_id) {
 //     return Kabupaten::where('provinsi_id', $provinsi_id)->get();

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Produk;
+
 
 class HomeController extends Controller
 {
@@ -13,6 +15,11 @@ class HomeController extends Controller
 
     public function index()
     {
-        return view ('index');
+        $produkList = Produk::all();
+        $produkListActive = Produk::where('stok', '>', 0)->get();
+        $user = auth()->user();
+
+        return view('index', compact('produkListActive'));
+
     }
 }

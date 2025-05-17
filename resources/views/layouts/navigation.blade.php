@@ -10,7 +10,7 @@
                 <div class="flex space-x-2 px-6 py-2">
                     @php
                         $navItems = [
-                            ['label' => 'Dashboard', 'route' => 'dashboardUser'],
+                            ['label' => 'Home', 'route' => 'dashboardUser'],
                             ['label' => 'Poin', 'route' => 'point.index', 'pattern' => 'point.*'],
                             ['label' => 'Bagi Sampah', 'route' => 'bagi-sampah.index', 'pattern' => 'bagi-sampah.*'],
                             ['label' => 'Produk', 'route' => 'produk.index', 'pattern' => 'produk.*'],
