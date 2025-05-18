@@ -71,58 +71,82 @@
             </div>
         </div>
 
-        <!-- Swiper Card Section -->
-        <div class="swiper mySwiper max-w-md mx-auto mt-10">
 
-            <div class="swiper-wrapper">
-                <!-- Slide 1 -->
-                <div
-                    class="swiper-slide w-full bg-white rounded-xl shadow-lg overflow-hidden flex flex-row items-center p-4 gap-4 h-48">
-                    <img src="{{ asset('assets/pemilik.png') }}" alt="Kasgot"
-                        class="rounded-lg object-cover w-1/2 h-full object-center" />
+    </section>
 
-                    <div class="flex flex-col justify-center w-1/2">
-                        <h3 class="text-lg font-semibold text-lime-500">Kasgot</h3>
-                        <p class="text-lime-500 font-bold text-lg">Rp. 20.000 <span class="text-sm font-normal">/
-                                kg</span></p>
+    <section class="bg-white text-slate-800 py-20 px-4 md:px-12">
+        <div class="flex flex-col md:flex-row items-start justify-between gap-10 max-w-7xl mx-auto px-6 py-20">
+            <!-- KIRI -->
+            <div class="md:w-1/2 text-slate-800 flex flex-col gap-6">
+                <div>
+                    <div data-aos="fade-up">
+                        <h2 class="text-5xl font-bold leading-tight mb-4">
+                            Jelajahi selengkapnya<br />
+                            tentang <span class="text-amber-500">Produk berkualitas kami</span>
+                        </h2>
+                        <p class="text-lg text-gray-300">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                            Commodi accusamus totam doloremque dicta sapiente vitae unde obcaecati, perspiciatis natus
+                            maxime!</p>
                     </div>
                 </div>
 
-
-                <!-- Slide 2 -->
-                <div
-                    class="swiper-slide w-full bg-white rounded-xl shadow-lg overflow-hidden flex flex-row items-center p-4 gap-4 h-48">
-                    <img src="{{ asset('assets/pemilik.png') }}" alt="Kasgot"
-                        class="rounded-lg object-cover w-1/2 h-full object-center" />
-
-                    <div class="flex flex-col justify-center w-1/2">
-                        <h3 class="text-lg font-semibold text-lime-500">Kasgot</h3>
-                        <p class="text-lime-500 font-bold text-lg">Rp. 20.000 <span class="text-sm font-normal">/
-                                kg</span></p>
-                    </div>
-                </div>
-
-
-                <!-- Slide 3 -->
-                <div
-                    class="swiper-slide w-full bg-white rounded-xl shadow-lg overflow-hidden flex flex-row items-center p-4 gap-4 h-48">
-                    <img src="{{ asset('assets/pemilik.png') }}" alt="Kasgot"
-                        class="rounded-lg object-cover w-1/2 h-full object-center" />
-
-                    <div class="flex flex-col justify-center w-1/2">
-                        <h3 class="text-lg font-semibold text-lime-500">Kasgot</h3>
-                        <p class="text-lime-500 font-bold text-lg">Rp. 20.000 <span class="text-sm font-normal">/
-                                kg</span></p>
-                    </div>
+                <!-- Tombol di bawah teks -->
+                <!-- Tombol navigasi DI BAWAH TEKS -->
+                <div class="flex gap-4 mt-4">
+                    <button id="custom-prev"
+                        class="border border-black text-black w-10 h-10 rounded-full flex items-center justify-center hover:bg-amber-500 hover:border-white hover:text-white duration-400 transition">
+                        &larr;
+                    </button>
+                    <button id="custom-next"
+                        class="border border-black text-black w-10 h-10 rounded-full flex items-center justify-center hover:bg-amber-500 hover:border-white hover:text-white duration-400 transition">
+                        &rarr;
+                    </button>
                 </div>
 
             </div>
-            <div
-                class="swiper-button-prev text-lime-400 hover:text-lime-600 transition absolute top-1/2 -translate-y-1/2 left-0 z-10 cursor-pointer">
+
+            <!-- KANAN -->
+            <div class="md:w-1/2 w-full">
+                <div class="swiper mySwiper w-full">
+                    <div class="swiper-wrapper">
+                        <!-- Slide 1 -->
+                        <div class="swiper-slide bg-amber-100 text-black rounded-2xl p-6 shadow-xl">
+                            <img src="{{ 'assets/maggot.jpg' }}" alt="Grup Privacy" class="rounded-xl mb-4" />
+                            <h4 class="font-semibold text-xl mb-2">Maggot</h4>
+                            <p class="text-gray-700 mb-2">
+                                Anda bisa memilih siapa yang bisa menambahkan Anda ke chat grup...
+                            </p>
+                            <a href="#" class="text-green-600 font-medium hover:underline">
+                                Coba Produk ↗
+                            </a>
+                        </div>
+
+                        <!-- Slide 2 -->
+                        <div class="swiper-slide bg-amber-100 text-black rounded-2xl p-6 shadow-xl">
+                            <img src="{{ 'assets/maggot.jpg' }}" alt="Grup Privacy" class="rounded-xl mb-4" />
+                            <h4 class="font-semibold text-xl mb-2">Kasgot</h4>
+                            <p class="text-gray-700 mb-2">
+                                Tentukan siapa yang bisa melihat tanda terbaca pesan kamu...
+                            </p>
+                            <a href="#" class="text-green-600 font-medium hover:underline">
+                                Coba Produk ↗
+                            </a>
+                        </div>
+                        <div class="swiper-slide bg-amber-100 text-black rounded-2xl p-6 shadow-xl">
+                            <img src="{{ 'assets/maggot.jpg' }}" alt="Grup Privacy" class="rounded-xl mb-4" />
+                            <h4 class="font-semibold text-xl mb-2">Bibit Maggot</h4>
+                            <p class="text-gray-700 mb-2">
+                                Tentukan siapa yang bisa melihat tanda terbaca pesan kamu...
+                            </p>
+                            <a href="#" class="text-green-600 font-medium hover:underline">
+                                Coba Produk ↗
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div
-                class="swiper-button-next text-lime-400 hover:text-lime-600 transition absolute top-1/2 -translate-y-1/2 right-0 z-10 cursor-pointer">
-            </div>
+        </div>
+
     </section>
 
     <!-- Footer -->
@@ -147,16 +171,20 @@
     <!-- Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
     <script>
-        const swiper = new Swiper(".mySwiper", {
+        const swiper = new Swiper(".swiper", {
             slidesPerView: 1,
-            spaceBetween: 16,
+            spaceBetween: 30,
             navigation: {
-                nextEl: ".swiper-button-next",
-                prevEl: ".swiper-button-prev",
+                nextEl: "#custom-next",
+                prevEl: "#custom-prev",
             },
             grabCursor: true,
+            effect: "slide",
         });
     </script>
+
+
+
 </body>
 
 </html>

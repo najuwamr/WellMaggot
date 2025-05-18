@@ -200,7 +200,7 @@
                             </p>
 
                             <!-- ⬇️ Button diletakkan tepat di bawah teks -->
-                            <a href="{{ route('produk.index') }}"
+                            <a href="{{ route('bagi-sampah.index') }}"
                                 class="mt-6 inline-block bg-lime-500 text-white px-5 py-2 font-semibold rounded hover:bg-amber-500 duration-500 hover:font-bold md:text-base">
                                 Coba sekarang!
                             </a>
