@@ -52,7 +52,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/point', [PointController::class, 'index'])->name('point.index');
     Route::get('/produk', [ProdukController::class, 'index'])->name('produk.index');
     Route::get('/bagi-sampah', [SampahController::class, 'index'])->name('bagi-sampah.index');
-    Route::get('/jadwal-sampah', [SampahController::class, 'ambilSampah'])->name('ambil-sampah.index');
+    Route::get('/jadwal-sampah', [SampahController::class, 'jadwalStore'])->name('ambil-sampah.index');
     // routes/web.php
     Route::post('/check-out/alamat-baru', [TransaksiController::class, 'alamatBaru'])->name('alamat.baru');
     Route::post('/bagi-sampah/alamat-baru', [SampahController::class, 'alamatNew'])->name('alamat.new');
@@ -69,6 +69,7 @@ Route::middleware('auth')->group(function () {
     Route::post('webcam', [WebcamController::class, 'store'])->name('webcam.capture');
 
     Route::post('bagi-sampah', [SampahController::class, 'store'])->name('bagi-sampah.store');
+    Route::post('jadwal-sampah', [SampahController::class, 'jadwalStore'])->name('jadwal-sampah.store');
     // Route::post('/penjemputan', [JadwalAdminContriller]);
 
     // Route::put('/produk-cancel-order', [EdukasiController::class, 'CancelOrder'])->name('produk.cancel');

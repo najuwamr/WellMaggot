@@ -1,9 +1,6 @@
 <x-app-layout>
     <div class="flex min-h-screen">
         <main class="flex-1 p-6 md:p-10 bg-cover bg-center" style=" background-image: url('{{ asset('assets/bagi-sampah.png') }}');">
-
-
-
             <div class="flex flex-col lg:flex-row gap-6">
                 {{-- Kiri: daftar penjadwalan --}}
                 <div class="flex-1 space-y-4">
@@ -69,7 +66,7 @@
                                 class="w-full p-2 border border-gray-300 rounded-md">
                                 @foreach ($alamatList as $detail)
                                     <option value="{{ $detail->id }}">
-                                        {{ $detail->detail_alamat }} {{ $detail->alamat->jalan ?? '' }}
+                                        {{ $detail->alamat->jalan ?? '-' }}, Kecamatan {{ $detail->alamat->kecamatan->nama ?? '-' }}
                                     </option>
                                 @endforeach
                             </select>

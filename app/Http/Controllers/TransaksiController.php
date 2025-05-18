@@ -28,12 +28,26 @@ class TransaksiController extends Controller
         $userId = Auth::id();
 
         $transaksiList = Transaksi::all();
-        // $transaksiList = Transaksi::with('detailTransaksi.produk', 'metodePengiriman', 'pembayaran')
-        //                     ->where('users_id', $userId)
-        //                     ->orderBy('created_at', 'desc')
-        //                     ->get();
+        $transaksiUserList = Transaksi::whereHas('detailAlamat', function ($query) {
+            $query->where('user_id', auth()->id());
+        })
+            ->with([
+                'detailAlamat.alamat.kecamatan',
+                'detailTransaksi.produk',
+                'status' // ini penting untuk memuat status
+            ])
+            ->orderBy('created_at', 'desc')
+            ->get();
 
-        return view('transaksi', compact('transaksiList'));
+        // dd($transaksiUserList->pluck('detailAlamat'));
+
+
+        $user = auth()->user();
+        if ($user->role_id === 1) {
+            return view('transaksi-admin', compact('transaksiList'));
+        } else {
+            return view('transaksi-user', compact('transaksiUserList',));
+        }
     }
 
 

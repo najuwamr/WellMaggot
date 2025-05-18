@@ -11,36 +11,66 @@ use App\Models\Penjadwalan;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class SampahController extends Controller
 {
     public function index()
     {
-        $userId = auth()->id();
-
-        $penjadwalanList = Penjadwalan::with(['metodePengambilan', 'detailAlamat'])
-        ->whereHas('detailAlamat', function ($query) use ($userId) {
-                $query->where('user_id', $userId);
-            })
-            ->get();
+        $user = auth()->user();
         $besok = Carbon::today()->addDay();
 
-        $jadwalAdminList = JadwalAdmin::whereDate('tanggal', '>=', $besok)->get();
-        $metodeList = MetodePengambilan::all();
-        $alamatList = DetailAlamat::with('alamat')
-        ->where('user_id', $userId)
-        ->get();
-
-        $kecamatanList = Kecamatan::all();
-
-        $user = auth()->user();
         if ($user->role_id === 1) {
-            return view('bagi-sampah-admin', compact('jadwalAdminList'));
+            // Ambil semua tanggal jadwal admin yang >= hari ini (termasuk hari ini)
+            $tanggalTerpakai = JadwalAdmin::pluck('tanggal')->toArray();
+            $penjadwalanAll = Penjadwalan ::whereDate('created_at', '>=', $besok)->get();
+
+            $jadwalDenganJumlah = JadwalAdmin::select('jadwal_admin.id', 'jadwal_admin.tanggal', DB::raw('COUNT(penjadwalan.id) as jumlah_pengambilan'))
+            ->leftJoin('penjadwalan', 'penjadwalan.jadwal_admin_id', '=', 'jadwal_admin.id')
+            ->whereDate('jadwal_admin.tanggal', '>=', Carbon::today())
+            ->groupBy('jadwal_admin.id', 'jadwal_admin.tanggal')
+            ->orderBy('jadwal_admin.tanggal')
+            ->get();
+
+
+            // Kirim ke view admin
+            return view('bagi-sampah-admin', compact('penjadwalanAll','tanggalTerpakai', 'jadwalDenganJumlah'));
         } else {
-            return view('bagi-sampah-cust', compact('penjadwalanList', 'metodeList', 'jadwalAdminList', 'alamatList', 'kecamatanList'));
+            // User biasa, kirim data seperti biasa
+            $userId = $user->id;
+
+            $penjadwalanList = Penjadwalan::with(['metodePengambilan', 'detailAlamat'])
+                ->whereHas('detailAlamat', fn($q) => $q->where('user_id', $userId))
+                ->get();
+
+            $metodeList = MetodePengambilan::all();
+            $alamatList = DetailAlamat::with('alamat.kecamatan')->where('user_id', $userId)->get();
+            $kecamatanList = Kecamatan::all();
+            $jadwalAdminList = JadwalAdmin::whereDate('tanggal', '>=', $besok)->get();
+
+            return view('bagi-sampah-cust', compact(
+                'penjadwalanList',
+                'metodeList',
+                'alamatList',
+                'kecamatanList',
+                'jadwalAdminList'
+            ));
+        }
+    }
+
+    public function jadwalStore(Request $request)
+    {
+        $request->validate([
+            'tanggal' => 'required|string'
+        ], ['tanggal.required' => 'Harap pilih minimal satu tanggal.']);
+
+        $tanggalDipilih = array_map('trim', explode(',', $request->tanggal));
+
+        foreach ($tanggalDipilih as $tanggal) {
+            JadwalAdmin::firstOrCreate(['tanggal' => $tanggal]);
         }
 
-        // return view('bagi-sampah-cust', compact('penjadwalanList', 'metodeList', 'jadwalAdminList', 'alamatList', 'kecamatanList'));
+        return redirect()->route('bagi-sampah.index')->with('success', 'Tanggal berhasil disimpan.');
     }
 
     public function store(Request $request)

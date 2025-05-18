@@ -9,6 +9,8 @@
     <title>@yield('title', config('app.name'))</title>
     <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ config('midtrans.client_key') }}">
     </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">

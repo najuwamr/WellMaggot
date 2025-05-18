@@ -8,7 +8,13 @@ class PointController extends Controller
 {
     public function index()
     {
-        return view('point');
+        $user = auth()->user();
+
+        if ($user->role_id === 1) {
+            return view('point-admin',);
+        } else {
+            return view('point-user',);
+        }
     }
 
 }
