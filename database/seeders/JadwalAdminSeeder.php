@@ -14,12 +14,12 @@ class JadwalAdminSeeder extends Seeder
     public function run(): void
     {
         DB::table('jadwal_admin')->insert([
-            ['tanggal' => '2025-05-10', 'created_at' => now(), 'updated_at' => now()],
-            ['tanggal' => '2025-05-11', 'created_at' => now(), 'updated_at' => now()],
-            ['tanggal' => '2025-05-12', 'created_at' => now(), 'updated_at' => now()],
-            ['tanggal' => '2025-05-13', 'created_at' => now(), 'updated_at' => now()],
-            ['tanggal' => '2025-05-14', 'created_at' => now(), 'updated_at' => now()],
-            ['tanggal' => '2025-05-15', 'created_at' => now(), 'updated_at' => now()],
+            ['tanggal' => '2025-05-23', 'created_at' => now(), 'updated_at' => now()],
+            ['tanggal' => '2025-05-24', 'created_at' => now(), 'updated_at' => now()],
+            ['tanggal' => '2025-05-25', 'created_at' => now(), 'updated_at' => now()],
+            ['tanggal' => '2025-06-01', 'created_at' => now(), 'updated_at' => now()],
+            ['tanggal' => '2025-06-02', 'created_at' => now(), 'updated_at' => now()],
+            ['tanggal' => '2025-06-03', 'created_at' => now(), 'updated_at' => now()],
         ]);
     }
 }

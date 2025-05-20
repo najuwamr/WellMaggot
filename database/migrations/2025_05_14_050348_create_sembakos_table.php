@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('sembakos', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            $table->string('poin_harga');
+            $table->integer('nilai_rupiah');
+            $table->string('gambar');
+            $table->integer('poin_harga');
             $table->timestamps();
         });
     }

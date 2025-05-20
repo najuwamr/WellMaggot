@@ -11,9 +11,15 @@ class UserSeeder extends Seeder
 {
     public function run(): void
     {
-        $alamat = Alamat::first();
-
         $userList = [
+            [
+                'name' => 'User Test',
+                'email' => 'user@test.com',
+                'password' => Hash::make('userpassword'),
+                'nomor_hp' => '089876543210',
+                'point' => 500,
+                'role_id' => '2',
+            ],
             [
                 'name' => 'Admin Test',
                 'email' => 'admin@test.com',
@@ -22,17 +28,11 @@ class UserSeeder extends Seeder
                 'role_id' => '1',
             ],
             [
-                'name' => 'User Test',
-                'email' => 'user@test.com',
-                'password' => Hash::make('userpassword'),
-                'nomor_hp' => '089876543210',
-                'role_id' => '2',
-            ],
-            [
                 'name' => 'Ken',
                 'email' => 'Kenuser@test.com',
                 'password' => Hash::make('kenpassword'),
                 'nomor_hp' => '089876543210',
+                'point' => 500,
                 'role_id' => '2',
             ],
 

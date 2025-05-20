@@ -25,5 +25,7 @@ class DatabaseSeeder extends Seeder
         $this->call(StatusTransaksiSeeder::class);
         $this->call(TransaksiSeeder::class);
         $this->call(DetailTransaksiSeeder::class);
+        $this->call(SembakoSeeder::class);
+        $this->call(PointSeeder::class);
     }
 }

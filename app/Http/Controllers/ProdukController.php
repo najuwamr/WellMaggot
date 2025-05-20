@@ -29,6 +29,8 @@ class ProdukController extends Controller
             'harga' => 'required|numeric|min:0',
             'stok' => 'required|integer|min:0',
             'gambar' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+        ],[
+            'nama_produk.required' => 'Nama produk harus diisi'
         ]);
 
         if ($request->hasFile('gambar')) {

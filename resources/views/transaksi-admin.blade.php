@@ -3,7 +3,7 @@
         <h1 class="text-2xl font-bold mb-4">Daftar Transaksi</h1>
 
         <div class="overflow-x-auto">
-            <table class="min-w-full bg-white border rounded shadow">
+            <table id="transaksiTable" class="min-w-full bg-white border rounded shadow">
                 <thead>
                     <tr class="bg-amber-500 text-white">
                         <th class="px-4 py-3 text-left">#</th>
@@ -21,12 +21,12 @@
                         <tr class="border-b hover:bg-gray-50">
                             <td class="px-4 py-2">{{ $index + 1 }}</td>
                             <td class="px-4 py-2">{{ $transaksi->midtrans_order_id ?? '-' }}</td>
-                            <td class="px-4 py-2">
-                                {{ \Carbon\Carbon::parse($transaksi->tanggal_transaksi)->format('d M Y') }}</td>
+                            <td class="px-4 py-2">{{ \Carbon\Carbon::parse($transaksi->tanggal_transaksi)->format('d M Y') }}</td>
                             <td class="px-4 py-2">Rp{{ number_format($transaksi->total_pembayaran, 0, ',', '.') }}</td>
                             <td class="px-4 py-2">{{ $transaksi->status->status ?? 'Tidak diketahui' }}</td>
                             <td class="px-4 py-2">
-                                {{ $transaksi->detailAlamat->alamat->jalan ?? '-' }}, {{ $transaksi->detailAlamat->alamat->kecamatan->nama ?? '-' }}
+                                {{ $transaksi->detailAlamat->alamat->jalan ?? '-' }},
+                                {{ $transaksi->detailAlamat->alamat->kecamatan->nama ?? '-' }}
                             </td>
                             <td class="px-4 py-2">
                                 <ul class="list-disc ml-4">
@@ -36,7 +36,6 @@
                                 </ul>
                             </td>
                             <td class="px-4 py-2">
-                                {{-- Tambahkan tombol aksi jika perlu --}}
                                 <a href="#" class="text-blue-600 hover:underline text-sm">Detail</a>
                             </td>
                         </tr>
