@@ -60,18 +60,16 @@
             <div class="w-full md:w-1/2 space-y-4">
                 <span
                     class="bg-yellow-400 text-black font-bold text-sm px-3 py-1 rounded-md inline-block w-fit">Mashudi</span>
-                <h3 class="text-2xl md:text-3xl font-extrabold text-white leading-tight">
+                <h3 class="md:text-5xl font-extrabold text-white leading-tight">
                     Bersama Kami, <span class="text-lime-200">Ciptakan Ekosistem </span>Lingkungan untuk
                     <span class="text-red-500">Indonesia</span> <span>Lebih Baik</span>
                 </h3>
-                <p class="text-sm md:text-base text-gray-500">
+                <p class="text-lg md:text-base text-gray-500">
                     Tujuan saya bukanlah semata mencari rupiah dari hasil penjualan. Namun saya juga ingin lingkungan
                     yang saya dan generasi penerus saya setidaknya tidak buruk untuk ditinggali...
                 </p>
             </div>
         </div>
-
-
     </section>
 
     <section class="bg-white text-slate-800 py-20 px-4 md:px-12">
@@ -110,7 +108,7 @@
                 <div class="swiper mySwiper w-full">
                     <div class="swiper-wrapper">
                         <!-- Slide 1 -->
-                        <div class="swiper-slide bg-amber-100 text-black rounded-2xl p-6 shadow-xl">
+                        <div class="swiper-slide bg-amber-100 text-black rounded-2xl p-6 shadow">
                             <img src="{{ 'assets/maggot.jpg' }}" alt="Grup Privacy" class="rounded-xl mb-4" />
                             <h4 class="font-semibold text-xl mb-2">Maggot</h4>
                             <p class="text-gray-700 mb-2">
@@ -146,8 +144,76 @@
                 </div>
             </div>
         </div>
-
     </section>
+    <div class="relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full z-10">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                <path fill="#ffffff" fill-opacity="1"
+                    d="M0,224L40,197.3C80,171,160,117,240,101.3C320,85,400,107,480,106.7C560,107,640,85,720,90.7C800,96,880,128,960,144C1040,160,1120,160,1200,144C1280,128,1360,96,1400,80L1440,64L1440,0L1400,0C1360,0,1280,0,1200,0C1120,0,1040,0,960,0C880,0,800,0,720,0C640,0,560,0,480,0C400,0,320,0,240,0C160,0,80,0,40,0L0,0Z">
+                </path>
+            </svg>
+        </div>
+
+        <!-- Gambar dengan cekungan di atas -->
+        <section class="relative min-h-screen bg-white overflow-hidden flex items-center justify-center px-4">
+            <!-- Background -->
+            <img src="{{ asset('assets/section_bagisampah.png') }}" alt="Background"
+                class="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none" />
+
+            <!-- Kontainer Grid -->
+            <div
+                class="relative z-10 max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-10 items-start bg-white/80 backdrop-blur-md rounded-xl shadow-lg p-8">
+
+                <!-- Bagian Teks -->
+                <div>
+                    <h2 class="text-3xl font-bold text-green-800 mb-4">Bagikan Sampahmu Sekarang</h2>
+                    <p class="text-gray-700 leading-relaxed">
+                        Isi formulir di samping untuk menjadwalkan pengambilan sampah dari rumahmu. Ayo bantu lingkungan
+                        jadi lebih bersih dan hijau! ♻️🌿
+                    </p>
+                </div>
+
+                <!-- Bagian Form -->
+                <div>
+                    <form action="#" method="POST" class="space-y-4">
+                        @csrf
+                        <div>
+                            <label for="alamat" class="block font-semibold mb-1 text-gray-700">Alamat
+                                Pengambilan</label>
+                            <textarea id="alamat" name="alamat" rows="3" class="w-full border border-gray-300 rounded-md p-2"></textarea>
+                        </div>
+
+                        <div>
+                            <label for="jenis" class="block font-semibold mb-1 text-gray-700">Jenis Sampah</label>
+                            <select id="jenis" name="jenis"
+                                class="w-full border border-gray-300 rounded-md p-2">
+                                <option>-- Pilih --</option>
+                            </select>
+                        </div>
+
+                        <button type="submit"
+                            class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 w-full">Kirim</button>
+                    </form>
+                </div>
+
+            </div>
+        </section>
+
+
+
+
+
+
+        <div class="absolute bottom-0 left-0 w-full z-11">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                <path fill="#ffffff" fill-opacity="1"
+                    d="M0,160L40,186.7C80,213,160,267,240,266.7C320,267,400,213,480,208C560,203,640,245,720,256C800,267,880,245,960,224C1040,203,1120,181,1200,197.3C1280,213,1360,267,1400,293.3L1440,320L1440,320L1400,320C1360,320,1280,320,1200,320C1120,320,1040,320,960,320C880,320,800,320,720,320C640,320,560,320,480,320C400,320,320,320,240,320C160,320,80,320,40,320L0,320Z">
+                </path>
+            </svg>
+        </div>
+    </div>
+
+
 
     <!-- Footer -->
     <footer class="bg-[#B9C240] text-white py-8">
