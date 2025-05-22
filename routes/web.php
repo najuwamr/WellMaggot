@@ -49,13 +49,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/point', [PointController::class, 'index'])->name('point.index');
     Route::get('/produk', [ProdukController::class, 'index'])->name('produk.index');
     Route::get('/bagi-sampah', [SampahController::class, 'index'])->name('bagi-sampah.index');
     Route::get('/jadwal-sampah', [SampahController::class, 'jadwalStore'])->name('ambil-sampah.index');
+    Route::post('/penjadwalan/setujui', [PointController::class, 'create'])->name('penjadwalan.setujui');
+    Route::get('/point', [PointController::class, 'index'])->name('point.index');
     // routes/web.php
     Route::post('/check-out/alamat-baru', [TransaksiController::class, 'alamatBaru'])->name('alamat.baru');
     Route::post('/bagi-sampah/alamat-baru', [SampahController::class, 'alamatNew'])->name('alamat.new');
+    Route::post('/penjadwalan/delete', [SampahController::class, 'delete'])->name('penjadwalan.delete');
 
     Route::get('/dashboardUser', [HomeController::class, 'dashboardUser'])->name('dashboardUser');
     Route::get('/keranjang', [KeranjangController::class, 'index'])->name('keranjang.index');

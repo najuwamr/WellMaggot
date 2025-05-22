@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('metode_pengambilan_id')->constrained('metode_pengambilan')->onDelete('cascade');
             $table->foreignId('detail_alamat_id')->constrained('detail_alamat')->onDelete('cascade');
             $table->foreignId('jadwal_admin_id')->constrained('jadwal_admin')->onDelete('cascade');
+            $table->boolean('status')->default(0); // 0 = unclaim, 1 = claimed
             $table->timestamps();
         });
     }

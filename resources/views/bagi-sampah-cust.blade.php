@@ -13,7 +13,7 @@
                                 <p class="text-sm text-gray-600">
                                     Alamat: {{ $item->detailAlamat->alamat->jalan ?? '-' }}, {{ $item->detailAlamat->alamat->kecamatan->nama ?? '-' }}
                                 </p>
-                            </div>
+                                <button onclick="openModal('modalKonfirmasi', {{ $item->id }})" class="text-red-500 mt-2 underline">Batalkan</button>                            </div>
                             <img src="{{ $item->gambar }}" alt="Gambar" class="w-20 h-20 rounded object-cover">
                         </div>
                     @empty
@@ -21,6 +21,13 @@
                             Belum ada penjadwalan sampah yang diajukan.
                         </div>
                     @endforelse
+
+                    <x-modal-konfirmasi
+                        id="modalKonfirmasi"
+                        title="Batalkan Penjadwalan?"
+                        message="Apakah Anda yakin ingin membatalkan penjadwalan ini?"
+                        action="{{ route('penjadwalan.delete') }}"
+                    />
                 </div>
 
                 {{-- Kanan: form ajukan sampah baru --}}

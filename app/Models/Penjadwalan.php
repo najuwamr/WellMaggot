@@ -17,6 +17,7 @@ class Penjadwalan extends Model
         'metode_pengambilan_id',
         'detail_alamat_id',
         'jadwal_admin_id',
+        'status',
     ];
 
     public function metodePengambilan()

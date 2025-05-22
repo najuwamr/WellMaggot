@@ -24,6 +24,7 @@ class PenjadwalanSeeder extends Seeder
                 'metode_pengambilan_id' => $metodeIds[array_rand($metodeIds)],
                 'detail_alamat_id' => $alamatIds[array_rand($alamatIds)],
                 'jadwal_admin_id' => $jadwalIds[array_rand($jadwalIds)],
+                'status' => 0,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);

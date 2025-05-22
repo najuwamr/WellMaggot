@@ -23,7 +23,12 @@ class SampahController extends Controller
         if ($user->role_id === 1) {
             // Ambil semua tanggal jadwal admin yang >= hari ini (termasuk hari ini)
             $tanggalTerpakai = JadwalAdmin::pluck('tanggal')->toArray();
-            $penjadwalanAll = Penjadwalan ::whereDate('created_at', '>=', $besok)->get();
+            $penjadwalanAll = Penjadwalan::with([
+                'jadwalAdmin',
+                'metodePengambilan',
+                'detailAlamat.alamat.kecamatan'
+            ])
+            ->get();
 
             $jadwalDenganJumlah = JadwalAdmin::select('jadwal_admin.id', 'jadwal_admin.tanggal', DB::raw('COUNT(penjadwalan.id) as jumlah_pengambilan'))
             ->leftJoin('penjadwalan', 'penjadwalan.jadwal_admin_id', '=', 'jadwal_admin.id')
@@ -32,6 +37,7 @@ class SampahController extends Controller
             ->orderBy('jadwal_admin.tanggal')
             ->get();
 
+            // dd($penjadwalanAll->first());
 
             // Kirim ke view admin
             return view('bagi-sampah-admin', compact('penjadwalanAll','tanggalTerpakai', 'jadwalDenganJumlah'));
@@ -124,5 +130,17 @@ class SampahController extends Controller
         ]);
 
         return redirect()->route('bagi-sampah.index')->with('success', 'Alamat baru berhasil disimpan.');
+    }
+
+    public function delete(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|exists:penjadwalan,id',
+        ]);
+
+        $penjadwalan = Penjadwalan::findOrFail($request->id);
+        $penjadwalan->delete();
+
+        return redirect()->back()->with('success', 'Penjadwalan berhasil dibatalkan.');
     }
 }
