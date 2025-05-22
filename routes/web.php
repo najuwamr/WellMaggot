@@ -70,8 +70,8 @@ Route::middleware('auth')->group(function () {
     Route::get('webcam', [WebcamController::class, 'index']);
     Route::post('webcam', [WebcamController::class, 'store'])->name('webcam.capture');
 
-    Route::post('bagi-sampah', [SampahController::class, 'store'])->name('bagi-sampah.store');
-    Route::post('jadwal-sampah', [SampahController::class, 'jadwalStore'])->name('jadwal-sampah.store');
+    Route::post('/bagi-sampah', [SampahController::class, 'store'])->name('bagi-sampah.store');
+    Route::post('/jadwal-sampah', [SampahController::class, 'jadwalStore'])->name('jadwal-sampah.store');
     // Route::post('/penjemputan', [JadwalAdminContriller]);
 
     // Route::put('/produk-cancel-order', [EdukasiController::class, 'CancelOrder'])->name('produk.cancel');
