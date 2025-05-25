@@ -54,8 +54,9 @@
 
 </head>
 
-<body class="font-roboto antialiased">
-    <div class="min-h-screen bg-gray-100">
+<body class="font-roboto antialiased" style="background-image: url('{{ asset('assets/produk.png') }}'); opacity-60; background-size: cover; background-repeat: no-repeat; background-position: center;">
+
+    <div class="min-h-screen">
         @include('layouts.navigation')
 
         <!-- Page Heading -->

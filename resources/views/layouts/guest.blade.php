@@ -7,8 +7,7 @@
     <link rel="icon" href="{{ asset('storage/images/WellMaggot.png') }}" type="image/png">
     <title>{{ config('app.name', 'WellMaggot') }}</title>
 
-    <!-- Styles -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    @vite('resources/css/app.css')
     <style type="text/tailwindcss">
         @layer utilities {
           .bg-chartreuse { background-color: #B9C240; }
@@ -17,7 +16,8 @@
         }
     </style>
 </head>
-<body class="h-screen flex flex-wrap font-roboto">
+
+<body class="flex font-roboto">
     {{ $slot }}
 </body>
 </html>
