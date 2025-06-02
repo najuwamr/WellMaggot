@@ -30,7 +30,7 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="relative overflow-hidden py-12 md:py-20">
+    <section class="relative overflow-hidden py-12 md:py-20 ">
         <video autoplay muted loop playsinline class="absolute top-0 left-0 w-full h-full object-cover z-0 opacity-100">
             <source src="{{ asset('assets/index_bg.mp4') }}" type="video/mp4">
             Your browser does not support the video tag.
@@ -51,37 +51,38 @@
     </section>
 
     <!-- Section Pemilik -->
-    <section class="bg-[#111B21] text-white py-20 px-4 md:px-12">
-  <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-10">
-    <!-- Gambar -->
-    <div class="w-full md:w-1/2 flex justify-center relative">
-      <img src="{{ asset('assets/pakhudi.jpeg') }}" alt="pemilik"
-           class="w-[80%] md:w-full h-auto rounded-md object-cover" />
-      <div class="absolute bottom-[-10px] left-[-10px] w-6 h-6 bg-yellow-400 rounded-full"></div>
-    </div>
+    <section class="bg-[#111B21] text-white py-20 px-4 md:px-12 ">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-10">
+            <!-- Gambar -->
+            <div class="w-full md:w-1/2 flex justify-center relative">
+                <img src="{{ asset('assets/pakhudi.jpeg') }}" alt="pemilik"
+                    class="w-[80%] md:w-full h-auto rounded-md object-cover" />
+                <div class="absolute bottom-[-10px] left-[-10px] w-6 h-6 bg-yellow-400 rounded-full"></div>
+            </div>
 
-    <!-- Teks -->
-    <div class="w-full md:w-1/2 space-y-4 text-center md:text-left">
-      <span class="bg-yellow-400 text-black font-bold text-sm px-3 py-1 rounded-md inline-block w-fit">Mashudi</span>
-      <h3 class="text-3xl md:text-5xl font-extrabold leading-tight">
-        Bersama Kami, <span class="text-lime-200">Ciptakan Ekosistem </span>Lingkungan untuk
-        <span class="text-red-500">Indonesia</span> <span class="text-white">Lebih Baik</span>
-      </h3>
-      <p class="text-base text-gray-500">
-        Tujuan saya bukanlah semata mencari rupiah dari hasil penjualan. Namun saya juga ingin lingkungan
-        yang saya dan generasi penerus saya setidaknya tidak buruk untuk ditinggali...
-      </p>
-    </div>
-  </div>
-</section>
+            <!-- Teks -->
+            <div class="w-full md:w-1/2 space-y-4 text-center md:text-left">
+                <span
+                    class="bg-yellow-400 text-black font-bold text-sm px-3 py-1 rounded-md inline-block w-fit section-1">Mashudi</span>
+                <h3 class="text-3xl md:text-5xl font-extrabold leading-tight">
+                    Bersama Kami, <span class="text-lime-200">Ciptakan Ekosistem </span>Lingkungan untuk
+                    <span class="text-red-500">Indonesia</span> <span class="text-white">Lebih Baik</span>
+                </h3>
+                <p class="text-base text-gray-500">
+                    Tujuan saya bukanlah semata mencari rupiah dari hasil penjualan. Namun saya juga ingin lingkungan
+                    yang saya dan generasi penerus saya setidaknya tidak buruk untuk ditinggali...
+                </p>
+            </div>
+        </div>
+    </section>
 
 
     <section class="bg-white text-slate-800 py-20 px-4 md:px-12">
         <div class="flex flex-col md:flex-row items-start justify-between gap-10 max-w-7xl mx-auto px-6 py-20">
             <!-- KIRI -->
-            <div class="md:w-1/2 text-slate-800 flex flex-col gap-6">
+            <div class="md:w-1/2 text-slate-800 flex flex-col gap-6 container">
                 <div>
-                    <div data-aos="fade-up">
+                    <div data-aos="fade-up split">
                         <h2 class="text-5xl font-bold leading-tight mb-4">
                             Jelajahi selengkapnya<br />
                             tentang <span class="text-amber-500">Produk berkualitas kami</span>
@@ -108,7 +109,7 @@
             </div>
 
             <!-- KANAN -->
-            <div class="md:w-1/2 w-full">
+            <div class="md:w-1/2 w-full card-produk">
                 <div class="swiper mySwiper w-full">
                     <div class="swiper-wrapper">
                         <!-- Slide 1 -->
@@ -237,6 +238,43 @@
             </div>
         </div>
     </footer>
+    <script src="https://unpkg.com/split-type"></script>
+
+    {{-- nyoba-gsap --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <script>
+        // Hero: Fade dan slide dari kiri
+
+
+        gsap.from(".section-1", {
+            y: -100,
+            opacity: 0,
+            delay: 0.3,
+            duration: 2,
+            ease: "bounce.out"
+        });
+        gsap.from(".card-produk", {
+            scrollTrigger: '.card-produk',
+            y: 400,
+            opacity: 1,
+            duration: 2.5,
+            ease: "circ.out"
+        });
+
+
+        gsap.from(".container", {
+            scrollTrigger: '.container',
+            y: -800,
+            opacity: 1,
+            duration: 2.5,
+            ease: "circ.out"
+        });
+
+
+
+    </script>
 
     <!-- Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
