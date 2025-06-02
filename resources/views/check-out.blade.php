@@ -1,6 +1,6 @@
-@section('title', 'Checkout')
+{{-- @section('title', 'Checkout') --}}
 <x-app-layout>
-    <div class="p-6">
+    <div class="p-6 bg-white rounded-md shadow-2xl">
         <h1 class="text-2xl font-bold text-[#B9C240] mb-4">Checkout</h1>
 
         <ul class="space-y-2">
@@ -43,6 +43,10 @@
             <x-modal-alamat-baru :kecamatanList="$kecamatanList" />
         </div>
     </div>
+    <div class="-mt-1">
+    <img src="{{ asset('assets/wave1.svg') }}" alt="Wave Transition" class="w-full" />
+</div>
+
 
     <script>
         document.getElementById('btn-bayar').addEventListener('click', function(e) {

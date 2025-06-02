@@ -52,25 +52,29 @@
 
     <!-- Section Pemilik -->
     <section class="bg-[#111B21] text-white py-20 px-4 md:px-12">
-        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-10">
-            <div class="relative w-full md:w-1/2">
-                <img src="{{ asset('assets/pemilik.png') }}" alt="pemilik" class="w-full rounded-md" />
-                <div class="absolute bottom-[-10px] left-[-10px] w-6 h-6 bg-yellow-400 rounded-full"></div>
-            </div>
-            <div class="w-full md:w-1/2 space-y-4">
-                <span
-                    class="bg-yellow-400 text-black font-bold text-sm px-3 py-1 rounded-md inline-block w-fit">Mashudi</span>
-                <h3 class="md:text-5xl font-extrabold text-white leading-tight">
-                    Bersama Kami, <span class="text-lime-200">Ciptakan Ekosistem </span>Lingkungan untuk
-                    <span class="text-red-500">Indonesia</span> <span>Lebih Baik</span>
-                </h3>
-                <p class="text-lg md:text-base text-gray-500">
-                    Tujuan saya bukanlah semata mencari rupiah dari hasil penjualan. Namun saya juga ingin lingkungan
-                    yang saya dan generasi penerus saya setidaknya tidak buruk untuk ditinggali...
-                </p>
-            </div>
-        </div>
-    </section>
+  <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-10">
+    <!-- Gambar -->
+    <div class="w-full md:w-1/2 flex justify-center relative">
+      <img src="{{ asset('assets/pakhudi.jpeg') }}" alt="pemilik"
+           class="w-[80%] md:w-full h-auto rounded-md object-cover" />
+      <div class="absolute bottom-[-10px] left-[-10px] w-6 h-6 bg-yellow-400 rounded-full"></div>
+    </div>
+
+    <!-- Teks -->
+    <div class="w-full md:w-1/2 space-y-4 text-center md:text-left">
+      <span class="bg-yellow-400 text-black font-bold text-sm px-3 py-1 rounded-md inline-block w-fit">Mashudi</span>
+      <h3 class="text-3xl md:text-5xl font-extrabold leading-tight">
+        Bersama Kami, <span class="text-lime-200">Ciptakan Ekosistem </span>Lingkungan untuk
+        <span class="text-red-500">Indonesia</span> <span class="text-white">Lebih Baik</span>
+      </h3>
+      <p class="text-base text-gray-500">
+        Tujuan saya bukanlah semata mencari rupiah dari hasil penjualan. Namun saya juga ingin lingkungan
+        yang saya dan generasi penerus saya setidaknya tidak buruk untuk ditinggali...
+      </p>
+    </div>
+  </div>
+</section>
+
 
     <section class="bg-white text-slate-800 py-20 px-4 md:px-12">
         <div class="flex flex-col md:flex-row items-start justify-between gap-10 max-w-7xl mx-auto px-6 py-20">
