@@ -12,7 +12,7 @@
                         $totalHarga = 0;
                     @endphp
 
-                    @forelse ($keranjangList as $item)
+                    @forelse ($keranjangGabungan as $item)
                         @php
                             $totalHarga += $item->produk->harga * $item->jumlah_produk;
                         @endphp
@@ -50,6 +50,7 @@
                     @empty
                         <p class="text-gray-600">Keranjang kamu masih kosong.</p>
                     @endforelse
+
                 </div>
 
                 <div class="w-full lg:w-1/3 bg-white bg-opacity-90 p-4 rounded-xl shadow space-y-4">

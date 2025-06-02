@@ -71,27 +71,6 @@
         <main>
             {{ $slot }}
         </main>
-
-        <script>
-            $(document).ready(function () {
-                $('#transaksiTable').DataTable({
-                    responsive: true,
-                    language: {
-                        search: "Cari:",
-                        lengthMenu: "Tampilkan _MENU_ entri",
-                        info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
-                        paginate: {
-                            first: "Pertama",
-                            last: "Terakhir",
-                            next: "Berikutnya",
-                            previous: "Sebelumnya"
-                        },
-                        emptyTable: "Tidak ada data tersedia"
-                    }
-                });
-            });
-        </script>
-
     </div>
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     <script>

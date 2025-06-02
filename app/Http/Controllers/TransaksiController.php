@@ -7,9 +7,11 @@ use App\Models\DetailAlamat;
 use App\Models\DetTransaksi;
 use App\Models\Kecamatan;
 use App\Models\Keranjang;
+use App\Models\StatusTransaksi;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Midtrans\Snap;
 use Midtrans\Config;
 
@@ -26,7 +28,7 @@ class TransaksiController extends Controller
     public function index()
     {
         $userId = Auth::id();
-
+        $statusList = StatusTransaksi::all();
         $transaksiList = Transaksi::all();
         $transaksiUserList = Transaksi::whereHas('detailAlamat', function ($query) {
             $query->where('user_id', auth()->id());
@@ -34,7 +36,7 @@ class TransaksiController extends Controller
             ->with([
                 'detailAlamat.alamat.kecamatan',
                 'detailTransaksi.produk',
-                'status' // ini penting untuk memuat status
+                'status'
             ])
             ->orderBy('created_at', 'desc')
             ->get();
@@ -44,7 +46,7 @@ class TransaksiController extends Controller
 
         $user = auth()->user();
         if ($user->role_id === 1) {
-            return view('transaksi-admin', compact('transaksiList'));
+            return view('transaksi-admin', compact('transaksiList', 'statusList'));
         } else {
             return view('transaksi-user', compact('transaksiUserList',));
         }
@@ -116,7 +118,7 @@ class TransaksiController extends Controller
             'tanggal_transaksi' => now()->toDateString(),
             'jenis_metode' => 'midtrans',
             'midtrans_order_id' => $orderId,
-            'status_transaksi_id' => 4,
+            'status_transaksi_id' => 5,
             'detail_alamat_id' => $request->detail_alamat_id,
         ]);
 
@@ -131,7 +133,7 @@ class TransaksiController extends Controller
             $produk->save();
         }
 
-        Keranjang::where('user_id', $userId)->delete();
+        // Keranjang::where('user_id', $userId)->delete();
 
         $items = $keranjangList->map(function ($item) {
             return [
@@ -162,5 +164,45 @@ class TransaksiController extends Controller
         $snapToken = Snap::getSnapToken($params);
 
         return response()->json(['snap_token' => $snapToken]);
+    }
+
+    public function detail($id)
+    {
+        $transaksi = Transaksi::with(['detailAlamat.alamat.kecamatan', 'detailTransaksi.produk', 'status'])
+            ->findOrFail($id);
+
+        return response()->json([
+            'midtrans_order_id' => $transaksi->midtrans_order_id ?? '-',
+            'tanggal' => \Carbon\Carbon::parse($transaksi->tanggal_transaksi)->format('d M Y'),
+            'total' => number_format($transaksi->total_pembayaran, 0, ',', '.'),
+            'status' => $transaksi->status->status ?? '-',
+            'alamat' => ($transaksi->detailAlamat->alamat->jalan ?? '-') . ', ' . ($transaksi->detailAlamat->alamat->kecamatan->nama ?? '-'),
+            'produk' => $transaksi->detailTransaksi->map(fn($d) => $d->produk->nama_produk ?? 'Produk tidak ditemukan'),
+        ]);
+    }
+
+    public function updateStatus(Request $request, $id)
+    {
+        $request->validate([
+            'status_id' => 'required|exists:status_transaksi,id',
+        ]);
+
+        $transaksi = Transaksi::findOrFail($id);
+        $transaksi->status_transaksi_id = $request->status_id;
+        $transaksi->save();
+
+        return redirect()->back()->with('success', 'Status transaksi berhasil diubah.');
+    }
+
+    public function callback(Request $request)
+    {
+        $serverKey = config('midtrans.server_key');
+        $hashed = hash("sha512", $request->order_id.$request->status_code.$request->gross_amount.$serverKey);
+        if($hashed == $request->signature_key){
+            if($request->transaction_status == 'capture'){
+                $transaksi = Transaksi::find($request->midtrans_order_id);
+                $transaksi -> update(['status' => 'Dibayar']);
+            }
+        }
     }
 }

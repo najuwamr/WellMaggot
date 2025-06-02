@@ -31,7 +31,6 @@ class Transaksi extends Model
         return $this->belongsTo(StatusTransaksi::class, 'status_transaksi_id');
     }
 
-
     public function detailTransaksi()
     {
         return $this->hasMany(DetTransaksi::class);

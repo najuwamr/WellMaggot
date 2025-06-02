@@ -31,13 +31,52 @@ class KeranjangController extends Controller
         return redirect()->back()->with('success', 'Produk ditambahkan ke keranjang!');
     }
 
-    public function index()
-    {
-        $userId = Auth::id();
-        $keranjangList = Keranjang::with('produk')->where('user_id', $userId)->get();
+public function index()
+{
+    $userId = Auth::id();
 
-        return view('keranjang', compact('keranjangList'));
+    // Keranjang dari transaksi gagal/ditunda
+    $keranjangList = Keranjang::with(['produk.detailTransaksi.transaksi.status' => function ($query) {
+        $query->whereIn('status', ['ditunda', 'gagal']);
+    }])
+    ->where('user_id', $userId)
+    ->whereHas('produk.detailTransaksi.transaksi.status', function ($query) {
+        $query->whereIn('status', ['ditunda', 'gagal']);
+    })
+    ->get();
+
+    // Keranjang yang belum masuk transaksi
+    $keranjangBaru = Keranjang::with('produk')
+        ->where('user_id', $userId)
+        ->whereDoesntHave('produk.detailTransaksi.transaksi.status', function ($query) {
+            $query->whereIn('status', ['ditunda', 'gagal']);
+        })
+        ->get();
+
+    // Gabungkan dan kelompokkan berdasarkan produk_id
+    $gabungan = collect();
+
+    foreach ($keranjangList->merge($keranjangBaru) as $item) {
+        $existing = $gabungan->firstWhere('produk_id', $item->produk_id);
+
+        if ($existing) {
+            $existing->jumlah_produk += $item->jumlah_produk;
+        } else {
+            $gabungan->push($item);
+        }
     }
+
+    // Hitung total harga
+    $totalHarga = $gabungan->sum(function ($item) {
+        return $item->produk->harga * $item->jumlah_produk;
+    });
+
+    return view('keranjang', [
+        'keranjangGabungan' => $gabungan,
+        'totalHarga' => $totalHarga,
+    ]);
+}
+
 
     public function tambahStok($keranjangId)
     {
@@ -68,18 +107,5 @@ class KeranjangController extends Controller
 
         return redirect()->back();
     }
-
-    // public function checkout()
-    // {
-    //     $userId = Auth::id();
-    //     $keranjangList = Keranjang::with('produk')->where('user_id', $userId)->get();
-
-    //     $totalHarga = 0;
-    //     foreach ($keranjangList as $item) {
-    //         $totalHarga += $item->produk->harga * $item->jumlah_produk;
-    //     }
-
-    //     return view('check-out', compact('keranjangList', 'totalHarga'));
-    // }
 
 }

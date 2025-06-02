@@ -7,7 +7,7 @@ use App\Http\Controllers\LandingController;
 use App\Http\Controllers\PointController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\SampahController;
+use App\Http\Controllers\BagiSampahController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\WebcamController;
 use App\Models\Kabupaten;
@@ -46,39 +46,40 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    // Home
+    Route::get('/dashboardUser', [HomeController::class, 'dashboardUser'])->name('dashboardUser');
+    // Profile
+    Route::get('/profil', [ProfileController::class, 'show'])->name('profile.show');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    // Produk - Keranjang
     Route::get('/produk', [ProdukController::class, 'index'])->name('produk.index');
-    Route::get('/bagi-sampah', [SampahController::class, 'index'])->name('bagi-sampah.index');
-    Route::get('/jadwal-sampah', [SampahController::class, 'jadwalStore'])->name('ambil-sampah.index');
-    Route::post('/penjadwalan/setujui', [PointController::class, 'create'])->name('penjadwalan.setujui');
-    Route::get('/point', [PointController::class, 'index'])->name('point.index');
-    // routes/web.php
-    Route::post('/check-out/alamat-baru', [TransaksiController::class, 'alamatBaru'])->name('alamat.baru');
-    Route::post('/bagi-sampah/alamat-baru', [SampahController::class, 'alamatNew'])->name('alamat.new');
-    Route::post('/penjadwalan/delete', [SampahController::class, 'delete'])->name('penjadwalan.delete');
-
-    Route::get('/dashboardUser', [HomeController::class, 'dashboardUser'])->name('dashboardUser');
+    Route::put('/produk/{id}', [ProdukController::class, 'update'])->name('produk.update');
+    Route::post('/produk/tambah', [ProdukController::class, 'store'])->name('produk.store');
     Route::get('/keranjang', [KeranjangController::class, 'index'])->name('keranjang.index');
     Route::post('/keranjang/tambah/{produkId}', [KeranjangController::class, 'tambahKeKeranjang'])->name('keranjang.tambah');
     Route::post('/keranjang/stok/tambah/{keranjangId}', [KeranjangController::class, 'tambahStok'])->name('keranjang.stok.tambah');
     Route::post('/keranjang/stok/kurang/{keranjangId}', [KeranjangController::class, 'kurangStok'])->name('keranjang.stok.kurang');
     Route::delete('/keranjang/hapus/{produkId}', [KeranjangController::class, 'hapus'])->name('keranjang.hapus');
-    // Route::post('/transaksi/checkout', [TransaksiController::class, 'checkout'])->name('transaksi.checkout');
+    // Check out - Transaksi
     Route::get('/checkout', [TransaksiController::class, 'checkout'])->name('checkout');
-    Route::get('webcam', [WebcamController::class, 'index']);
-    Route::post('webcam', [WebcamController::class, 'store'])->name('webcam.capture');
-
-    Route::post('bagi-sampah', [SampahController::class, 'store'])->name('bagi-sampah.store');
-    Route::post('jadwal-sampah', [SampahController::class, 'jadwalStore'])->name('jadwal-sampah.store');
-    // Route::post('/penjemputan', [JadwalAdminContriller]);
-
-    // Route::put('/produk-cancel-order', [EdukasiController::class, 'CancelOrder'])->name('produk.cancel');
+    Route::post('/check-out/alamat-baru', [TransaksiController::class, 'alamatBaru'])->name('alamat.baru');
     Route::post('/payment', [TransaksiController::class, 'createTransaction'])->name('payment');
-    Route::put('/produk/{id}', [ProdukController::class, 'update'])->name('produk.update');
-    Route::post('/produk/spaymenttore', [ProdukController::class, 'store'])->name('produk.store');
     Route::get('/transaksi', [TransaksiController::class, 'index'])->name('transaksi.index');
+    Route::get('/transaksi/{id}/detail', [TransaksiController::class, 'detail']);
+    Route::put('/transaksi/{id}/update-status', [TransaksiController::class, 'updateStatus'])->name('transaksi.updateStatus');
+    Route::post('/midtrans-callback', [TransaksiController::class, 'callback']);
+    // Bagi Sampah - Poin
+    Route::get('/bagi-sampah', [BagiSampahController::class, 'index'])->name('bagi-sampah.index');
+    Route::post('bagi-sampah', [BagiSampahController::class, 'store'])->name('bagi-sampah.store');
+    // Route::get('/bagi-sampah/jadwal-sampah', [BagiSampahController::class, 'jadwalStore'])->name('ambil-sampah.index');
+    Route::post('jadwal-sampah', [BagiSampahController::class, 'jadwalStore'])->name('jadwal-sampah.store');
+    Route::post('/bagi-sampah/alamat-baru', [BagiSampahController::class, 'alamatNew'])->name('alamat.new');
+    Route::post('/bagi-sampah/setujui', [PointController::class, 'create'])->name('penjadwalan.setujui');
+    Route::post('bagi-sampah/cancel', [BagiSampahController::class, 'delete'])->name('penjadwalan.delete');
+    Route::get('/point', [PointController::class, 'index'])->name('point.index');
+    Route::post('/point/tukar', [PointController::class, 'penukaran'])->name('penukaran.proses');
 });
 
 require __DIR__ . '/auth.php';

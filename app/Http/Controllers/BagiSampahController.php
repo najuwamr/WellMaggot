@@ -13,7 +13,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class SampahController extends Controller
+class BagiSampahController extends Controller
 {
     public function index()
     {
@@ -46,6 +46,7 @@ class SampahController extends Controller
             $userId = $user->id;
 
             $penjadwalanList = Penjadwalan::with(['metodePengambilan', 'detailAlamat'])
+                ->where('status', 0)
                 ->whereHas('detailAlamat', fn($q) => $q->where('user_id', $userId))
                 ->get();
 
@@ -88,9 +89,6 @@ class SampahController extends Controller
             'detail_alamat_id' => 'required|exists:detail_alamat,id',
             'jadwal_admin_id' => 'required|exists:jadwal_admin,id',
         ]);
-        if ($request->total_berat < 5 && $request->metode_pengambilan_id == 2) {
-            return redirect()->back()->withErrors(['metode_pengambilan_id' => 'Metode "Diantar" tidak tersedia untuk berat di bawah 5 kg.'])->withInput();
-        }
 
         $image = $request->gambar;
         $imageParts = explode(";base64,", $image);
