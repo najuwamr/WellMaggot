@@ -6,7 +6,7 @@
 
 <button {{ $disabled ? 'disabled' : '' }} {!! $attributes->merge([
     'type' => 'submit',
-    'class' => 'bg-chartreuse text-white py-2 px-6 rounded-lg hover:bg-lime-500 transition-all font-bold'
+    'class' => 'bg-lime-500 text-white py-2 px-6 rounded-lg hover:bg-white hover:text-amber-500 transition-all font-bold'
 ]) !!}>
     {{ $slot }}
 </button>
