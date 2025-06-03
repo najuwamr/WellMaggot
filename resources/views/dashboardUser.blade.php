@@ -58,7 +58,6 @@
             <div data-aos="fade-up" class="w-full">
                 <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-center gap-8 px-4">
 
-
                     <div class="md:w-1/2 flex flex-col justify-center text-left">
 
                         <h2 class="text-2xl md:text-3xl font-bold text-slate-100 leading-tight">ATUR JADWAL<span
@@ -82,7 +81,4 @@
             </div>
         </section>
     </div>
-
-
-
 </x-app-layout>
