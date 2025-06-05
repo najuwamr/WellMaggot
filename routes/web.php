@@ -53,6 +53,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::patch('/alamat/{id}', [ProfileController::class, 'updateAlamat'])->name('alamat.update');
+    Route::delete('/alamat/{id}', [ProfileController::class, 'destroyAlamat'])->name('alamat.destroy');
+
     // Produk - Keranjang
     Route::get('/produk', [ProdukController::class, 'index'])->name('produk.index');
     Route::put('/produk/{id}', [ProdukController::class, 'update'])->name('produk.update');

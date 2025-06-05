@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Alamat;
+use App\Models\DetailAlamat;
+use App\Models\Kecamatan;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,15 +20,25 @@ class ProfileController extends Controller
 
     public function show(): View
     {
+        $user = Auth::user();
+        $alamatList = DetailAlamat::with('alamat.kecamatan')->where('user_id', $user->id)->get();
+
         return view('profile.show', [
-            'user' => Auth::user(),
+            'user' => $user,
+            'alamatList' => $alamatList,
         ]);
     }
 
     public function edit(Request $request): View
     {
+        $user = $request->user();
+        $alamatList = DetailAlamat::with('alamat.kecamatan')->where('user_id', $user->id)->get();
+        $kecamatanList = Kecamatan::all();
+
         return view('profile.edit', [
-            'user' => $request->user(),
+            'user' => $user,
+            'alamatList' => $alamatList,
+            'kecamatanList' => $kecamatanList,
         ]);
     }
 
@@ -43,6 +56,27 @@ class ProfileController extends Controller
         $request->user()->save();
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
+    }
+
+    public function updateAlamat(Request $request, $id)
+    {
+        $detail = DetailAlamat::findOrFail($id);
+        $alamat = $detail->alamat;
+
+        $alamat->update([
+            'jalan' => $request->input('jalan'),
+            'kecamatan_id' => $request->input('kecamatan_id'),
+        ]);
+
+        return redirect()->route('profile.edit')->with('status', 'Alamat diperbarui.');
+    }
+
+    public function destroyAlamat($id)
+    {
+        $detail = DetailAlamat::findOrFail($id);
+        $detail->delete();
+
+        return redirect()->route('profile.edit')->with('status', 'Alamat dihapus.');
     }
 
     /**
