@@ -22,10 +22,12 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
         $alamatList = DetailAlamat::with('alamat.kecamatan')->where('user_id', $user->id)->get();
+        $kecamatanList = Kecamatan::all();
 
         return view('profile.show', [
             'user' => $user,
             'alamatList' => $alamatList,
+            'kecamatanList' => $kecamatanList,
         ]);
     }
 
@@ -56,6 +58,26 @@ class ProfileController extends Controller
         $request->user()->save();
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
+    }
+
+    public function storeAlamat(Request $request)
+    {
+        $request->validate([
+            'jalan' => 'required|string|max:255',
+            'kecamatan_id' => 'required|exists:kecamatan,id',
+        ]);
+
+        $alamat = Alamat::create([
+            'jalan' => $request->jalan,
+            'kecamatan_id' => $request->kecamatan_id,
+        ]);
+
+        DetailAlamat::create([
+            'user_id' => Auth::id(),
+            'alamat_id' => $alamat->id,
+        ]);
+
+        return redirect()->route('profile.show')->with('status', 'Alamat berhasil ditambahkan.');
     }
 
     public function updateAlamat(Request $request, $id)

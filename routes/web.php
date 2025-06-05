@@ -55,6 +55,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::patch('/alamat/{id}', [ProfileController::class, 'updateAlamat'])->name('alamat.update');
     Route::delete('/alamat/{id}', [ProfileController::class, 'destroyAlamat'])->name('alamat.destroy');
+    Route::post('/alamat', [ProfileController::class, 'storeAlamat'])->name('alamat.store');
 
     // Produk - Keranjang
     Route::get('/produk', [ProdukController::class, 'index'])->name('produk.index');
