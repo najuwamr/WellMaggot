@@ -73,7 +73,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/payment', [TransaksiController::class, 'createTransaction'])->name('payment');
     Route::get('/transaksi', [TransaksiController::class, 'index'])->name('transaksi.index');
     Route::get('/transaksi/{id}/detail', [TransaksiController::class, 'detail']);
+    Route::put('/transaksi/{id}/selesai', [TransaksiController::class, 'setSelesai'])->name('transaksi.selesai');
     Route::put('/transaksi/{id}/update-status', [TransaksiController::class, 'updateStatus'])->name('transaksi.updateStatus');
+    Route::put('/transaksi/{id}/unvalid-order', [TransaksiController::class, 'batalkanOrder'])->name('transaksi.batalkan');
     Route::post('/midtrans-callback', [TransaksiController::class, 'callback']);
     // Bagi Sampah - Poin
     Route::get('/bagi-sampah', [BagiSampahController::class, 'index'])->name('bagi-sampah.index');

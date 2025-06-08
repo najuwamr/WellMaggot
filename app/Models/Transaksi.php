@@ -16,6 +16,7 @@ class Transaksi extends Model
         'tanggal_transaksi',
         'jenis_metode',
         'midtrans_tr_id',
+        'catatan',
         'midtrans_order_id',
         'detail_alamat_id',
         'status_transaksi_id',

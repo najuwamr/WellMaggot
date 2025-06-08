@@ -16,6 +16,7 @@
                             <th class="px-6 py-4">Total</th>
                             <th class="px-6 py-4">Status</th>
                             <th class="px-6 py-4 text-center">Aksi</th>
+                            <th class="px-4 py-3 flex items-center">Catatan</th>
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-amber-100">
@@ -32,17 +33,44 @@
                                 <td class="px-6 py-4">
                                     <span
                                         class="inline-block px-3 py-1 rounded-full text-xs font-semibold
-                                    @if ($transaksi->status->status == 'Sukses') bg-green-100 text-green-700
-                                    @elseif($transaksi->status->status == 'Pending') bg-yellow-100 text-yellow-700
-                                    @else bg-gray-100 text-gray-600 @endif">
-                                        {{ $transaksi->status->status ?? '-' }}
+                                        @if($transaksi->status->status == 'selesai') bg-green-100 text-green-700
+                                        @elseif($transaksi->status->status == 'dikirim') bg-green-100 text-green-700
+                                        @elseif($transaksi->status->status == 'ditunda') bg-yellow-100 text-yellow-700
+                                        @elseif($transaksi->status->status == 'gagal') bg-red-100 text-red-700
+                                        @else bg-gray-100 text-gray-600 @endif">
+                                        {{ strtolower($transaksi->status->status ?? '-') }}
                                     </span>
                                 </td>
-                                <td class="px-6 py-4 text-center">
+                                <td class="px-6 py-4 text-center space-y-2">
+                                    {{-- Tombol Selesai --}}
+                                    @php $status = strtolower($transaksi->status->status ?? ''); @endphp
+                                    
+                                    <form action="{{ route('transaksi.selesai', $transaksi->id) }}" method="POST"
+                                        class="flex justify-center gap-2">
+                                        @csrf
+                                        @method('PUT')
+                                        <button type="submit"
+                                            @if ($status !== 'dikirim') disabled @endif
+                                            class="flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm font-medium transition
+                                                @if ($status === 'dikirim')
+                                                    bg-green-600 text-white hover:bg-green-700
+                                                @else
+                                                    bg-gray-200 text-gray-400 cursor-not-allowed
+                                                @endif">
+                                            <i data-feather="check" ></i>
+                                            <span class="text-sm">Selesai</span>
+                                        </button>
+                                    </form>
+
+                                    {{-- Tombol Lihat Detail --}}
                                     <button data-modal-target="modal-{{ $transaksi->id }}"
-                                        class="px-4 py-2 bg-amber-500 text-white rounded-lg hover:bg-amber-600 focus:ring-2 focus:ring-amber-400 transition">
+                                        class="px-3 py-1.5 bg-amber-500 text-white rounded-lg hover:bg-amber-600 focus:ring-2 focus:ring-amber-400 transition text-sm">
                                         Lihat Detail
                                     </button>
+                                </td>
+
+                                <td class="px-4 py-3 text-gray-600 whitespace-normal break-words max-w-xs">
+                                    {{ $transaksi->catatan ?? '-' }}
                                 </td>
                             </tr>
 

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('midtrans_tr_id')->nullable(); //id dari midtrans
             $table->string('jenis_metode');
             $table->timestamp('paid_at')->nullable();
+            $table->text('catatan')->nullable();
             $table->date('tanggal_transaksi');
             $table->foreignId('status_transaksi_id')->constrained('status_transaksi')->onDelete('cascade');
             $table->foreignId('detail_alamat_id')->constrained('detail_alamat')->onDelete('cascade');

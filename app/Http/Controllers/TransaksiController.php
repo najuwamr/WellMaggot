@@ -9,8 +9,10 @@ use App\Models\Kecamatan;
 use App\Models\Keranjang;
 use App\Models\StatusTransaksi;
 use App\Models\Transaksi;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Midtrans\Snap;
 use Midtrans\Config;
@@ -28,7 +30,7 @@ class TransaksiController extends Controller
     public function index()
     {
         $userId = Auth::id();
-        $statusList = StatusTransaksi::all();
+        $statusList = StatusTransaksi::whereIn('id', [2, 3])->get();
         $transaksiList = Transaksi::orderBy('created_at', 'desc')->get();
         $transaksiUserList = Transaksi::whereHas('detailAlamat', function ($query) {
             $query->where('user_id', auth()->id());
@@ -182,32 +184,72 @@ class TransaksiController extends Controller
         ]);
     }
 
-public function updateStatus(Request $request, $id)
-{
-    $request->validate([
-        'status_id' => 'required|exists:status_transaksi,id',
-    ]);
+    public function updateStatus(Request $request, $id)
+    {
+        $request->validate([
+            'status_id' => 'required|exists:status_transaksi,id',
+        ]);
 
-    $transaksi = Transaksi::with('detailTransaksi.produk')->findOrFail($id);
-    $transaksi->status_transaksi_id = $request->status_id;
-    $transaksi->save();
+        $transaksi = Transaksi::with('detailTransaksi.produk')->findOrFail($id);
+        $transaksi->status_transaksi_id = $request->status_id;
+        $transaksi->save();
 
-    // ID status yang akan mengosongkan jumlah_produk di keranjang
-    $targetStatusIds = [1, 2, 3]; // selesai, diproses, dikirim
+        $targetStatusIds = [1, 2, 3]; // selesai, diproses, dikirim
 
-    if (in_array($request->status_id, $targetStatusIds)) {
-        $userId = optional($transaksi->detailAlamat)->user_id;
+        if (in_array($request->status_id, $targetStatusIds)) {
+            $userId = optional($transaksi->detailAlamat)->user_id;
 
-        if ($userId) {
-            foreach ($transaksi->detailTransaksi as $detail) {
-                Keranjang::where('user_id', $userId)
-                    ->where('produk_id', $detail->produk_id)
-                    ->update(['jumlah_produk' => 0]);
+            if ($userId) {
+                foreach ($transaksi->detailTransaksi as $detail) {
+                    Keranjang::where('user_id', $userId)
+                        ->where('produk_id', $detail->produk_id)
+                        ->update(['jumlah_produk' => 0]);
+                }
             }
+        }
+
+        return redirect()->back()->with('success', 'Status transaksi berhasil diubah.');
+    }
+
+    public function batalkanOrder(Request $request, $id)
+    {
+        $transaksi = Transaksi::findOrFail($id);
+
+        $batasWaktu = Carbon::parse($transaksi->created_at)->addMinutes(30);
+
+        if (now()->lessThan($batasWaktu)) {
+            return back()->with('error', 'Transaksi hanya bisa dibatalkan setelah 30 menit.');
+        }
+
+        if (strtolower($transaksi->status->status) !== 'ditunda') {
+            return back()->with('error', 'Transaksi hanya bisa dibatalkan jika masih berstatus ditunda.');
+        }
+
+        DB::beginTransaction();
+        try {
+            $transaksi->status_transaksi_id = 5;
+            $transaksi->catatan = $request->catatan;
+            $transaksi->save();
+
+            DB::commit();
+            return back()->with('success', 'Transaksi berhasil dibatalkan.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with('error', 'Gagal membatalkan transaksi: ' . $e->getMessage());
         }
     }
 
-    return redirect()->back()->with('success', 'Status transaksi berhasil diubah.');
-}
+    public function setSelesai($id)
+    {
+        $transaksi = Transaksi::findOrFail($id);
 
+        // Pastikan status saat ini adalah 'dikirim'
+        if (strtolower($transaksi->status->status) === 'dikirim') {
+            $transaksi->status_transaksi_id = 1;
+            $transaksi->save();
+            return redirect()->back()->with('success', 'Transaksi berhasil diselesaikan.');
+        }
+
+        return redirect()->back()->with('error', 'Transaksi tidak bisa diselesaikan.');
+    }
 }
