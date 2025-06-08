@@ -18,7 +18,6 @@ class PointController extends Controller
         $sembakoList = Sembako::all();
 
         if ($user->role_id === 1) {
-            $sembakoList = Point::all();
             return view('point-admin',compact('sembakoList'));
         } else {
             $totalPoint = $user->point;

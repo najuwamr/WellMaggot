@@ -31,12 +31,12 @@
                     <div class="p-4 text-center">
                         <h3 class="text-lg font-semibold text-white mb-2">{{ $sembako->nama }}</h3>
                         <p class="text-md font-bold text-white">Poin: {{ $sembako->poin_harga }}</p>
-                        <p class="text-md font-bold text-white">Rp
-                            {{ number_format($sembako->nilai_rupiah, 0, ',', '.') }}</p>
-
                         <button @click="open = true"
                             class="mt-4 font-bold bg-white text-amber-700 px-4 py-2 rounded-lg hover:bg-amber-500 hover:text-white duration-300 transition">
-                            Tukar Sekarang 🛒
+                            <span class="flex items-center gap-2">
+                                Tukar Sekarang
+                                <i data-feather="shopping-bag"></i>
+                            </span>
                         </button>
                     </div>
 
