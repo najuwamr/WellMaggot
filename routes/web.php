@@ -8,6 +8,7 @@ use App\Http\Controllers\PointController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BagiSampahController;
+use App\Http\Controllers\SembakoController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\WebcamController;
 use App\Models\Kabupaten;
@@ -47,7 +48,7 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
     // Home
-    Route::get('/dashboardUser', [HomeController::class, 'dashboardUser'])->name('dashboardUser');
+    Route::get('/dashboard', [HomeController::class, 'showDashboard'])->name('dashboard.show');
     // Profile
     Route::get('/profil', [ProfileController::class, 'show'])->name('profile.show');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -65,7 +66,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/keranjang/tambah/{produkId}', [KeranjangController::class, 'tambahKeKeranjang'])->name('keranjang.tambah');
     Route::post('/keranjang/stok/tambah/{keranjangId}', [KeranjangController::class, 'tambahStok'])->name('keranjang.stok.tambah');
     Route::post('/keranjang/stok/kurang/{keranjangId}', [KeranjangController::class, 'kurangStok'])->name('keranjang.stok.kurang');
-    Route::delete('/keranjang/hapus/{produkId}', [KeranjangController::class, 'hapus'])->name('keranjang.hapus');
+    Route::delete('/keranjang/hapus/{id}', [KeranjangController::class, 'hapus'])->name('keranjang.hapus');
     // Check out - Transaksi
     Route::get('/checkout', [TransaksiController::class, 'checkout'])->name('checkout');
     Route::post('/check-out/alamat-baru', [TransaksiController::class, 'alamatBaru'])->name('alamat.baru');
@@ -83,6 +84,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/bagi-sampah/setujui', [PointController::class, 'create'])->name('penjadwalan.setujui');
     Route::post('bagi-sampah/cancel', [BagiSampahController::class, 'delete'])->name('penjadwalan.delete');
     Route::get('/point', [PointController::class, 'index'])->name('point.index');
+    Route::put('/sembako/{sembako}', [SembakoController::class, 'update'])->name('sembako.update');
+    Route::post('/sembako', [SembakoController::class, 'store'])->name('sembako.store');
+    Route::get('/sembako/', [SembakoController::class, 'create'])->name('sembako.create');
     Route::post('/point/tukar', [PointController::class, 'penukaran'])->name('penukaran.proses');
 });
 

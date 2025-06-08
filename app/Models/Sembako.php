@@ -11,7 +11,9 @@ class Sembako extends Model
 
     protected $fillable =[
         'nama',
-        'poin_harga'
+        'nilai_rupiah',
+        'gambar',
+        'poin_harga',
     ];
 
     public function point()

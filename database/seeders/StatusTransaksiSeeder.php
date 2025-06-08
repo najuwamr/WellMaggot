@@ -13,7 +13,7 @@ class StatusTransaksiSeeder extends Seeder
      */
     public function run(): void
     {
-        $statuses = ['selesai', 'diproses', 'dikirim', 'dibayar', 'ditunda', 'gagal'];
+        $statuses = ['selesai', 'diproses', 'dikirim', 'ditunda', 'gagal'];
 
         foreach ($statuses as $status) {
             StatusTransaksi::create([

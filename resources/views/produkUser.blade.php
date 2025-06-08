@@ -1,13 +1,11 @@
 <x-app-layout>
     <div class="flex flex-col m-8 justify-center items-center">
-
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-
             @foreach ($produkListActive as $produk)
                 <div x-data="{ modalDetailProduk_{{ $produk->id }}: false }"
                     class="bg-white rounded-2xl shadow-md overflow-hidden w-full max-w-xs mx-auto">
 
-                    <img src="{{ asset('assets/' . $produk->gambar) }}" alt="{{ $produk->nama_produk }}"
+                    <img src="{{ asset('storage/images' . $produk->gambar) }}" alt="{{ $produk->nama_produk }}"
                         class="w-full h-40 object-cover" />
 
                     <div class="p-4 text-center">

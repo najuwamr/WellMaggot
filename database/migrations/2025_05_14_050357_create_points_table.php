@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('sembako_id')->constrained('sembakos')->onDelete('cascade');
+            $table->boolean('status')->default(0); // 0 = belum dikirim, 1 = dikirim
             $table->timestamps();
         });
     }

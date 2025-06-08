@@ -53,9 +53,9 @@
                 <div class="mb-4">
                     <label for="statusFilter" class="block text-sm font-medium text-gray-700">Filter Status:</label>
                     <select id="statusFilter" class="mt-1 block w-48 p-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500">
+                        <option value="">Semua</option>
                         <option value="Belum Diklaim">Belum Diklaim</option>
                         <option value="Sudah Diklaim">Sudah Diklaim</option>
-                        <option value="">Semua</option>
                     </select>
                 </div>
 

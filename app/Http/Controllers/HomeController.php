@@ -4,13 +4,25 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Produk;
-
+use App\Models\Transaksi;
+use App\Models\User;
 
 class HomeController extends Controller
 {
-    public function dashboardUser()
+    public function showDashboard()
     {
-        return view('dashboardUser');
+        $user = auth()->user();
+        if ($user->role_id === 1)
+        {
+            $totalTransaksi = Transaksi::sum('total_pembayaran');
+            $totalUser = User::where('role_id', 2)->count();
+            $totalOrder = Transaksi::count();
+            
+            return view('dashboard-admin', compact('totalTransaksi', 'totalUser', 'totalOrder'));
+        }else{
+            return view('dashboardUser');
+        }
+
     }
 
     public function index()

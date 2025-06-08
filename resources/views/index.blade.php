@@ -19,7 +19,7 @@
         </div>
         <div class="space-x-6 font-semibold">
             @auth
-                <a href="{{ route('dashboardUser') }}" class="text-[#B9C240] font-semibold hover:underline">Dashboard</a>
+                <a href="{{ route('dashboard.show') }}" class="text-[#B9C240] font-semibold hover:underline">Dashboard</a>
             @else
                 <a href="{{ route('login') }}"
                     class="text-white px-4 py-1 hover:bg-white hover:text-amber-500 hover:font-bold duration-500 rounded-full">Login</a>

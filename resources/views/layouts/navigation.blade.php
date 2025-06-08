@@ -12,8 +12,15 @@
                 <div class="flex space-x-2 px-6 py-2">
                     @php
                         $navItems = [
-                            ['label' => 'Home', 'route' => 'dashboardUser'],
-                            ['label' => 'Poin', 'route' => 'point.index', 'pattern' => 'point.*'],
+                            [
+                                'label' => Auth::check() && Auth::user()->role_id === 1 ? 'Dashboard' : 'Home',
+                                'route' => 'dashboard.show'
+                            ],
+                            [
+                                'label' => Auth::check() && Auth::user()->role_id === 1 ? 'Tukar Poin' : 'Tukar Poin',
+                                'route' => 'point.index',
+                                'pattern' => 'point.*'
+                            ],
                             ['label' => 'Bagi Sampah', 'route' => 'bagi-sampah.index', 'pattern' => 'bagi-sampah.*'],
                             ['label' => 'Produk', 'route' => 'produk.index', 'pattern' => 'produk.*'],
                             ['label' => 'Transaksi', 'route' => 'transaksi.index', 'pattern' => 'transaksi.*'],

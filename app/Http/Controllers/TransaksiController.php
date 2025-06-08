@@ -29,7 +29,7 @@ class TransaksiController extends Controller
     {
         $userId = Auth::id();
         $statusList = StatusTransaksi::all();
-        $transaksiList = Transaksi::all();
+        $transaksiList = Transaksi::orderBy('created_at', 'desc')->get();
         $transaksiUserList = Transaksi::whereHas('detailAlamat', function ($query) {
             $query->where('user_id', auth()->id());
         })
@@ -118,8 +118,9 @@ class TransaksiController extends Controller
             'tanggal_transaksi' => now()->toDateString(),
             'jenis_metode' => 'midtrans',
             'midtrans_order_id' => $orderId,
-            'status_transaksi_id' => 5,
+            'status_transaksi_id' => 4,
             'detail_alamat_id' => $request->detail_alamat_id,
+            'created_at' => now()
         ]);
 
         foreach ($keranjangList as $item) {
@@ -181,28 +182,32 @@ class TransaksiController extends Controller
         ]);
     }
 
-    public function updateStatus(Request $request, $id)
-    {
-        $request->validate([
-            'status_id' => 'required|exists:status_transaksi,id',
-        ]);
+public function updateStatus(Request $request, $id)
+{
+    $request->validate([
+        'status_id' => 'required|exists:status_transaksi,id',
+    ]);
 
-        $transaksi = Transaksi::findOrFail($id);
-        $transaksi->status_transaksi_id = $request->status_id;
-        $transaksi->save();
+    $transaksi = Transaksi::with('detailTransaksi.produk')->findOrFail($id);
+    $transaksi->status_transaksi_id = $request->status_id;
+    $transaksi->save();
 
-        return redirect()->back()->with('success', 'Status transaksi berhasil diubah.');
-    }
+    // ID status yang akan mengosongkan jumlah_produk di keranjang
+    $targetStatusIds = [1, 2, 3]; // selesai, diproses, dikirim
 
-    public function callback(Request $request)
-    {
-        $serverKey = config('midtrans.server_key');
-        $hashed = hash("sha512", $request->order_id.$request->status_code.$request->gross_amount.$serverKey);
-        if($hashed == $request->signature_key){
-            if($request->transaction_status == 'capture'){
-                $transaksi = Transaksi::find($request->midtrans_order_id);
-                $transaksi -> update(['status' => 'Dibayar']);
+    if (in_array($request->status_id, $targetStatusIds)) {
+        $userId = optional($transaksi->detailAlamat)->user_id;
+
+        if ($userId) {
+            foreach ($transaksi->detailTransaksi as $detail) {
+                Keranjang::where('user_id', $userId)
+                    ->where('produk_id', $detail->produk_id)
+                    ->update(['jumlah_produk' => 0]);
             }
         }
     }
+
+    return redirect()->back()->with('success', 'Status transaksi berhasil diubah.');
+}
+
 }

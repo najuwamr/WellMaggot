@@ -31,52 +31,53 @@ class KeranjangController extends Controller
         return redirect()->back()->with('success', 'Produk ditambahkan ke keranjang!');
     }
 
-public function index()
-{
-    $userId = Auth::id();
+    public function index()
+    {
+        $userId = Auth::id();
 
-    // Keranjang dari transaksi gagal/ditunda
-    $keranjangList = Keranjang::with(['produk.detailTransaksi.transaksi.status' => function ($query) {
-        $query->whereIn('status', ['ditunda', 'gagal']);
-    }])
-    ->where('user_id', $userId)
-    ->whereHas('produk.detailTransaksi.transaksi.status', function ($query) {
-        $query->whereIn('status', ['ditunda', 'gagal']);
-    })
-    ->get();
-
-    // Keranjang yang belum masuk transaksi
-    $keranjangBaru = Keranjang::with('produk')
+        // Keranjang dari transaksi gagal/ditunda
+        $keranjangList = Keranjang::with(['produk.detailTransaksi.transaksi.status' => function ($query) {
+            $query->whereIn('status', ['ditunda', 'gagal']);
+        }])
         ->where('user_id', $userId)
-        ->whereDoesntHave('produk.detailTransaksi.transaksi.status', function ($query) {
+        ->whereHas('produk.detailTransaksi.transaksi.status', function ($query) {
             $query->whereIn('status', ['ditunda', 'gagal']);
         })
         ->get();
 
-    // Gabungkan dan kelompokkan berdasarkan produk_id
-    $gabungan = collect();
+        // Keranjang yang belum masuk transaksi
+        $keranjangBaru = Keranjang::with('produk')
+            ->where('user_id', $userId)
+            ->whereDoesntHave('produk.detailTransaksi.transaksi.status', function ($query) {
+                $query->whereIn('status', ['ditunda', 'gagal']);
+            })
+            ->get();
 
-    foreach ($keranjangList->merge($keranjangBaru) as $item) {
-        $existing = $gabungan->firstWhere('produk_id', $item->produk_id);
+        // Gabungkan dan kelompokkan berdasarkan produk_id
+        $gabungan = collect();
 
-        if ($existing) {
-            $existing->jumlah_produk += $item->jumlah_produk;
-        } else {
-            $gabungan->push($item);
+        foreach ($keranjangList->merge($keranjangBaru) as $item) {
+            $existing = $gabungan->firstWhere('produk_id', $item->produk_id);
+
+            if ($existing) {
+                $existing->jumlah_produk += $item->jumlah_produk;
+            } else {
+                $gabungan->push($item);
+            }
         }
+
+        // Hitung total harga
+        $totalHarga = $gabungan->sum(function ($item) {
+            return $item->produk->harga * $item->jumlah_produk;
+        });
+
+        $gabungan = $gabungan->filter(fn($item) => $item->jumlah_produk > 0)->values();
+
+        return view('keranjang', [
+            'keranjangGabungan' => $gabungan,
+            'totalHarga' => $totalHarga,
+        ]);
     }
-
-    // Hitung total harga
-    $totalHarga = $gabungan->sum(function ($item) {
-        return $item->produk->harga * $item->jumlah_produk;
-    });
-
-    return view('keranjang', [
-        'keranjangGabungan' => $gabungan,
-        'totalHarga' => $totalHarga,
-    ]);
-}
-
 
     public function tambahStok($keranjangId)
     {
@@ -100,12 +101,13 @@ public function index()
         return redirect()->back();
     }
 
-    public function hapus($produkId)
+    public function hapus($id)
     {
         $userId = Auth::id();
-        Keranjang::where('user_id', $userId)->where('produk_id', $produkId)->delete();
+        Keranjang::where('id', $id)->where('user_id', $userId)->delete();
 
         return redirect()->back();
     }
+
 
 }

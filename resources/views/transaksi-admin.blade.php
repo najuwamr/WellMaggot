@@ -1,6 +1,6 @@
 <x-app-layout>
-    <div class="container mx-auto px-6 py-8">
-        <h1 class="text-4xl font-extrabold text-amber-600 mb-8 flex items-center gap-2">
+    <div class="container mx-auto mt-12 p-6 rounded-2xl shadow-lg border bg-amber-50 border-amber-300">
+        <h1 class="text-4xl font-extrabol text-amber-600 mb-8 flex items-center gap-2">
             <span class="text-3xl">📦</span> Daftar Transaksi
         </h1>
 
@@ -11,6 +11,7 @@
                         <th class="px-6 py-4">#</th>
                         <th class="px-6 py-4">Order ID</th>
                         <th class="px-6 py-4">Tanggal</th>
+                        <th class="px-2 py-4">Waktu</th>
                         <th class="px-6 py-4">Total</th>
                         <th class="px-6 py-4">Status</th>
                         <th class="px-6 py-4 text-center">Aksi</th>
@@ -22,6 +23,7 @@
                             <td class="px-6 py-4 font-semibold text-gray-700">{{ $index + 1 }}</td>
                             <td class="px-6 py-4 text-gray-800">{{ $transaksi->midtrans_order_id ?? '-' }}</td>
                             <td class="px-6 py-4 text-gray-600">{{ \Carbon\Carbon::parse($transaksi->tanggal_transaksi)->format('d M Y') }}</td>
+                            <td class="px-2 py-4 text-gray-600">{{ \Carbon\Carbon::parse($transaksi->created_at)->format('H:i:s') }}</td>
                             <td class="px-6 py-4 font-semibold text-amber-600">Rp{{ number_format($transaksi->total_pembayaran, 0, ',', '.') }}</td>
                             <td class="px-6 py-4">
                                 <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold
