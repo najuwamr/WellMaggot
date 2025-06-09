@@ -88,7 +88,11 @@ Route::middleware('auth')->group(function () {
     Route::put('/sembako/{sembako}', [SembakoController::class, 'update'])->name('sembako.update');
     Route::post('/sembako', [SembakoController::class, 'store'])->name('sembako.store');
     Route::get('/sembako/', [SembakoController::class, 'create'])->name('sembako.create');
+    Route::delete('sembako/{id}', [SembakoController::class, 'destroy'])->name('sembako.destroy');
+    Route::put('sembako/{id}/restore', [SembakoController::class, 'restore'])->name('sembako.restore');
     Route::post('/point/tukar', [PointController::class, 'penukaran'])->name('penukaran.proses');
+    Route::put('/point/update-status/{id}', [PointController::class, 'updateStatus'])->name('point.updateStatus');
+    Route::get('/point/riwayat-penukaran/', [PointController::class, 'showRiwayat'])->name('poin.riwayatPenukaran');
     Route::post('/point/pengembalian-poin', [PointController::class, 'ajukanPengembalian'])->name('point.pengembalian');
 });
 

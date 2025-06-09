@@ -144,7 +144,6 @@
             </div>
         </div>
 
-
         <!-- Modal Poin Kurang -->
         @if (session('poin_kurang'))
             <div id="modalPoinKurang" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">

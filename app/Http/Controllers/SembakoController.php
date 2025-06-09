@@ -61,10 +61,21 @@ class SembakoController extends Controller
         return back()->with('success', 'Data sembako berhasil diperbarui.');
     }
 
-    // Hapus sembako
-    public function destroy(Sembako $sembako)
+    public function destroy($id)
     {
-        $sembako->delete();
-        return redirect()->route('sembako.index')->with('success', 'Sembako berhasil dihapus.');
+        $produk = Sembako::findOrFail($id);
+        $produk->isActive = 0;
+        $produk->save();
+
+        return redirect()->route('point.index')->with('success', 'Produk berhasil dinonaktifkan.');
+    }
+
+    public function restore($id)
+    {
+        $produk = Sembako::findOrFail($id);
+        $produk->isActive = 1;
+        $produk->save();
+
+        return redirect()->route('point.index')->with('success', 'Produk berhasil dipulihkan.');
     }
 }

@@ -18,10 +18,13 @@ class PointController extends Controller
         $sembakoList = Sembako::all();
 
         if ($user->role_id === 1) {
-            return view('point-admin',compact('sembakoList'));
+            $sembakoAktif = Sembako::where('isActive', 1)->get();
+            $sembakoNonAktif = Sembako::where('isActive', 0)->get();
+
+            return view('point-admin',compact('sembakoAktif', 'sembakoNonAktif'));
         } else {
             $totalPoint = $user->point;
-            
+
             $PenukaranUser = Point::with ('sembako', 'user.detailAlamat.alamat.kecamatan')
                 ->where('user_id', Auth::id())
                 ->orderBy('created_at', 'desc')
@@ -108,5 +111,22 @@ class PointController extends Controller
         }
 
         return back()->with('poin_kurang', 'Tidak bisa mengajukan pengembalian.');
+    }
+
+    public function showRiwayat()
+    {
+        $penukaranList = Point::with ('sembako', 'user.detailAlamat.alamat.kecamatan')
+                ->orderBy('created_at', 'desc')
+                ->get();
+        return view('riwayat-penukaran-admin', compact('penukaranList'));
+    }
+
+    public function updateStatus($id)
+    {
+        $penukaran = Point::findOrFail($id);
+        $penukaran->status = 1; // ubah status jadi "dikirim"
+        $penukaran->save();
+
+        return redirect()->back()->with('success', 'Status berhasil diperbarui.');
     }
 }
