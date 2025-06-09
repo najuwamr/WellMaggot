@@ -15,20 +15,20 @@ class HomeController extends Controller
         $user = auth()->user();
         if ($user->role_id === 1)
         {
-            $totalTransaksi = Transaksi::sum('total_pembayaran');
+            $totalTransaksi = Transaksi::where('status_transaksi_id', 1)->sum('total_pembayaran');
             $totalUser = User::where('role_id', 2)->count();
             $totalOrder = Transaksi::count();
 
             $transaksiBerhasil = Transaksi::where('status_transaksi_id', 1)->get();
 
             $bulan = collect(range(0, 11))->map(function ($i) {
-                return now()->subMonths($i)->format('Y-m');
+                return now()->subMonths($i)->startOfMonth();
             })->reverse();
 
-            $totalTransaksiPerBulan = $bulan->map(function ($bulanKey) {
+            $totalTransaksiPerBulan = $bulan->map(function ($date) {
                 return Transaksi::where('status_transaksi_id', 1)
-                    ->whereYear('created_at', substr($bulanKey, 0, 4))
-                    ->whereMonth('created_at', substr($bulanKey, 5, 2))
+                    ->whereYear('tanggal_transaksi', $date->year)
+                    ->whereMonth('tanggal_transaksi', $date->month)
                     ->sum('total_pembayaran');
             })->values();
 
@@ -40,6 +40,7 @@ class HomeController extends Controller
                 'totalTransaksi',
                 'totalUser',
                 'totalOrder',
+                'bulan',
                 'transaksiBerhasil',
                 'totalKgBagiSampah',
                 'countSelesai',

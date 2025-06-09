@@ -68,9 +68,9 @@
     <script>
         // Data dari controller
         const bulanLabels = [
-            @for ($i = 11; $i >= 0; $i--)
-                "{{ \Carbon\Carbon::now()->subMonths($i)->translatedFormat('F') }}",
-            @endfor
+            @foreach ($bulan as $b)
+                "{{ \Carbon\Carbon::parse($b)->translatedFormat('F') }}",
+            @endforeach
         ];
 
         const totalTransaksi = @json($totalTransaksiPerBulan);
