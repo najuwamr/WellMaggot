@@ -52,6 +52,9 @@
     <!-- DataTables JS -->
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 
+    <!-- Chart JS -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
 
 <body class="font-roboto antialiased">
