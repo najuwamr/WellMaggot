@@ -104,6 +104,10 @@
             @endforeach
 
             @auth
+                <a href="{{ route('profile.show') }}"
+                    class="text-white font-semibold py-2 px-4 rounded hover:bg-white hover:text-amber-500">
+                    Lihat Profil
+                </a>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <button type="submit"
