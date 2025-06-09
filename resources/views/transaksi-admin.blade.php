@@ -46,7 +46,7 @@
                                         $batalDisabled = !$bisaDibatalkan || !$isDitunda;
                                     @endphp
 
-                                    @if($status !== 'gagal' && $status !== 'selesai')
+                                    @if(!in_array($status, ['gagal', 'selesai', 'dikirim']))
                                         {{-- Tombol Batal --}}
                                         <button type="button"
                                             data-modal-target="modal-batal-{{ $transaksi->id }}"

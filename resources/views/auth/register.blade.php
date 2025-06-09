@@ -8,8 +8,6 @@
                 <h1 class="tracking-widest text-3xl md:text-6xl font-bold text-chartreuse mb-8 text-center md:text-left">
                     Daftar untuk fitur lebih banyak...
                 </h1>
-                <img src="{{ asset('storage/images/maggot-img-1.png') }}" alt="Maggot Illustration"
-                    class="md:absolute bottom-0 w-40 md:w-auto mx-auto md:mx-0">
             </div>
         </div>
 
