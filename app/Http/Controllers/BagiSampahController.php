@@ -88,6 +88,13 @@ class BagiSampahController extends Controller
             'metode_pengambilan_id' => 'required|exists:metode_pengambilan,id',
             'detail_alamat_id' => 'required|exists:detail_alamat,id',
             'jadwal_admin_id' => 'required|exists:jadwal_admin,id',
+        ], [
+            'total_berat.required' => 'Total berat harus diisi.',
+            'total_berat.numeric' => 'Total berat harus berupa angka.',
+            'gambar.required' => 'Gambar sampah wajib diambil.',
+            'metode_pengambilan_id.required' => 'Metode pengambilan wajib dipilih.',
+            'detail_alamat_id.required' => 'Alamat wajib dipilih.',
+            'jadwal_admin_id.required' => 'Tanggal jadwal wajib dipilih.',
         ]);
 
         $image = $request->gambar;

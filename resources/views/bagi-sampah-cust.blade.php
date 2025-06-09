@@ -1,6 +1,21 @@
 <x-app-layout>
     <div class="flex min-h-screen">
         <main class="flex-1 p-6 md:p-10 bg-cover bg-center" style=" background-image: url('{{ asset('assets/bagi-sampah.png') }}');">
+            @if (session('success'))
+                <div class="mb-4 p-4 rounded-lg bg-green-100 text-green-700 border border-green-300">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            @if ($errors->any())
+                <div class="mb-4 p-4 rounded-lg bg-red-100 text-red-700 border border-red-300">
+                    <ul class="list-disc list-inside">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <div class="flex flex-col lg:flex-row gap-6">
                 {{-- Kiri: daftar penjadwalan --}}
                 <div class="flex-1 space-y-4">
