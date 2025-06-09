@@ -25,7 +25,7 @@
             @foreach ($sembakoList as $sembako)
                 <div x-data="{ open: false }"
                     class="bg-amber-500 rounded-2xl shadow-lg overflow-hidden flex flex-col items-center p-6">
-                    <img src="{{ asset('assets/' . $sembako->gambar) }}" alt="{{ $sembako->nama }}"
+                    <img src="{{ asset('storage/images/' . $sembako->gambar) }}" alt="{{ $sembako->nama }}"
                         class="w-40 h-40 object-cover rounded-xl mb-4" />
 
                     <div class="p-4 text-center">
