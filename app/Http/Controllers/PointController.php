@@ -21,13 +21,18 @@ class PointController extends Controller
             return view('point-admin',compact('sembakoList'));
         } else {
             $totalPoint = $user->point;
+            
+            $PenukaranUser = Point::with ('sembako', 'user.detailAlamat.alamat.kecamatan')
+                ->where('user_id', Auth::id())
+                ->orderBy('created_at', 'desc')
+                ->paginate(5);
 
             $totalBerat = DB::table('penjadwalan')
                 ->join('detail_alamat', 'penjadwalan.detail_alamat_id', '=', 'detail_alamat.id')
                 ->where('detail_alamat.user_id', $user->id)
                 ->sum('penjadwalan.total_berat');
 
-            return view('point-user', compact('totalPoint', 'totalBerat', 'sembakoList'));
+            return view('point-user', compact('totalPoint', 'totalBerat', 'sembakoList', 'PenukaranUser'));
         }
     }
 
@@ -79,4 +84,29 @@ class PointController extends Controller
         return redirect()->back()->with('success', 'Berhasil menukar ' . $sembako->nama);
     }
 
+    public function ajukanPengembalian(Request $request)
+    {
+        $point = Point::with(['sembako'])
+            ->where('id', $request->point_id)
+            ->where('user_id', auth()->id())
+            ->firstOrFail();
+
+        $batasWaktu = $point->created_at->addDays(2);
+
+        if (now()->greaterThan($batasWaktu) && $point->status != 1) {
+            // Ambil user dan detailAlamat
+            $user = $point->user;
+
+            // Tambahkan poin kembali ke kolom 'point' di tabel 'users'
+            $user->point += $point->sembako->poin_harga;
+            $user->save();
+
+            $point->isPointReturned = true;
+            $point->save();
+
+            return back()->with('success', 'Poin berhasil dikembalikan.');
+        }
+
+        return back()->with('poin_kurang', 'Tidak bisa mengajukan pengembalian.');
+    }
 }

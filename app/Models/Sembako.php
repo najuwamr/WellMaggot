@@ -14,6 +14,7 @@ class Sembako extends Model
         'nilai_rupiah',
         'gambar',
         'poin_harga',
+        'isActive',
     ];
 
     public function point()

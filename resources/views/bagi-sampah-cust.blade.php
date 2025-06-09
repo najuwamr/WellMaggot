@@ -44,14 +44,6 @@
                                 @endforeach
                             </select>
                         </div>
-                        {{-- <div>
-                            <label class="block text-sm font-medium text-gray-700">Tanggal</label>
-                            <input type="date" name="tanggal" class="mt-1 w-full border rounded-lg p-2">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">Waktu</label>
-                            <input type="time" name="waktu" class="mt-1 w-full border rounded-lg p-2">
-                        </div>--}}
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Total Berat (,00 kg)</label>
                             <input type="number" name="total_berat" id="total_berat" min="0.01" max="100" step="0.01" class="mt-1 w-full border rounded-lg p-2">

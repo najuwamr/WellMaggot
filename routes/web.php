@@ -80,7 +80,6 @@ Route::middleware('auth')->group(function () {
     // Bagi Sampah - Poin
     Route::get('/bagi-sampah', [BagiSampahController::class, 'index'])->name('bagi-sampah.index');
     Route::post('bagi-sampah', [BagiSampahController::class, 'store'])->name('bagi-sampah.store');
-    // Route::get('/bagi-sampah/jadwal-sampah', [BagiSampahController::class, 'jadwalStore'])->name('ambil-sampah.index');
     Route::post('jadwal-sampah', [BagiSampahController::class, 'jadwalStore'])->name('jadwal-sampah.store');
     Route::post('/bagi-sampah/alamat-baru', [BagiSampahController::class, 'alamatNew'])->name('alamat.new');
     Route::post('/bagi-sampah/setujui', [PointController::class, 'create'])->name('penjadwalan.setujui');
@@ -90,6 +89,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/sembako', [SembakoController::class, 'store'])->name('sembako.store');
     Route::get('/sembako/', [SembakoController::class, 'create'])->name('sembako.create');
     Route::post('/point/tukar', [PointController::class, 'penukaran'])->name('penukaran.proses');
+    Route::post('/point/pengembalian-poin', [PointController::class, 'ajukanPengembalian'])->name('point.pengembalian');
 });
 
 require __DIR__ . '/auth.php';

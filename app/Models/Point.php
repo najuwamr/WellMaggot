@@ -11,7 +11,9 @@ class Point extends Model
 
     protected $fillable =[
         'sembako_id',
-        'user_id'
+        'user_id',
+        'status',
+        'isPointReturned'
     ];
 
     public function sembako()

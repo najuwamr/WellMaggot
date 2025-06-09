@@ -35,7 +35,11 @@
                                     <span class="px-2">{{ $item->jumlah_produk }}</span>
                                     <form action="{{ route('keranjang.stok.tambah', $item->id) }}" method="POST">
                                         @csrf
-                                        <button type="submit" class="px-1 text-[#B9C240] font-bold">+</button>
+                                        <button type="submit"
+                                            class="px-1 text-[#B9C240] font-bold {{ $item->jumlah_produk >= $item->produk->stok ? 'opacity-50 cursor-not-allowed' : '' }}"
+                                            {{ $item->jumlah_produk >= $item->produk->stok ? 'disabled' : '' }}>
+                                            +
+                                        </button>
                                     </form>
                                 </div>
                                 <form action="{{ route('keranjang.hapus', $item->id) }}" method="POST">

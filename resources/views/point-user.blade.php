@@ -68,5 +68,106 @@
             @endforeach
         </div>
 
+        <div class="mt-16 px-8">
+            <h3 class="text-2xl font-bold text-amber-800 mb-4">Riwayat Penukaran</h3>
+            <div class="overflow-x-auto bg-white rounded-xl shadow-lg">
+                <table class="min-w-full divide-y divide-gray-200 text-sm">
+                    <thead class="bg-amber-500 text-white">
+                        <tr>
+                            <th class="px-6 py-3 text-left font-semibold">Tanggal</th>
+                            <th class="px-6 py-3 text-left font-semibold">Alamat</th>
+                            <th class="px-6 py-3 text-left font-semibold">Nama Barang</th>
+                            <th class="px-6 py-3 text-left font-semibold">Status</th>
+                            <th class="px-6 py-3 text-left font-semibold w-2xl">Keterangan</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100 text-gray-700">
+                        @foreach ($PenukaranUser as $penukaran)
+                            @php
+                                $batasWaktu = $penukaran->created_at->addDays(2);
+                                $terlambat = now()->greaterThan($batasWaktu) && $penukaran->status == 0;
+                            @endphp
+
+                            <tr>
+                                <td class="px-6 py-4 w-48">{{ $penukaran->created_at->format('d M Y') }}</td>
+
+                                @php
+                                    $alamat = $penukaran->user->detailAlamat->first()?->alamat;
+                                @endphp
+
+                                <td class="px-4 py-4 max-w-xs">
+                                    {{ $alamat->jalan ?? '-' }},
+                                    {{ $alamat->kecamatan->nama ?? '-' }}
+                                </td>
+                                <td class="px-6 py-4 w-48">{{ $penukaran->sembako->nama }}</td>
+                                <td class="px-6 py-4">
+                                    @if ($terlambat)
+                                        <span class="text-red-600 font-semibold">Terlambat</span>
+                                    @elseif ($penukaran->status == 1)
+                                        <span class="text-green-600 font-semibold">Dikirim</span>
+                                    @else
+                                        <span class="text-yellow-600 font-semibold">Menunggu</span>
+                                    @endif
+                                </td>
+                                <td class="px-6 py-4 align-top flex flex-col items-start gap-2">
+                                    @if ($terlambat && !$penukaran->isPointReturned)
+                                        <span class="text-sm text-red-600 italic leading-tight max-w-xs">
+                                            Maaf telah menunggu, pengiriman lebih dari 2x24 jam. Barang akan segera dikirimkan dan poin Anda akan kembali 100%.
+                                        </span>
+                                        <form action="{{ route('point.pengembalian') }}" method="POST" onsubmit="return confirm('Yakin ingin mengajukan pengembalian poin?');">
+                                            @csrf
+                                            <input type="hidden" name="point_id" value="{{ $penukaran->id }}">
+                                            <button
+                                                type="submit"
+                                                class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 text-sm font-semibold"
+                                                onclick="this.disabled=true; this.innerText='Mengirim...'; this.form.submit();"
+                                            >
+                                                Ambil Poin
+                                            </button>
+                                        </form>
+                                    @elseif ($penukaran->isPointReturned)
+                                        <span class="text-sm text-red-600 italic leading-tight max-w-xs">
+                                            Maaf telah menunggu, pengiriman lebih dari 2x24 jam. Barang akan segera dikirimkan dan poin Anda akan kembali 100%.
+                                        </span>
+                                        <span class="text-green-600 text-sm font-medium">Poin sudah dikembalikan</span>
+                                    @else
+                                        <span class="text-gray-400 text-xs">-</span>
+                                    @endif
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                <div class="p-4">
+                    {{ $PenukaranUser->links() }}
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Modal Poin Kurang -->
+        @if (session('poin_kurang'))
+            <div id="modalPoinKurang" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+                <div class="bg-white p-6 rounded-xl shadow-lg max-w-sm w-full text-center">Add commentMore actions
+                    <h2 class="text-lg font-semibold text-red-600 mb-4">Poin Tidak Cukup</h2>
+                    <p class="text-gray-700 mb-4">{{ session('poin_kurang') }}</p>
+                    <button onclick="document.getElementById('modalPoinKurang').classList.add('hidden')"
+                            class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+                        Tutup
+                    </button>
+                </div>
+            </div>
+        @endif
+
+        @if (session('success'))
+            <div id="modalBerhasil" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+                <div class="bg-white p-6 rounded-lg shadow-lg text-center max-w-sm w-full">
+                    <h2 class="text-xl font-semibold text-green-600 mb-4">Berhasil!</h2>
+                    <p class="text-gray-700">{{ session('success') }}</p>
+                    <p>Barang akan dikirimkan dalam waktu 2x24 jam oleh kami</p>
+                    <button onclick="document.getElementById('modalBerhasil').classList.add('hidden')" class="mt-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">Tutup</button>
+                </div>
+            </div>
+        @endif
     </div>
 </x-app-layout>

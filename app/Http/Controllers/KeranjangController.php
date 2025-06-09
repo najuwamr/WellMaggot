@@ -82,8 +82,10 @@ class KeranjangController extends Controller
     public function tambahStok($keranjangId)
     {
         $item = Keranjang::findOrFail($keranjangId);
-        $item->jumlah_produk += 1;
-        $item->save();
+        if ($item->jumlah_produk < $item->produk->stok) {
+            $item->jumlah_produk += 1;
+            $item->save();
+        }
 
         return redirect()->back();
     }

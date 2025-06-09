@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('nilai_rupiah');
             $table->string('gambar');
             $table->integer('poin_harga');
+            $table->boolean('isActive')->default(1); // 0 = false, 1 = true
             $table->timestamps();
         });
     }
