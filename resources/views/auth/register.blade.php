@@ -32,7 +32,7 @@
             </ul>
 
             {{-- Title for Mobile View --}}
-            <h1 class="mt-10 mb-5 text-center text-3xl md:hidden font-semibold text-white">
+            <h1 class="font-poppins mt-10 mb-5 text-center text-3xl md:hidden font-semibold text-white">
                 Daftar untuk fitur lebih banyak...
             </h1>
 
