@@ -4,7 +4,7 @@
 
             <!-- Logo -->
             <div class="flex-shrink-0 w-1/4">
-                <img src="{{ asset('storage/images/WellMaggot.png') }}" alt="Logo" class="h-12">
+                <img src="{{ asset('storage/images/WellMaggot.png') }}" alt="Logo" class="h-28">
             </div>
 
             <!-- Desktop Menu -->

@@ -44,7 +44,7 @@
                             ingin mendapatkan benefit dari bagi sampah. Nah, kamu bisa pilih barang apa aja yang kamu
                             mau, TAPI kalau ada ya! Kalau kepo barang apa aj bisa langsung checkidot!
                         </p>
-                        <a href="{{ route('produk.index') }}"
+                        <a href="{{ route('point.index') }}"
                             class="mt-3 w-[120px] text-left bg-yellow-300 text-yellow-500 font-semibold px-4 py-3 rounded-lg shadow hover:bg-white hover:text-amber-500 hover:font-bold transition duration-500">
                             Tukar Poin!
                         </a>
@@ -68,9 +68,9 @@
                             kamu ke kami, kamu gaperlu repot untuk jauh dateng ke tempat kami lho! Sampah kamu nanti
                             kita yang jemput OK?
                         </p>
-                        <a href="{{ route('produk.index') }}"
+                        <a href="{{ route('bagi-sampah.index') }}"
                             class="mt-7 w-[120px] text-left bg-yellow-300 text-yellow-500 font-semibold px-4 py-3 rounded-lg shadow hover:bg-white hover:text-amber-500 hover:font-bold transition duration-500">
-                            Tukar Poin!
+                            Coba!
                         </a>
                     </div>
 

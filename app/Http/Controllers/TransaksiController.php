@@ -64,6 +64,9 @@ class TransaksiController extends Controller
             $totalHarga += $item->produk->harga * $item->jumlah_produk;
         }
 
+        $biayaPenanganan = 2000;
+        $totalAkhir = $totalHarga + $biayaPenanganan;
+
         $alamatList = DetailAlamat::with('alamat')
             ->where('user_id', $userId)
             ->get();
@@ -73,7 +76,13 @@ class TransaksiController extends Controller
         $snapToken = null;
         $snapToken = session('snapToken');
 
-        return view('check-out', compact('keranjangList', 'totalHarga', 'alamatList', 'kecamatanList', 'snapToken'));
+        return view('check-out', compact('keranjangList',
+         'totalHarga',
+         'alamatList',
+         'kecamatanList',
+         'snapToken',
+         'totalAkhir',
+         'biayaPenanganan'));
     }
 
 

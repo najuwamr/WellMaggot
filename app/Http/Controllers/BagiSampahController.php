@@ -108,7 +108,7 @@ class BagiSampahController extends Controller
 
         Penjadwalan::create([
             'total_berat' => $request->total_berat,
-            'gambar' => 'storage/images/' . $imageName,
+            'gambar' => $imageName,
             'metode_pengambilan_id' => $request->metode_pengambilan_id,
             'detail_alamat_id' => $request->detail_alamat_id,
             'jadwal_admin_id' => $request->jadwal_admin_id,
@@ -148,4 +148,18 @@ class BagiSampahController extends Controller
 
         return redirect()->back()->with('success', 'Penjadwalan berhasil dibatalkan.');
     }
+
+    public function destroy($id)
+    {
+        $penjadwalan = Penjadwalan::findOrFail($id);
+
+        if ($penjadwalan->status == 1) {
+            return back()->with('error', 'Penjadwalan sudah diklaim dan tidak bisa dibatalkan.');
+        }
+
+        $penjadwalan->delete();
+
+        return back()->with('success', 'Penjadwalan berhasil dibatalkan.');
+    }
+
 }

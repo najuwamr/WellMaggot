@@ -50,7 +50,6 @@
                     </div>
                 </div>
 
-                <!-- Slide: Riwayat Penukaran -->
                 <div id="slideRiwayat" class="tab-content hidden transition duration-500 ease-in-out">
                     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-10">
                         <h1 class="text-4xl font-extrabold text-amber-600 tracking-tight">Riwayat Penukaran Poin</h1>

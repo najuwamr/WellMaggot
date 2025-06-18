@@ -163,7 +163,7 @@
                 <div class="bg-white p-6 rounded-lg shadow-lg text-center max-w-sm w-full">
                     <h2 class="text-xl font-semibold text-green-600 mb-4">Berhasil!</h2>
                     <p class="text-gray-700">{{ session('success') }}</p>
-                    <p>Barang akan dikirimkan dalam waktu 2x24 jam oleh kami</p>
+                    <p>Barang akan dikirimkan ke alamat utama Anda dalam waktu 2x24 jam oleh kami</p>
                     <button onclick="document.getElementById('modalBerhasil').classList.add('hidden')" class="mt-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">Tutup</button>
                 </div>
             </div>

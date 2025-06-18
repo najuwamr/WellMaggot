@@ -1,3 +1,5 @@
+@section('title', 'Bagi Sampah')
+
 <x-app-layout>
     <div class="flex min-h-screen bg-gray-50">
         <main class="flex-1 p-6 md:p-10 bg-cover bg-center" style="background-image: url('{{ asset('assets/bagi-sampah.png') }}');">
@@ -64,6 +66,7 @@
                         <thead class="bg-green-200">
                             <tr>
                                 <th class="border px-4 py-2">Tanggal</th>
+                                <th class="border px-4 py-2">Foto</th>
                                 <th class="border px-4 py-2">Nama</th>
                                 <th class="border px-4 py-2">Berat</th>
                                 <th class="border px-4 py-2">Metode</th>
@@ -76,6 +79,9 @@
                             @foreach ($penjadwalanAll as $item)
                                 <tr>
                                     <td class="border px-4 py-2">{{ \Carbon\Carbon::parse($item->jadwalAdmin->tanggal)->format('d M Y') }}</td>
+                                    <td class="border px-4 py-2">
+                                        <img src="{{ asset('storage/images/' . $item->gambar) }}" class="w-32 h-auto rounded shadow" alt="Gambar Sampah">
+                                    </td>
                                     <td class="border px-4 py-2">{{ $item->detailAlamat->user->name }} </td>
                                     <td class="border px-4 py-2">{{ $item->total_berat }} kg</td>
                                     <td class="border px-4 py-2">{{ $item->metodePengambilan->metode }}</td>
@@ -99,6 +105,15 @@
                                                 class="btn-setujui bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 text-sm">
                                                 Konfirmasi Penjadwalan
                                             </button>
+                                            <form method="POST" action="{{ route('penjadwalan.destroy',  $item->id) }}" class="inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit"
+                                                    onclick="return confirm('Yakin ingin membatalkan penjadwalan ini?')"
+                                                    class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 text-sm ml-2">
+                                                    Tolak Penjadwalan
+                                                </button>
+                                            </form>
                                         @else
                                             <span class="text-gray-400 text-sm italic">Sudah diklaim</span>
                                         @endif
@@ -110,12 +125,33 @@
                 </div>
 
                 @include('components.modal-setujui')
+                {{-- Modal Gambar Besar --}}
+                <div id="modalGambar" class="fixed inset-0 bg-black bg-opacity-50 hidden justify-center items-center z-50">
+                    <div class="relative bg-white rounded-lg overflow-hidden shadow-lg p-4 max-w-xl">
+                        <img id="gambarBesar" src="" alt="Preview Gambar" class="w-full h-auto rounded-lg">
+                        <button id="tutupGambar" class="absolute top-2 right-2 text-white bg-red-600 hover:bg-red-700 px-3 py-1 rounded">Tutup</button>
+                    </div>
+                </div>
             </div>
 
         </main>
     </div>
 
     <script>
+        // === Gambar Pop-Up ===
+        document.querySelectorAll('#penjadwalanTable img').forEach(img => {
+            img.addEventListener('click', () => {
+                document.getElementById('gambarBesar').src = img.src;
+                document.getElementById('modalGambar').classList.remove('hidden');
+                document.getElementById('modalGambar').classList.add('flex');
+            });
+        });
+
+        document.getElementById('tutupGambar').addEventListener('click', () => {
+            document.getElementById('modalGambar').classList.remove('flex');
+            document.getElementById('modalGambar').classList.add('hidden');
+        });
+
         // === Modal Setujui ===
         const modal = document.getElementById('modalSetujui');
         const beratSpan = document.getElementById('modal-berat');

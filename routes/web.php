@@ -84,10 +84,11 @@ Route::middleware('auth')->group(function () {
     Route::post('/bagi-sampah/alamat-baru', [BagiSampahController::class, 'alamatNew'])->name('alamat.new');
     Route::post('/bagi-sampah/setujui', [PointController::class, 'create'])->name('penjadwalan.setujui');
     Route::post('bagi-sampah/cancel', [BagiSampahController::class, 'delete'])->name('penjadwalan.delete');
+    Route::delete('/penjadwalan/{id}', [BagiSampahController::class, 'destroy'])->name('penjadwalan.destroy');
     Route::get('/point', [PointController::class, 'index'])->name('point.index');
     Route::put('/sembako/{sembako}', [SembakoController::class, 'update'])->name('sembako.update');
     Route::post('/sembako', [SembakoController::class, 'store'])->name('sembako.store');
-    Route::get('/sembako/', [SembakoController::class, 'create'])->name('sembako.create');
+    Route::get('/sembako', [SembakoController::class, 'create'])->name('sembako.create');
     Route::delete('sembako/{id}', [SembakoController::class, 'destroy'])->name('sembako.destroy');
     Route::put('sembako/{id}/restore', [SembakoController::class, 'restore'])->name('sembako.restore');
     Route::post('/point/tukar', [PointController::class, 'penukaran'])->name('penukaran.proses');

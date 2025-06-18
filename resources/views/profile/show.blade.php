@@ -21,11 +21,15 @@
                             {{ $detail->alamat->jalan ?? 'Jalan tidak tersedia' }}<br>
                             <span class="text-gray-600">Kecamatan {{ $detail->alamat->kecamatan->nama ?? '-' }}</span>
                         </p>
+                        @if ($loop->first)
+                            <span class="inline-block mt-2 px-2 py-1 text-xs bg-blue-100 text-blue-800 rounded-full">
+                                Alamat Utama
+                            </span>
+                        @endif
                     </div>
                     @empty
                     <p class="text-gray-500">Belum ada alamat yang ditambahkan.</p>
                     @endforelse
-
                     <button id="openModalBtn"
                         class="px-3 py-1 bg-lime-500 text-white text-sm rounded hover:bg-lime-700">
                         Tambah Alamat

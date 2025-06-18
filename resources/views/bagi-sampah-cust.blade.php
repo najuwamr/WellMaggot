@@ -1,3 +1,5 @@
+@section('title', 'Bagi Sampah')
+
 <x-app-layout>
     <div class="flex min-h-screen">
         <main class="flex-1 p-6 md:p-10 bg-cover bg-center" style=" background-image: url('{{ asset('assets/bagi-sampah.png') }}');">
